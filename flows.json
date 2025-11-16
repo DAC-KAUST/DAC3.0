@@ -1,0 +1,5033 @@
+[
+    {
+        "id": "b70b1ddccee39978",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "423c505137896c6d",
+        "type": "modbus-flex-getter",
+        "z": "b70b1ddccee39978",
+        "name": "Modbus Flex Getter",
+        "showStatusActivities": true,
+        "showErrors": false,
+        "showWarnings": false,
+        "logIOActivities": false,
+        "server": "d3e8251c2f05a30e",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 890,
+        "y": 220,
+        "wires": [
+            [
+                "62e704b3f406dabd",
+                "2a250b0d02c6e8ff",
+                "89e83c77785071d3"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "62e704b3f406dabd",
+        "type": "modbus-response",
+        "z": "b70b1ddccee39978",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 1130,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5440a9e8be812495",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "function 3",
+        "func": "\nglobal.set(\"addrInfo\", [\n  // VFDs\n  { tag: \"LVFD\", unitid: 101, fc: 3, address: 2057, quantity: 6 },\n  { tag: \"2FN11\", unitid: 201, fc: 3, address: 2057, quantity: 6 },\n\n  // Energy Meters\n  { tag: \"LEM\", unitid: 102, fc: 4, address: 12, quantity: 2 },\n  { tag: \"REM\", unitid: 202, fc: 4, address: 12, quantity: 2 },\n\n  // PIDs (read variables block 1..15 in one shot)\n  { tag: \"LPID\", unitid: 103, fc: 3, address: 1, quantity: 15 },\n  { tag: \"RPID\", unitid: 203, fc: 3, address: 1, quantity: 15 },\n\n  // EE872 Up (grouped) (1A02 & 2A12)\n  // CO2 avg+raw (0x424..0x427)\n  { tag: \"LUPEE872CO2\", unitid: 111, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RUPEE872CO2\", unitid: 211, fc: 4, address: 0x424, quantity: 0x04 },\n  // Temp+RH (0x3EA..0x3FD)\n  { tag: \"LUPEE872TRH\", unitid: 111, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RUPEE872TRH\", unitid: 211, fc: 4, address: 0x3EA, quantity: 0x14 },\n  // Pressure (0x4B0..0x4B1)\n  { tag: \"LUPEE872P\", unitid: 111, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RUPEE872P\", unitid: 211, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE872 Down (grouped)\n  { tag: \"LDOWNEE872CO2\", unitid: 112, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RDOWNEE872CO2\", unitid: 212, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"LDOWNEE872TRH\", unitid: 112, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RDOWNEE872TRH\", unitid: 212, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"LDOWNEE872P\", unitid: 112, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RDOWNEE872P\", unitid: 212, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE600 (as you had)\n  { tag: \"LEE600\", unitid: 113, fc: 4, address: 0x4BE, quantity: 0x02 },\n  { tag: \"2A15\", unitid: 213, fc: 4, address: 0x4BE, quantity: 0x02 },\n\n  // EE650 (as you had)\n  { tag: \"LEE650T\", unitid: 114, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"REE650T\", unitid: 214, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"LEE650AV\", unitid: 114, fc: 4, address: 0x410, quantity: 0x02 },\n  { tag: \"REE650AV\", unitid: 214, fc: 4, address: 0x410, quantity: 0x02 }\n]);\n\nglobal.set(\"index\", 0);\nnode.warn(\"Global variables initialized\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 220,
+        "wires": [
+            [
+                "80a1eb92444ac6ef"
+            ]
+        ]
+    },
+    {
+        "id": "f443497ab00ca78f",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Auto Inject Once",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "5440a9e8be812495"
+            ]
+        ]
+    },
+    {
+        "id": "da605c3220209b16",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "function 4",
+        "func": "\n//msg.payload = global.get(\"addrInfo\")[global.get(\"index\")];\n//msg.topic = global.get(\"addrInfo\")[global.get(\"index\")].tag;\n//global.set(\"index\", global.get(\"index\") == 2 ? 0 : global.get(\"index\") + 1);\n//return msg;\n\nlet addrInfo = global.get(\"addrInfo\");\nlet index = global.get(\"index\") || 0;\n\n// Safety check\nif (!Array.isArray(addrInfo) || addrInfo.length === 0) {\n    node.error(\"addrInfo is not set or empty\", msg);\n    return null;\n}\n\nmsg.payload = addrInfo[index];\nmsg.topic = addrInfo[index].tag;\n\n// Increment index with wrap-around\nglobal.set(\"index\", (index + 1) % addrInfo.length);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 220,
+        "wires": [
+            [
+                "423c505137896c6d"
+            ]
+        ]
+    },
+    {
+        "id": "80a1eb92444ac6ef",
+        "type": "delay",
+        "z": "b70b1ddccee39978",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1000",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "da605c3220209b16"
+            ]
+        ]
+    },
+    {
+        "id": "2a250b0d02c6e8ff",
+        "type": "delay",
+        "z": "b70b1ddccee39978",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 770,
+        "y": 140,
+        "wires": [
+            [
+                "da605c3220209b16"
+            ]
+        ]
+    },
+    {
+        "id": "4cc3931f115bf2b7",
+        "type": "serial request",
+        "z": "b70b1ddccee39978",
+        "name": "",
+        "serial": "c2b3dd79366cad0c",
+        "x": 570,
+        "y": 2340,
+        "wires": [
+            [
+                "48feb2b935a882cb"
+            ]
+        ]
+    },
+    {
+        "id": "672a67af6b7bec72",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "function 5",
+        "func": "// Inputs:\n// msg.payload = { relay: N, state: \"ON\" or \"OFF\", bankByte: <number> }\n\nconst relayNum = msg.payload.relay;\nconst state = msg.payload.state.toUpperCase();\nconst bankByte = msg.payload.bankByte;\n\nif (relayNum < 1 || relayNum > 8) {\n    node.error(\"Relay number must be 1 to 8\", msg);\n    return null;\n}\n\nif (typeof bankByte !== 'number') {\n    node.error(\"bankByte must be a number\", msg);\n    return null;\n}\n\nconst header = 0xAA;\nconst cmd1 = 0x03;\nconst cmd2 = 0xFE;\n\nlet relayByte;\nif (state === \"ON\") {\n    relayByte = 108 + (relayNum - 1);\n} else if (state === \"OFF\") {\n    relayByte = 100 + (relayNum - 1);\n} else {\n    node.error(\"State must be ON or OFF\", msg);\n    return null;\n}\n\nconst command = [header, cmd1, cmd2, relayByte, bankByte];\nconst checksum = command.reduce((sum, b) => sum + b, 0) % 256;\ncommand.push(checksum);\n\nmsg.payload = Buffer.from(command);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 2400,
+        "wires": [
+            [
+                "4cc3931f115bf2b7"
+            ]
+        ]
+    },
+    {
+        "id": "48feb2b935a882cb",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "function 7",
+        "func": "let bytes = msg.payload;\n\nif (!Buffer.isBuffer(bytes)) {\n    //node.error(\"Payload is not a Buffer\", msg);\n    return null;\n}\n\nif (bytes.length !== 4) {\n    //node.error(\"Invalid response length\", msg);\n    return null;\n}\n\nconst header1 = bytes[0];\nconst header2 = bytes[1];\nconst dataByte = bytes[2];\nconst checksum = bytes[3];\n\n// Validate headers\nif (header1 !== 0xAA || header2 !== 0x01) {\n    //node.error(\"Invalid response header\", msg);\n    return null;\n}\n\n// Calculate expected checksum\nconst calcChecksum = (header1 + header2 + dataByte) % 256;\nif (calcChecksum !== checksum) {\n    node.error(`Checksum mismatch. Got ${checksum}, expected ${calcChecksum}`, msg);\n    return null;\n}\n\nif (checksum === 0x00) {\n    // On/off response - just send null on all outputs to keep ui-leds unchanged\n    return [null, null, null, null, null, null, null, null];\n} else {\n    // Status response - send relay states on outputs 1-8\n    let msgs = [];\n    for (let i = 0; i < 8; i++) {\n        msgs.push({\n            topic: `relay${i + 1}`,\n            payload: !!((dataByte >> i) & 1)\n        });\n    }\n    return msgs;\n}\n",
+        "outputs": 8,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 2340,
+        "wires": [
+            [
+                "9c381d440fc920c6"
+            ],
+            [
+                "6e8bedca6bbf1a57"
+            ],
+            [
+                "43bb7fb18329fcdc"
+            ],
+            [
+                "dfc2cf3bd298039e"
+            ],
+            [
+                "ee03d3e06040f8cd"
+            ],
+            [
+                "ad8336f933f7e979"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "68328f7cf20fda86",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "function 8",
+        "func": "const command = [0xAA, 0x03, 0xFE, 0x7C, 0x01];\nconst checksum = command.reduce((sum, b) => sum + b, 0) % 256;\ncommand.push(checksum);\n\nmsg.payload = Buffer.from(command);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 2420,
+        "wires": [
+            [
+                "4cc3931f115bf2b7"
+            ]
+        ]
+    },
+    {
+        "id": "2adf248e461b1879",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Check Status - Auto 1s",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 610,
+        "y": 2480,
+        "wires": [
+            [
+                "68328f7cf20fda86"
+            ]
+        ]
+    },
+    {
+        "id": "64f2ccf16cc6e9a7",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "c34f777b31ff0d3e",
+        "name": "Relay 1W01 ON",
+        "label": "1W01 (WATER) ON",
+        "order": 1,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 1, \"state\": \"ON\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 140,
+        "y": 2200,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "8f6eda7a0871f5fa",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "c34f777b31ff0d3e",
+        "name": "Relay 1W01 OFF",
+        "label": "1W01 OFF",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 1, \"state\": \"OFF\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 350,
+        "y": 2200,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "d6759919f91eb810",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Right Side (Relay 5 to 8)",
+        "info": "",
+        "x": 1290,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "1468d466f3b446e1",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "1W01LedLeft",
+        "group": "c34f777b31ff0d3e",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "label": "1W01 Status",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 1290,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "32ac7b0ae6909b13",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "2W11LedRight",
+        "group": "6cf2ef424cfcf0b9",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "label": "2W11 Status",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 1280,
+        "y": 2360,
+        "wires": []
+    },
+    {
+        "id": "6baa74edc38f4829",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "1V03LedLeft",
+        "group": "c34f777b31ff0d3e",
+        "order": 6,
+        "width": "2",
+        "height": "1",
+        "label": "1V03 Status",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 1290,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "c8aa7d7f74428bef",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "1V02LedLeft",
+        "group": "c34f777b31ff0d3e",
+        "order": 9,
+        "width": "2",
+        "height": "1",
+        "label": "1V02 Status",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 1290,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "2464de9f18ca9460",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "2V12LedRight",
+        "group": "6cf2ef424cfcf0b9",
+        "order": 9,
+        "width": "2",
+        "height": "1",
+        "label": "2V12 Status",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 1280,
+        "y": 2420,
+        "wires": []
+    },
+    {
+        "id": "a884b374f578efaa",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "2V13LedRight",
+        "group": "6cf2ef424cfcf0b9",
+        "order": 6,
+        "width": "2",
+        "height": "1",
+        "label": "2V13 Status",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 1280,
+        "y": 2480,
+        "wires": []
+    },
+    {
+        "id": "854accce6083c40a",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Left side (Relay 1 to 4)",
+        "info": "",
+        "x": 1300,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "b3fa1a0d7f2ba360",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Left Side (Relay 1 to 4)",
+        "info": "",
+        "x": 160,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "1528033aaa09e45a",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "6cf2ef424cfcf0b9",
+        "name": "Relay 2W11 ON",
+        "label": "2W11 (WATER) ON",
+        "order": 1,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 2, \"state\": \"ON\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 120,
+        "y": 2680,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "27aa1cdc33c357f8",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "6cf2ef424cfcf0b9",
+        "name": "Relay 2W11 OFF",
+        "label": "2W11 OFF",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 2, \"state\": \"OFF\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 330,
+        "y": 2680,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "6e22eb7ccb5cb71a",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "c34f777b31ff0d3e",
+        "name": "1V03 ON",
+        "label": "1V03 (TO GRH) ON",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 3, \"state\": \"ON\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 120,
+        "y": 2280,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "e0bb633860e3ed28",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "c34f777b31ff0d3e",
+        "name": "1V03 OFF",
+        "label": "1V03 OFF",
+        "order": 5,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 3, \"state\": \"OFF\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 330,
+        "y": 2280,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "8503acb6dd18f449",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "c34f777b31ff0d3e",
+        "name": "1V02 ON",
+        "label": "1V02 (TO AMB) ON",
+        "order": 7,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 4, \"state\": \"ON\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 120,
+        "y": 2320,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "316397a5457dac36",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "c34f777b31ff0d3e",
+        "name": "1V02 OFF",
+        "label": "1V02 OFF",
+        "order": 8,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 4, \"state\": \"OFF\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 330,
+        "y": 2320,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "7c29e5aa68a7a8d8",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "6cf2ef424cfcf0b9",
+        "name": "2V12 ON",
+        "label": "2V12 (TO AMB) ON",
+        "order": 7,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 5, \"state\": \"ON\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 120,
+        "y": 2540,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "8b5144335d4e3fe1",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "6cf2ef424cfcf0b9",
+        "name": "2V12 OFF",
+        "label": "2V12 OFF",
+        "order": 8,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 5, \"state\": \"OFF\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 330,
+        "y": 2540,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "70e38213088116b4",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Right Side (Relay 5 to 8)",
+        "info": "",
+        "x": 170,
+        "y": 2500,
+        "wires": []
+    },
+    {
+        "id": "cd2cd17910f55148",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "6cf2ef424cfcf0b9",
+        "name": "2V13 ON",
+        "label": "2V13 (TO GRH) ON",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 6, \"state\": \"ON\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 120,
+        "y": 2580,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "c0d4decebc971cb6",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "6cf2ef424cfcf0b9",
+        "name": "2V13 OFF",
+        "label": "2V13 OFF",
+        "order": 5,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"relay\": 6, \"state\": \"OFF\", \"bankByte\": 1 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 330,
+        "y": 2580,
+        "wires": [
+            [
+                "672a67af6b7bec72"
+            ]
+        ]
+    },
+    {
+        "id": "3718669d2d230c23",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Timeout 1000ms",
+        "info": "",
+        "x": 560,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "4a179113d9f6b4b4",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Trigger Status check every 1s",
+        "info": "",
+        "x": 640,
+        "y": 2520,
+        "wires": []
+    },
+    {
+        "id": "89e83c77785071d3",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "Switch Function",
+        "func": "// =============== Switch Function (32 + 1 outputs, 2-dp rounding) ===============\n// Output map:\n//  1  LU (1A02) CO2 avg        2  LU (1A02) CO2 raw         3  LU (1A02) Temp (°C)      4  LU (1A02) RH (%)        5  LU(1A02) Pressure (hPa)\n//  6  RU (2A12) CO2 avg        7  RU (2A12) CO2 raw         8  RU (2A12) Temp (°C)      9  RU (2A12) RH (%)       10  RU (2A12) Pressure (hPa)\n// 11  LD (1A01) CO2 avg       12  LD (1A01) CO2 raw        13  LD (1A01) Temp (°C)     14  LD (1A01) RH (%)       15  LD (1A01) Pressure (hPa)\n// 16  RD (2A11) CO2 avg       17  RD (2A11) CO2 raw        18  RD (2A11) Temp (°C)     19  RD (2A11) RH (%)       20  RD (2A11) Pressure (hPa)\n// 21  LEE600 (1A05)          22  REE600 (2A15)          23  LEE650T (1A08)(°C)     24  REE650T (2A18) (°C)    25  LEE650AV (1A08) (m/s)\n// 26  REE650AV (2A18)(m/s)   27  LEM watts         28  REM watts        29  LPID block(1..15)  30  RPID block(1..15)\n// 31  LVFD (array→splitter)                 32  2FN11 (array→splitter)\n// 33  Mirrored scalar metrics for Grafana (/metrics flow)\n\n// -------- helpers --------\n\n// E+E float32 values are word-swapped (hi,lo -> lo,hi for bytes)\nfunction readFloat32Swap(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r1, 0); // low word\n  b.writeUInt16BE(r0, 2); // high word\n  return b.readFloatBE(0);\n}\nfunction f32at(regs, i) { return readFloat32Swap(regs[i], regs[i + 1]); }\n\n// Generic Int32 (big-endian) from two holding registers\nfunction readInt32BE(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r0, 0);\n  b.writeUInt16BE(r1, 2);\n  return b.readInt32BE(0); // signed\n}\n\n// SDM230 (energy meter): float32, MS-register first (r0 = high reg, r1 = low reg)\nfunction f32be(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r0, 0); // high reg\n  b.writeUInt16BE(r1, 2); // low  reg\n  return b.readFloatBE(0);\n}\n\n// round to 2 decimals\nfunction round2(v) { return Math.round(v * 100) / 100; }\n\nconst regs = msg.payload;\nconst tag = String(msg.topic || \"\");\n\nif (!Array.isArray(regs)) {\n  //node.error(\"Payload is not an array of registers\", msg);\n  return null;\n}\n\n// ===== MINIMAL CHANGE: make 33 outputs & add a mirror helper =====\nconst out = Array.from({ length: 33 }, () => null);\nconst out33 = [];\nfunction mirror(topic, value, labels) {\n  if (value == null || isNaN(value)) return;\n  out33.push({ topic, payload: Number(value), labels: labels || {} });\n}\n\n// side helpers\nfunction isLeftUp(t) { return /^LU/i.test(t); }\nfunction isRightUp(t) { return /^RU/i.test(t); }\nfunction isLeftDown(t) { return /^LD/i.test(t); }\nfunction isRightDown(t) { return /^RD/i.test(t); }\n\n// ---------- EE872: CO2 block (avg+raw at 0x424..0x427) (LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872CO2$/i.test(tag)) {\n  if (regs.length < 4) { node.error(`${tag} requires 4 registers`, msg); return null; }\n  const co2_avg = round2(f32at(regs, 0)); // 0x424..0x425\n  const co2_raw = round2(f32at(regs, 2)); // 0x426..0x427\n\n  if (isLeftUp(tag)) {\n    out[0] = { topic: \"LU.CO2.avg\", payload: co2_avg };\n    out[1] = { topic: \"LU.CO2.raw\", payload: co2_raw };\n    mirror(\"LU.CO2.avg\", co2_avg, { zone: \"lu\" });\n    mirror(\"LU.CO2.raw\", co2_raw, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[5] = { topic: \"RU.CO2.avg\", payload: co2_avg };\n    out[6] = { topic: \"RU.CO2.raw\", payload: co2_raw };\n    mirror(\"RU.CO2.avg\", co2_avg, { zone: \"ru\" });\n    mirror(\"RU.CO2.raw\", co2_raw, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[10] = { topic: \"LD.CO2.avg\", payload: co2_avg };\n    out[11] = { topic: \"LD.CO2.raw\", payload: co2_raw };\n    mirror(\"LD.CO2.avg\", co2_avg, { zone: \"ld\" });\n    mirror(\"LD.CO2.raw\", co2_raw, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[15] = { topic: \"RD.CO2.avg\", payload: co2_avg };\n    out[16] = { topic: \"RD.CO2.raw\", payload: co2_raw };\n    mirror(\"RD.CO2.avg\", co2_avg, { zone: \"rd\" });\n    mirror(\"RD.CO2.raw\", co2_raw, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled CO2 tag: ${tag}`);\n\n  out[32] = out33; // <- emit mirrored metrics\n  return out;\n}\n\n// ---------- EE872: TRH wide block (Temp at 0x3EA..0x3EB, RH at 0x3FC..0x3FD) (LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872TRH$/i.test(tag)) {\n  if (regs.length < 20) { node.error(`${tag} requires 20 registers`, msg); return null; }\n  const temperature_c = round2(f32at(regs, 0));   // 0x3EA..0x3EB\n  const rh_percent = round2(f32at(regs, 18));     // 0x3FC..0x3FD\n\n  if (isLeftUp(tag)) {\n    out[2] = { topic: \"LU.Temp.C\", payload: temperature_c };\n    out[3] = { topic: \"LU.RH.%\", payload: rh_percent };\n    mirror(\"LU.Temp.C\", temperature_c, { zone: \"lu\" });\n    mirror(\"LU.RH.%\", rh_percent, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[7] = { topic: \"RU.Temp.C\", payload: temperature_c };\n    out[8] = { topic: \"RU.RH.%\", payload: rh_percent };\n    mirror(\"RU.Temp.C\", temperature_c, { zone: \"ru\" });\n    mirror(\"RU.RH.%\", rh_percent, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[12] = { topic: \"LD.Temp.C\", payload: temperature_c };\n    out[13] = { topic: \"LD.RH.%\", payload: rh_percent };\n    mirror(\"LD.Temp.C\", temperature_c, { zone: \"ld\" });\n    mirror(\"LD.RH.%\", rh_percent, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[17] = { topic: \"RD.Temp.C\", payload: temperature_c };\n    out[18] = { topic: \"RD.RH.%\", payload: rh_percent };\n    mirror(\"RD.Temp.C\", temperature_c, { zone: \"rd\" });\n    mirror(\"RD.RH.%\", rh_percent, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled TRH tag: ${tag}`);\n\n  out[32] = out33;\n  return out;\n}\n\n// ---------- EE872: Pressure (0x4B0..0x4B1)(LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872P$/i.test(tag)) {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const pressure_hpa = round2(f32at(regs, 0));\n\n  if (isLeftUp(tag)) {\n    out[4] = { topic: \"LU.P.hPa\", payload: pressure_hpa };\n    mirror(\"LU.P.hPa\", pressure_hpa, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[9] = { topic: \"RU.P.hPa\", payload: pressure_hpa };\n    mirror(\"RU.P.hPa\", pressure_hpa, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[14] = { topic: \"LD.P.hPa\", payload: pressure_hpa };\n    mirror(\"LD.P.hPa\", pressure_hpa, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[19] = { topic: \"RD.P.hPa\", payload: pressure_hpa };\n    mirror(\"RD.P.hPa\", pressure_hpa, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled Pressure tag: ${tag}`);\n\n  out[32] = out33;\n  return out;\n}\n\n// ---------- EE600 / EE650 (single float32 swap) (LEE650 is 1A08; REE650 is 2A18; LEE600 is 1A05; REE600 is 2A15) ----------\nif (tag === \"LEE600\" || tag === \"2A15\" || tag === \"LEE650T\" || tag === \"REE650T\" || tag === \"LEE650AV\" || tag === \"REE650AV\") {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const val = round2(f32at(regs, 0));\n\n  switch (tag) {\n    case \"LEE600\": out[20] = { topic: \"LEE600\", payload: val }; mirror(\"LEE600\", val, { sensor: \"LEE600\" }); break;\n    case \"2A15\": out[21] = { topic: \"2A15\", payload: val }; mirror(\"2A15\", val, { sensor: \"2A15\" }); break;\n    case \"LEE650T\": out[22] = { topic: \"LEE650T.C\", payload: val }; mirror(\"LEE650T.C\", val, { sensor: \"LEE650T\" }); break;\n    case \"REE650T\": out[23] = { topic: \"REE650T.C\", payload: val }; mirror(\"REE650T.C\", val, { sensor: \"REE650T\" }); break;\n    case \"LEE650AV\": out[24] = { topic: \"LEE650AV.mps\", payload: val }; mirror(\"LU.LEE650AV.mps\",  val, { sensor: \"LEE650AV\"}); break;\n    case \"REE650AV\": out[25] = { topic: \"REE650AV.mps\", payload: val }; mirror(\"RU.REE650AV.mps\",  val, { sensor: \"REE650AV\"}); break;\n    \n  }\n  out[32] = out33;\n  return out;\n}\n\n// ---------- Energy meters ----------\n// SDM230 (LEM/REM): float32 in Input Registers (FC=4), MS-register first\nif (tag === \"LEM\" || tag === \"REM\") {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const watts = round2(f32be(regs[0], regs[1]));   // Active Power (W)\n  if (tag === \"LEM\") { out[26] = { topic: \"LEM.W\", payload: watts }; mirror(\"LEM.W\", watts, { sensor: \"LEM\" }); }\n  else { out[27] = { topic: \"REM.W\", payload: watts }; mirror(\"REM.W\", watts, { sensor: \"REM\" }); }\n  out[32] = out33;\n  return out;\n}\n\n// ---------- PIDs: pass-through full 15-register variables block (addr 1..15) ----------\nif (tag === \"LPID\" || tag === \"RPID\") {\n  if (regs.length < 15) { node.error(`${tag} requires 15 registers (addr 1..15)`, msg); return null; }\n  const block = regs.slice(0, 15); // keep raw words; decode downstream\n\n  if (tag === \"LPID\") out[28] = { topic: \"LPID.block\", payload: block };\n  else out[29] = { topic: \"RPID.block\", payload: block };\n\n  // Not mirrored to metrics (block/array). Add if you want.\n  out[32] = out33;\n  return out;\n}\n\n// ---------- VFDs (6 regs pass-through to your splitter nodes) ----------\nif (tag === \"LVFD\" || tag === \"2FN11\") {\n  if (regs.length < 6) { node.error(`${tag} requires 6 registers`, msg); return null; }\n  const arr6 = regs.slice(0, 6);\n  if (tag === \"LVFD\") out[30] = { topic: \"LVFD\", payload: arr6 };\n  else out[31] = { topic: \"2FN11\", payload: arr6 };\n\n  // Not mirrored to metrics (array). Add if you want.\n  out[32] = out33;\n  return out;\n}\n\nnode.warn(`Decoder: unhandled tag \"${tag}\"`);\nout[32] = out33;\nreturn out;\n",
+        "outputs": 33,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 600,
+        "wires": [
+            [
+                "332c2cc958c59bfe"
+            ],
+            [
+                "75d2dc58e120c3ba"
+            ],
+            [
+                "75123baf4c1dabc4",
+                "3c37ec1a4c9985c5"
+            ],
+            [
+                "da819fd94112267b",
+                "3c37ec1a4c9985c5"
+            ],
+            [],
+            [
+                "57d882366a0c1c73"
+            ],
+            [
+                "822a14451e985898"
+            ],
+            [
+                "66017575d16a0daa",
+                "efa2bd3ed036679c"
+            ],
+            [
+                "46aea901456a77e3",
+                "efa2bd3ed036679c"
+            ],
+            [],
+            [
+                "082ce5da31800bcb"
+            ],
+            [
+                "3788b277a74022d2"
+            ],
+            [
+                "8c61f589ecf0e14c",
+                "cf3510a985181e71"
+            ],
+            [
+                "f5c640b29ef885e0",
+                "cf3510a985181e71"
+            ],
+            [],
+            [
+                "f33f0786b9ed768e"
+            ],
+            [
+                "cd85e9d6e78a9695"
+            ],
+            [
+                "f5570794f4f52b46",
+                "f74de64b1f2bb313"
+            ],
+            [
+                "67920198ca5def3d",
+                "f74de64b1f2bb313"
+            ],
+            [],
+            [
+                "336ad8e07f58562b"
+            ],
+            [
+                "562bcf1a16703074"
+            ],
+            [
+                "5ac2dbd68b9d6630"
+            ],
+            [
+                "14469cb47efa9fa1"
+            ],
+            [
+                "084a30b781553f88",
+                "ea17d6a6ef602533"
+            ],
+            [
+                "381a31937911347c",
+                "3279d7513b4b6ed4"
+            ],
+            [
+                "0558e62275bf49cc"
+            ],
+            [
+                "f6fe75cab8d6a2df"
+            ],
+            [
+                "b8b281e842fe3288"
+            ],
+            [
+                "ce0b96bcde81bd0e"
+            ],
+            [
+                "b014dca2d24d4ccf"
+            ],
+            [
+                "18157b673b0c5984"
+            ],
+            [
+                "2221a183772ec060",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "dee706e66f809999",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Delay between each Modbus Command",
+        "info": "",
+        "x": 790,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a4d89df12477c45a",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Start Delay",
+        "info": "",
+        "x": 540,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d960ff2d739b4682",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Modbus Registers",
+        "info": "",
+        "x": 330,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "38ec73568dc95dbb",
+        "type": "comment",
+        "z": "b70b1ddccee39978",
+        "name": "Separate based on Tags",
+        "info": "",
+        "x": 170,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "f56dea73682edc9b",
+        "type": "modbus-flex-write",
+        "z": "b70b1ddccee39978",
+        "name": "",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "server": "d3e8251c2f05a30e",
+        "emptyMsgOnFail": true,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 490,
+        "y": 1520,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d4a477cc161c244c",
+        "type": "ui-slider",
+        "z": "b70b1ddccee39978",
+        "group": "b135539d7634acf8",
+        "name": "Left Slider",
+        "label": "Frequency",
+        "tooltip": "",
+        "order": 1,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "20",
+        "max": "60",
+        "step": "5",
+        "className": "my-slider",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 160,
+        "y": 1740,
+        "wires": [
+            [
+                "629623e9b281645c"
+            ]
+        ]
+    },
+    {
+        "id": "3d92119868dd5c47",
+        "type": "ui-slider",
+        "z": "b70b1ddccee39978",
+        "group": "13816c2f51c27294",
+        "name": "Right Slider",
+        "label": "Frequency",
+        "tooltip": "",
+        "order": 1,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "20",
+        "max": "60",
+        "step": "5",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 810,
+        "y": 1760,
+        "wires": [
+            [
+                "23759e5f0892e2fc"
+            ]
+        ]
+    },
+    {
+        "id": "ae166a6616145518",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "b135539d7634acf8",
+        "name": "Left Motor ON",
+        "label": "Motor (1FN01) ON",
+        "order": 3,
+        "width": "2",
+        "height": "2",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{   \"address\": 1798,   \"value\": 1,   \"unitid\": 101 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 140,
+        "y": 1800,
+        "wires": [
+            [
+                "28a35739155f11d7"
+            ]
+        ]
+    },
+    {
+        "id": "e664b91341c55941",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "b135539d7634acf8",
+        "name": "Left Motor OFF",
+        "label": "Motor OFF",
+        "order": 4,
+        "width": "2",
+        "height": "2",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{   \"address\": 1798,   \"value\": 0,   \"unitid\": 101 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 360,
+        "y": 1800,
+        "wires": [
+            [
+                "28a35739155f11d7"
+            ]
+        ]
+    },
+    {
+        "id": "c49730615ffca272",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "1FN01-LED",
+        "group": "b135539d7634acf8",
+        "order": 6,
+        "width": "1",
+        "height": "1",
+        "label": "Motor ON",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 390,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "8bf4bd770f76229a",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "13816c2f51c27294",
+        "name": "Right Motor ON",
+        "label": "Motor (2FN11) ON",
+        "order": 3,
+        "width": "2",
+        "height": "2",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{   \"address\": 1798,   \"value\": 1,   \"unitid\": 201 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 820,
+        "y": 1800,
+        "wires": [
+            [
+                "62b745e751ba5238"
+            ]
+        ]
+    },
+    {
+        "id": "998a62d76134a2af",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "13816c2f51c27294",
+        "name": "Right Motor OFF",
+        "label": "Motor OFF",
+        "order": 4,
+        "width": "2",
+        "height": "2",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{   \"address\": 1798,   \"value\": 0,   \"unitid\": 201 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1050,
+        "y": 1800,
+        "wires": [
+            [
+                "62b745e751ba5238"
+            ]
+        ]
+    },
+    {
+        "id": "02927abee511ec7b",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "2FN11-LED",
+        "group": "13816c2f51c27294",
+        "order": 6,
+        "width": "1",
+        "height": "1",
+        "label": "Motor ON",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 390,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "9d06d1c0c6e35fe2",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1FN01-freq",
+        "group": "b135539d7634acf8",
+        "order": 5,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "1",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Frequency- HZ",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "20",
+                "color": "#fafafa",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "20",
+        "max": "60",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 390,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9bda0f287710a6b0",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "b135539d7634acf8",
+        "name": "Left Slider btn",
+        "label": "Set",
+        "order": 2,
+        "width": "1",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{   \"address\": 1797,   \"unitid\": 101 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 400,
+        "y": 1740,
+        "wires": [
+            [
+                "28a35739155f11d7"
+            ]
+        ]
+    },
+    {
+        "id": "b9d9f277754325b4",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "13816c2f51c27294",
+        "name": "Right Slider btn",
+        "label": "Set",
+        "order": 2,
+        "width": "1",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{   \"address\": 1797,   \"unitid\": 201 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1040,
+        "y": 1760,
+        "wires": [
+            [
+                "62b745e751ba5238"
+            ]
+        ]
+    },
+    {
+        "id": "2f3c53b41e59998c",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Start Value",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "30",
+        "payloadType": "num",
+        "x": 65,
+        "y": 1740,
+        "wires": [
+            [
+                "d4a477cc161c244c"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "629623e9b281645c",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "Store Slider Val Globally",
+        "func": "// Store the current slider value in flow.leftSliderValue\nflow.set(\"leftSliderValue\", msg.payload);\n\n// Optional warning for debugging\nnode.warn(\"Slider left value stored in flow context: \" + msg.payload);\n\n// Do not send anything downstream\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 1680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "23759e5f0892e2fc",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "Store Slider Val Globally",
+        "func": "// Store the current slider value in flow.leftSliderValue\nflow.set(\"rightSliderValue\", msg.payload);\n\n// Optional warning for debugging\nnode.warn(\"Slider Right value stored in flow context: \" + msg.payload);\n\n// Do not send anything downstream\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 1680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "28a35739155f11d7",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "Mb Packet Left",
+        "func": "if (msg.payload && msg.payload.address !== undefined && msg.payload.unitid !== undefined) {\n\n    let val;\n\n    // If value is provided in the payload, use it\n    if (msg.payload.value !== undefined) {\n        val = Number(msg.payload.value);\n    }\n    // Otherwise, get it from the stored slider value\n    else {\n        val = flow.get(\"leftSliderValue\");\n        if (val === undefined || isNaN(val)) {\n            node.warn(\"Slider value not set or invalid, defaulting to 0\");\n            val = 0;\n        }\n        val = Number(val) * 100;\n    }\n\n    // Build Modbus packet (same as before)\n    msg.payload = {\n        fc: 6,\n        unitid: Number(msg.payload.unitid),\n        address: Number(msg.payload.address),\n        quantity: 1,\n        value: [val]\n    };\n\n    return msg;\n}\n// Ignore other messages\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1680,
+        "wires": [
+            [
+                "f56dea73682edc9b"
+            ]
+        ]
+    },
+    {
+        "id": "62b745e751ba5238",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "Mb Packet Right",
+        "func": "if (msg.payload && msg.payload.address !== undefined && msg.payload.unitid !== undefined) {\n\n    let val;\n\n    // If value is provided in the payload, use it\n    if (msg.payload.value !== undefined) {\n        val = Number(msg.payload.value);\n    }\n    // Otherwise, get it from the stored slider value\n    else {\n        val = flow.get(\"rightSliderValue\");\n        if (val === undefined || isNaN(val)) {\n            node.warn(\"Slider value not set or invalid, defaulting to 0\");\n            val = 0;\n        }\n        val = Number(val) * 100;\n    }\n\n    // Build Modbus Flex Write payload\n    msg.payload = {\n        fc: 6,                               // Write Single Register\n        unitid: Number(msg.payload.unitid),  // From button\n        address: Number(msg.payload.address),// From button\n        quantity: 1,\n        value: [val]                         // From slider or fixed button value\n    };\n\n    return msg;\n}\n\n// Ignore other messages\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 1680,
+        "wires": [
+            [
+                "f56dea73682edc9b"
+            ]
+        ]
+    },
+    {
+        "id": "b014dca2d24d4ccf",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "split Clm1 drive",
+        "func": "// Expect input: msg.payload = [frequency, power, current, voltage, motorLedRaw, extra1]\nif (!Array.isArray(msg.payload) || msg.payload.length < 6) {\n  node.error(\"Expected an array of 6 values: [f, p, i, v, motorLedRaw, extra1]\", msg);\n  return null;\n}\n\n// Destructure in correct order\nconst [fRaw, pRaw, iRaw, vRaw, motorLedRaw, extra1] = msg.payload;\n\n// helper: round to 2 dp\nconst r2 = n => Math.round(n * 100) / 100;\n\n// Scale per your spec\nconst frequencyHz = r2(fRaw / 100);   // Hz\nconst powerW      = r2(pRaw / 100);   // W\nconst currentA    = r2(iRaw / 100);   // A\nconst voltageV    = r2(vRaw / 10);    // V\nconst motorOn     = (motorLedRaw !== 0); // boolean\n\n// Six outputs: 1 Freq, 2 Power, 3 Current, 4 Voltage, 5 Motor LED, 6 Extra1\nreturn [\n  { topic: \"L.VFD.freq.Hz\",   payload: frequencyHz }, // Output 1\n  { topic: \"VFD.power.W\",   payload: powerW },      // Output 2\n  { topic: \"VFD.current.A\", payload: currentA },    // Output 3\n  { topic: \"VFD.voltage.V\", payload: voltageV },    // Output 4\n  { topic: \"VFD.motorLED\",  payload: motorOn },     // Output 5\n  { topic: \"VFD.extra1\",    payload: extra1 }       // Output 6\n];\n",
+        "outputs": 6,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 1160,
+        "wires": [
+            [
+                "9d06d1c0c6e35fe2",
+                "8b565aae0fde5f00"
+            ],
+            [],
+            [],
+            [],
+            [
+                "c49730615ffca272"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "358021e5c7f38c3d",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Start Value",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "30",
+        "payloadType": "num",
+        "x": 695,
+        "y": 1760,
+        "wires": [
+            [
+                "3d92119868dd5c47"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "18157b673b0c5984",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "split Clm2 drive",
+        "func": "// Expect input: msg.payload = [frequency, power, current, voltage, motorLedRaw, extra1]\nif (!Array.isArray(msg.payload) || msg.payload.length < 6) {\n  node.error(\"Expected an array of 6 values: [f, p, i, v, motorLedRaw, extra1]\", msg);\n  return null;\n}\n\n// Destructure in correct order\nconst [fRaw, pRaw, iRaw, vRaw, motorLedRaw, extra1] = msg.payload;\n\n// helper: round to 2 dp\nconst r2 = n => Math.round(n * 100) / 100;\n\n// Scale per your spec\nconst frequencyHz = r2(fRaw / 100);   // Hz\nconst powerW      = r2(pRaw / 100);   // W\nconst currentA    = r2(iRaw / 100);   // A\nconst voltageV    = r2(vRaw / 10);    // V\nconst motorOn     = (motorLedRaw !== 0); // boolean\n\n// Six outputs: 1 Freq, 2 Power, 3 Current, 4 Voltage, 5 Motor LED, 6 Extra1\nreturn [\n  { topic: \"R.VFD.freq.Hz\",   payload: frequencyHz }, // Output 1\n  { topic: \"VFD.power.W\",   payload: powerW },      // Output 2\n  { topic: \"VFD.current.A\", payload: currentA },    // Output 3\n  { topic: \"VFD.voltage.V\", payload: voltageV },    // Output 4\n  { topic: \"VFD.motorLED\",  payload: motorOn },     // Output 5\n  { topic: \"VFD.extra1\",    payload: extra1 }       // Output 6\n];\n\n\n/*\n// --- Expect input: msg.payload = [f, p, i, v, extra1, motorLed]\nif (!Array.isArray(msg.payload) || msg.payload.length < 6) {\n    node.error(\"Expected an array of at least 6 values (TagX/TagX2)\", msg);\n    return null;\n}\n\n// Destructure 6 values\nconst [frequency, power, current, voltage, motorLedRaw, extra1] = msg.payload;\n\n// Scale & send each value to its own output\nreturn [\n    { payload: frequency / 100 }, // Output 1 - Frequency\n    { payload: power / 100 },     // Output 2 - Power\n    { payload: current / 100 },   // Output 3 - Current\n    { payload: voltage / 10 },    // Output 4 - Voltage\n    { payload: motorLedRaw !== 0 },          // Output 5 - Extra value (raw or scale if needed)\n    { payload: extra1 } // Output 6 - MotorLed (boolean)\n];\n*/",
+        "outputs": 6,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 120,
+        "y": 1300,
+        "wires": [
+            [
+                "4cd763feee335f45",
+                "8b565aae0fde5f00"
+            ],
+            [],
+            [],
+            [],
+            [
+                "02927abee511ec7b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4cd763feee335f45",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2FN11-freq",
+        "group": "13816c2f51c27294",
+        "order": 5,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "1",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Frequency - HZ",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "20",
+                "color": "#fafafa",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "20",
+        "max": "60",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 390,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "332c2cc958c59bfe",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A02-Co2Avg",
+        "group": "44de1c430cbb5601",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Co2 Avg - ppm",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1140,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "75d2dc58e120c3ba",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A02-Co2Raw",
+        "group": "44de1c430cbb5601",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Co2 Raw - ppm",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1140,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "75123baf4c1dabc4",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A02-outT",
+        "group": "44de1c430cbb5601",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Temperature - C",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1130,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "57d882366a0c1c73",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A12-Co2Avg",
+        "group": "ac6a5966878e6de8",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Co2 Avg - ppm",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1140,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "822a14451e985898",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A12-Co2Raw",
+        "group": "ac6a5966878e6de8",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Co2 Raw - ppm",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1140,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66017575d16a0daa",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A12-outT",
+        "group": "ac6a5966878e6de8",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Temperature - C",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1130,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46aea901456a77e3",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A12-outRH",
+        "group": "ac6a5966878e6de8",
+        "order": 4,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Relative Humidity - %",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1130,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "082ce5da31800bcb",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A01-Co2Avg",
+        "group": "1b0119535e1d3350",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Co2 Avg - ppm",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1140,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3788b277a74022d2",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A01-Co2Raw",
+        "group": "1b0119535e1d3350",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Co2 Raw - ppm",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1140,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c61f589ecf0e14c",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A01-inT",
+        "group": "1b0119535e1d3350",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Temperature - C",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1120,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f33f0786b9ed768e",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A11-Co2Avg",
+        "group": "b4e0dab4bd8c05b7",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Co2 Avg - ppm",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 800,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cd85e9d6e78a9695",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A11-Co2Raw",
+        "group": "b4e0dab4bd8c05b7",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Co2 Raw - ppm",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 800,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f5570794f4f52b46",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A11-inT",
+        "group": "b4e0dab4bd8c05b7",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Temperature - C",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 780,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "67920198ca5def3d",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A11-inRH",
+        "group": "b4e0dab4bd8c05b7",
+        "order": 4,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Relative Humidity - %",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 790,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0558e62275bf49cc",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1EM",
+        "group": "be8e2d192e710aa5",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "3",
+        "gtype": "gauge-half",
+        "gstyle": "rounded",
+        "title": "Energy Meter w/ Fans",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Watt",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "2000",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "3000",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": "0",
+        "max": "4000",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 930,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "336ad8e07f58562b",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A05-DP",
+        "group": "be8e2d192e710aa5",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "3",
+        "gtype": "gauge-half",
+        "gstyle": "rounded",
+        "title": "Diff Pressure (1A05)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Pa",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "400",
+                "color": "#5250e2",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "1000",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "2000",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": "0",
+        "max": "4000",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 940,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f6fe75cab8d6a2df",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "REM",
+        "group": "14ffaba87334b6a7",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "3",
+        "gtype": "gauge-half",
+        "gstyle": "rounded",
+        "title": "Energy Meter w/ Heaters",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Watt",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "2000",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "3000",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": "0",
+        "max": "4000",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1130,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e0a57a1613b2d089",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A08-VEL",
+        "group": "d0e68dc802300da0",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Air flow (m3/hr)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 550,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5ac2dbd68b9d6630",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A08-T",
+        "group": "d0e68dc802300da0",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "EE650-Temperature - C",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 940,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8cbbd2b65fcf306b",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A18-VEL",
+        "group": "c4b796b294db2552",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Air flow (m3/hr)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 550,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "14469cb47efa9fa1",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A18-T",
+        "group": "c4b796b294db2552",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "EE650-Temperature - C",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1140,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "562bcf1a16703074",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A15-DP",
+        "group": "14ffaba87334b6a7",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "3",
+        "gtype": "gauge-half",
+        "gstyle": "rounded",
+        "title": "Diff Pressure (2A15)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Pa",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "400",
+                "color": "#5250e2",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "1000",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "2000",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": "0",
+        "max": "4000",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1140,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a2db60b336955039",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "7aa27d4b2d1c0ea6",
+        "name": "Clm1- PID ON",
+        "label": "Heater (1H01) ON",
+        "order": 1,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"unitid\": 103, \"address\": 15, \"value\": 0 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1480,
+        "y": 1080,
+        "wires": [
+            [
+                "211fac16496ed173"
+            ]
+        ]
+    },
+    {
+        "id": "1aa0f18849d6c45a",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "7aa27d4b2d1c0ea6",
+        "name": "Clm1- PID OFF",
+        "label": "Heater OFF",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"unitid\": 103, \"address\": 15, \"value\": 2 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1520,
+        "y": 1120,
+        "wires": [
+            [
+                "211fac16496ed173"
+            ]
+        ]
+    },
+    {
+        "id": "deb11a31eaf54209",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "Clm1- PID Status",
+        "group": "7aa27d4b2d1c0ea6",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "label": "Heater ON",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 1210,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "22b70d9f6ed9859b",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "1150877cb6638246",
+        "name": "Clm2 PID ON",
+        "label": "Heater (2H11) ON",
+        "order": 1,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"unitid\": 203, \"address\": 15, \"value\": 0 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 2020,
+        "y": 1180,
+        "wires": [
+            [
+                "febd5be979f45120"
+            ]
+        ]
+    },
+    {
+        "id": "92db9da1e07cbfcf",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "1150877cb6638246",
+        "name": "Clm2 PID OFF",
+        "label": "Heater OFF",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"unitid\": 203, \"address\": 15, \"value\": 2 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 2080,
+        "y": 1140,
+        "wires": [
+            [
+                "febd5be979f45120"
+            ]
+        ]
+    },
+    {
+        "id": "65625a125e7608a6",
+        "type": "ui-led",
+        "z": "b70b1ddccee39978",
+        "name": "Clm2- Heater Status",
+        "group": "1150877cb6638246",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "label": "Heater ON",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-end",
+        "states": [
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 1680,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "da819fd94112267b",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A02-outRH",
+        "group": "44de1c430cbb5601",
+        "order": 4,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Relative Humidity - %",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1130,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f5c640b29ef885e0",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A01-inRH",
+        "group": "1b0119535e1d3350",
+        "order": 4,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Relative Humidity - %",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1130,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8b8320dfeb19aca7",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Start Value",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "20",
+        "payloadType": "num",
+        "x": 1035,
+        "y": 1240,
+        "wires": [
+            [
+                "4968a3574470c8fd"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "4968a3574470c8fd",
+        "type": "ui-slider",
+        "z": "b70b1ddccee39978",
+        "group": "7aa27d4b2d1c0ea6",
+        "name": "1PID Slider",
+        "label": "SV",
+        "tooltip": "",
+        "order": 4,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "20",
+        "max": "60",
+        "step": "2",
+        "className": "my-slider",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 1170,
+        "y": 1240,
+        "wires": [
+            [
+                "a28374faa96494f7"
+            ]
+        ]
+    },
+    {
+        "id": "bd23cc26e019262d",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Start Value",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "20",
+        "payloadType": "num",
+        "x": 1485,
+        "y": 1240,
+        "wires": [
+            [
+                "79ee0340697798eb"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "79ee0340697798eb",
+        "type": "ui-slider",
+        "z": "b70b1ddccee39978",
+        "group": "1150877cb6638246",
+        "name": "2PID Slider",
+        "label": "SV",
+        "tooltip": "",
+        "order": 4,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "20",
+        "max": "60",
+        "step": "2",
+        "className": "my-slider",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 1620,
+        "y": 1240,
+        "wires": [
+            [
+                "3cf188db8cef5bcf"
+            ]
+        ]
+    },
+    {
+        "id": "62e921cf6bfaf9fe",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "7aa27d4b2d1c0ea6",
+        "name": "1SV btn",
+        "label": "Set",
+        "order": 5,
+        "width": "1",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"unitid\": 103, \"address\": 6 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1160,
+        "y": 1300,
+        "wires": [
+            [
+                "211fac16496ed173"
+            ]
+        ]
+    },
+    {
+        "id": "bd1cc6d0382c8ecf",
+        "type": "ui-button",
+        "z": "b70b1ddccee39978",
+        "group": "1150877cb6638246",
+        "name": "2SV btn",
+        "label": "Set",
+        "order": 5,
+        "width": "1",
+        "height": "1",
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "right",
+        "payload": "{ \"unitid\": 203, \"address\": 6 }",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1620,
+        "y": 1300,
+        "wires": [
+            [
+                "febd5be979f45120"
+            ]
+        ]
+    },
+    {
+        "id": "0fc638edcea47999",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1PID SV",
+        "group": "7aa27d4b2d1c0ea6",
+        "order": 6,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Current Set Point Value - SV",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1160,
+        "y": 1380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "db09ceecb69b79cd",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2PID SV",
+        "group": "1150877cb6638246",
+        "order": 6,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Current Set Point Value - SV",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1620,
+        "y": 1380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f9beb43a39e8b970",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1PID PV",
+        "group": "7aa27d4b2d1c0ea6",
+        "order": 7,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Current Measured Value - PV",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1160,
+        "y": 1340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "764fb3297535442d",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2PID PV",
+        "group": "1150877cb6638246",
+        "order": 7,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Current Measure Value - PV",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1620,
+        "y": 1340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d9ae5942cad4b3c0",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1PID PecrentP",
+        "group": "7aa27d4b2d1c0ea6",
+        "order": 8,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Power Output - %",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1180,
+        "y": 1420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eb9401d35863e546",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2PID PecrentP",
+        "group": "1150877cb6638246",
+        "order": 8,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "rounded",
+        "title": "Power Output - %",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "Hz",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fcfcfc",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1640,
+        "y": 1420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b8b281e842fe3288",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "PID Split- Clm1",
+        "func": "// Outputs (5):\n// 1: PV (number)\n// 2: SP (number)\n// 3: Power % (number)\n// 4: Mode text (\"Auto\"/\"Manual\"/\"Standby\"/\"Unknown\")\n// 5: LED boolean (Auto=true; Manual/Standby/Unknown=false)\n\nconst r = msg.payload;\nif (!Array.isArray(r) || r.length < 15) {\n  node.error(\"PID block requires 15 registers (addr 1..15)\", msg);\n  return [null, null, null, null, null];\n}\n\n// dP and scaler\nconst dP = Number(r[1] || 0);\nconst scale = v => Math.round((v / Math.pow(10, dP)) * 100) / 100;\n\n// Decode basics\nconst pv = scale(r[0]);                          // addr 1\nconst sp = scale(r[2]);                          // addr 3 (operative SP)\nconst powerPct = Math.round((r[3] / 100) * 100) / 100; // addr 4 (2 implied dp)\nconst modeCode = Number(r[14] || 0);                   // addr 15 (0=Auto,1=Manual,2=Standby)\n\n// Text + LED boolean (Auto = true)\nconst modeText = (modeCode === 0) ? \"Auto\" : (modeCode === 1) ? \"Manual\" :\n  (modeCode === 2) ? \"Standby\" : \"Unknown\";\nconst ledOn = (modeCode === 0); // ONLY Auto turns the LED on\n\n// Status\n//node.status({\n//  fill: ledOn ? \"green\" : (modeCode === 2 ? \"grey\" : \"yellow\"),\n//  shape: \"dot\",\n//  text: `PV ${pv}  SP ${sp}  ${powerPct}%  ${modeText}`\n//});\n\n// Fan out\nreturn [\n  { topic: \"PID.PV\", payload: pv },\n  { topic: \"PID.SP\", payload: sp },\n  { topic: \"PID.Power.%\", payload: powerPct },\n  { topic: \"PID.Mode.Text\", payload: modeText },\n  { topic: \"PID.Mode.Boolean\", payload: ledOn }  // <-- wire this to ui_led\n];\n",
+        "outputs": 5,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 1360,
+        "wires": [
+            [
+                "f9beb43a39e8b970"
+            ],
+            [
+                "0fc638edcea47999"
+            ],
+            [
+                "d9ae5942cad4b3c0"
+            ],
+            [],
+            [
+                "6eb7daec419a22c4"
+            ]
+        ]
+    },
+    {
+        "id": "ce0b96bcde81bd0e",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "PID Split - Clm2",
+        "func": "// Outputs (5):\n// 1: PV (number)\n// 2: SP (number)\n// 3: Power % (number)\n// 4: Mode text (\"Auto\"/\"Manual\"/\"Standby\"/\"Unknown\")\n// 5: LED boolean (Auto=true; Manual/Standby/Unknown=false)\n\nconst r = msg.payload;\nif (!Array.isArray(r) || r.length < 15) {\n  node.error(\"PID block requires 15 registers (addr 1..15)\", msg);\n  return [null, null, null, null, null];\n}\n\n// dP and scaler\nconst dP = Number(r[1] || 0);\nconst scale = v => Math.round((v / Math.pow(10, dP)) * 100) / 100;\n\n// Decode basics\nconst pv = scale(r[0]);                          // addr 1\nconst sp = scale(r[2]);                          // addr 3 (operative SP)\nconst powerPct = Math.round((r[3] / 100) * 100) / 100; // addr 4 (2 implied dp)\nconst modeCode = Number(r[14] || 0);                   // addr 15 (0=Auto,1=Manual,2=Standby)\n\n// Text + LED boolean (Auto = true)\nconst modeText = (modeCode === 0) ? \"Auto\" : (modeCode === 1) ? \"Manual\" :\n  (modeCode === 2) ? \"Standby\" : \"Unknown\";\nconst ledOn = (modeCode === 0); // ONLY Auto turns the LED on\n\n// Status\n//node.status({\n//  fill: ledOn ? \"green\" : (modeCode === 2 ? \"grey\" : \"yellow\"),\n//  shape: \"dot\",\n//  text: `PV ${pv}  SP ${sp}  ${powerPct}%  ${modeText}`\n//});\n\n// Fan out\nreturn [\n  { topic: \"PID.PV\", payload: pv },\n  { topic: \"PID.SP\", payload: sp },\n  { topic: \"PID.Power.%\", payload: powerPct },\n  { topic: \"PID.Mode.Text\", payload: modeText },\n  { topic: \"PID.Mode.Boolean\", payload: ledOn }  // <-- wire this to ui_led\n];\n",
+        "outputs": 5,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 1360,
+        "wires": [
+            [
+                "764fb3297535442d"
+            ],
+            [
+                "db09ceecb69b79cd"
+            ],
+            [
+                "eb9401d35863e546"
+            ],
+            [],
+            [
+                "8b565aae0fde5f00",
+                "ea625e851b42f25b"
+            ]
+        ]
+    },
+    {
+        "id": "a28374faa96494f7",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "1PID Slider Val",
+        "func": "\nflow.set(\"leftSliderPIDValue\", msg.payload);\n\n// Do not send anything downstream\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3cf188db8cef5bcf",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "2PID Slider Val",
+        "func": "\nflow.set(\"rightSliderPIDValue\", msg.payload);\n\n// Do not send anything downstream\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1820,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "211fac16496ed173",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "1SV Set",
+        "func": "// Expects: msg.payload = { address:<number>, unitid:<number> }\n// Optional: msg.payload.value -> write this (integer)\n// If address = SP (6..9 or 16): falls back to leftSliderPIDValue if no value\n// If address = 15: Control Status (0=Auto,1=Manual,2=Standby)\n\nif (msg && msg.payload && msg.payload.address !== undefined && msg.payload.unitid !== undefined) {\n    if (typeof msg.payload === \"string\") {\n        try { msg.payload = JSON.parse(msg.payload); }\n        catch(e) { node.error(\"Button payload is not valid JSON\", msg); return null; }\n    }\n\n    const unitid  = Number(msg.payload.unitid);\n    const address = Number(msg.payload.address);\n\n    if (!Number.isInteger(unitid) || unitid <= 0) { node.error(\"Invalid unitid\", msg); return null; }\n    if (!Number.isInteger(address) || address < 0) { node.error(\"Invalid address\", msg); return null; }\n\n    let val;\n\n    if (msg.payload.value !== undefined) {\n        val = Number(msg.payload.value);\n    } else {\n        // For SP registers only → fallback to slider\n        if ([6,7,8,9,16].includes(address)) {\n            val = flow.get(\"leftSliderPIDValue\");\n            if (val === undefined || isNaN(val)) {\n                node.warn(\"leftSliderPIDValue not set, defaulting to 0\");\n                val = 0;\n            }\n            val = Math.round(val);\n            if (val < 0) val = 0;\n            if (val > 50) val = 50;\n        } else {\n            node.error(\"No value provided for non-SP address\", msg);\n            return null;\n        }\n    }\n\n    // Build Flex Write\n    msg.payload = {\n        fc: 6,\n        unitid,\n        address,     // zero-based offset\n        quantity: 1,\n        value: [ val ]\n    };\n\n    node.status({ fill: \"green\", shape: \"dot\", text: `Write ${val} @U${unitid}:${address}` });\n    return msg;\n}\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 1180,
+        "wires": [
+            [
+                "f56dea73682edc9b"
+            ]
+        ]
+    },
+    {
+        "id": "a8a824805adfaa13",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Start Value",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "20",
+        "payloadType": "num",
+        "x": 945,
+        "y": 1300,
+        "wires": [
+            [
+                "62e921cf6bfaf9fe"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "febd5be979f45120",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "2SV Set",
+        "func": "// Expects: msg.payload = { address:<number>, unitid:<number> }\n// Optional: msg.payload.value -> write this (integer)\n// If address = SP (6..9 or 16): falls back to rihghtSliderPIDValue if no value\n// If address = 15: Control Status (0=Auto,1=Manual,2=Standby)\n\nif (msg && msg.payload && msg.payload.address !== undefined && msg.payload.unitid !== undefined) {\n    if (typeof msg.payload === \"string\") {\n        try { msg.payload = JSON.parse(msg.payload); }\n        catch(e) { node.error(\"Button payload is not valid JSON\", msg); return null; }\n    }\n\n    const unitid  = Number(msg.payload.unitid);\n    const address = Number(msg.payload.address);\n\n    if (!Number.isInteger(unitid) || unitid <= 0) { node.error(\"Invalid unitid\", msg); return null; }\n    if (!Number.isInteger(address) || address < 0) { node.error(\"Invalid address\", msg); return null; }\n\n    let val;\n\n    if (msg.payload.value !== undefined) {\n        val = Number(msg.payload.value);\n    } else {\n        // For SP registers only → fallback to slider\n        if ([6,7,8,9,16].includes(address)) {\n            val = flow.get(\"rightSliderPIDValue\");\n            if (val === undefined || isNaN(val)) {\n                node.warn(\"rightSliderPIDValue not set, defaulting to 0\");\n                val = 0;\n            }\n            val = Math.round(val);\n            if (val < 0) val = 0;\n            if (val > 60) val = 60;\n        } else {\n            node.error(\"No value provided for non-SP address\", msg);\n            return null;\n        }\n    }\n\n    // Build Flex Write\n    msg.payload = {\n        fc: 6,\n        unitid,\n        address,     // zero-based offset\n        quantity: 1,\n        value: [ val ]\n    };\n\n    node.status({ fill: \"green\", shape: \"dot\", text: `Write ${val} @U${unitid}:${address}` });\n    return msg;\n}\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2040,
+        "y": 1280,
+        "wires": [
+            [
+                "f56dea73682edc9b"
+            ]
+        ]
+    },
+    {
+        "id": "a32e0f139ef53950",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Toggle CSV logging",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "x": 1390,
+        "y": 960,
+        "wires": [
+            [
+                "67d5ff734eccde61"
+            ]
+        ]
+    },
+    {
+        "id": "67d5ff734eccde61",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "Toggle CSV logging (ON/OFF)",
+        "func": "'use strict';\n// Toggles flow.csv_enabled each click\nlet enabled = flow.get('csv_enabled') === true;\nenabled = !enabled;\nflow.set('csv_enabled', enabled);\n\n// ALSO reset today's header-once flag so a new file gets headers immediately\nconst today = new Date().toISOString().slice(0, 10);\nconst headerKey = `csv_header_written_${today}`;\nflow.set(headerKey, false);\n\nif (enabled) {\n  node.status({ fill: 'green', shape: 'dot', text: 'CSV logging ENABLED' });\n  node.warn('CSV logging ENABLED');\n} else {\n  node.status({ fill: 'red', shape: 'ring', text: 'CSV logging DISABLED' });\n  node.warn('CSV logging DISABLED');\n}\nreturn null;\n",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "e30abf48da0893e6",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "CSV logging gate (flow.csv_enabled)",
+        "func": "// Function: Logging Gate (timestamp + 36 columns from pivoted example)\nconst COLS = [\n  \"LD.Relay.W1\",\n  \"LD.Relay.W2\",\n  \"L.VFD.freq.Hz\",\n  \"R.VFD.freq.Hz\",\n  \"LEM.W\",\n  \"REM.W\",\n  \"LU.Temp.C\",\n  \"LU.RH.%\",  \n  \"LU.CO2.avg\",\n  \"LU.CO2.raw\",\n  \"1A02PR\",\n  \"RU.Temp.C\",\n  \"RU.RH.%\",\n  \"RU.CO2.avg\",\n  \"RU.CO2.raw\",\n  \"RU.P.hPa\",\n  \"LD.Temp.C\",\n  \"LD.RH.%\",\n  \"LD.CO2.raw\",\n  \"LD.CO2.avg\",\n  \"LD.P.hPa\",\n  \"RD.Temp.C\",\n  \"RD.RH.%\",\n  \"RD.CO2.raw\",\n  \"RD.CO2.avg\",\n  \"RD.P.hPa\",\n  \"2A15\",\n  \"LEE600\",\n  \"REE650AV.mps\",\n  \"REE650T.C\",\n  \"LEE650AV.mps\",\n  \"LEE650T.C\",\n  \"LD.Relay.D1\",\n  \"LD.Relay.A1\",\n  \"LD.Relay.A2\",\n  \"LD.Relay.D2\",\n  \"L.1H01\",\n  \"R.2H11\"\n  ];\n\nconst snap   = flow.get('snap')   || {};\nconst snapTs = flow.get('snap_ts') || {};\nconst now = Date.now();\nconst STALE_MS = 4800; // mark blank if older than 4.8 s\n\n// --- build timestamp in local timezone ---\nconst d = new Date();\nconst row = {\n  timestamp: d.toLocaleString(\"en-GB\", {\n    timeZone: \"Asia/Riyadh\", // set to your local zone\n    hour12: false\n  })\n};\n\n// --- fill columns, blank stale ones ---\nfor (const k of COLS) {\n  const age = now - (snapTs[k] || 0);\n  if (age > STALE_MS) {\n    row[k] = \"\"; // blank if not fresh\n  } else {\n    const v = snap[k];\n    row[k] = (v === undefined || Number.isNaN(v)) ? \"\" : v;\n  }\n}\n\n// output row object for CSV conversion or direct write\nmsg.payload = row;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 1040,
+        "wires": [
+            [
+                "ca2505c6df9f695b"
+            ]
+        ]
+    },
+    {
+        "id": "f2a807af235e865f",
+        "type": "file",
+        "z": "b70b1ddccee39978",
+        "name": "Append /var/lib/revpi-nodered/csvlogs/filename",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 2160,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "622610fac12f162e",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 480,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2221a183772ec060",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "33rd → metrics cache",
+        "func": "'use strict';\n// Save latest sensor metrics for Prometheus exposition\nconst store = flow.get('metrics') || {};\n\nfunction classify(topic) {\n  const N = String(topic || '').trim().toUpperCase();\n  let metric = 'generic_gauge', help = 'Generic gauge';\n  if (N.startsWith('LU.CO2.') || N.startsWith('RU.CO2.') || N.startsWith('LD.CO2.') || N.startsWith('RD.CO2.')) { metric = 'co2_ppm'; help = 'CO2 concentration'; }\n  else if (/(^LU\\.|^RU\\.|^LD\\.|^RD\\.).*RH\\.%$/.test(N)) { metric = 'humidity_percent'; help = 'Relative humidity'; }\n  else if (/(^LU\\.|^RU\\.|^LD\\.|^RD\\.).*TEMP\\.C$/.test(N)) { metric = 'temperature_celsius'; help = 'Air temperature'; }\n  else if (/(^LU\\.|^RU\\.|^LD\\.|^RD\\.).*\\.P\\.HPA$/.test(N)) { metric = 'pressure_hpa'; help = 'Atmospheric pressure'; }\n  else if (N === 'LEM.W' || N === 'REM.W') { metric = 'power_watts'; help = 'Active power'; }\n  else if (/LEE650AV|REE650AV/.test(N)) { metric = 'air_velocity_mps'; help = 'Air velocity'; }\n  else if (/LEE600|2A15/.test(N)) { metric = 'sensor_value'; help = 'Generic sensor value'; }\n  return { metric, help };\n}\n\nconst topic = String(msg.topic || '');\nconst val = Number(msg.payload);\nif (!topic || !Number.isFinite(val)) return null;\n\nconst z = topic.match(/^(LU|RU|LD|RD)\\b/i)?.[1]?.toLowerCase();\nlet sensor = '';\nif (/LEE650AV|REE650AV/i.test(topic)) sensor = 'EE650AV';\nelse if (/LEE650T|REE650T/i.test(topic)) sensor = 'EE650T';\nelse if (/\\bLEM\\.W\\b/i.test(topic)) sensor = 'LEM';\nelse if (/\\bREM\\.W\\b/i.test(topic)) sensor = 'REM';\n\nconst { metric, help } = classify(topic);\nconst labels = {};\nif (z) labels.zone = z;\nif (sensor) labels.sensor = sensor;\nconst key = `${metric}|zone=${labels.zone || ''}|sensor=${labels.sensor || ''}`;\nstore[key] = { metric, value: val, labels, help };\nflow.set('metrics', store);\nreturn null;",
+        "outputs": 0,
+        "noerr": 0,
+        "x": 1360,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "599e5d3c5da7bc10",
+        "type": "http in",
+        "z": "b70b1ddccee39978",
+        "name": "GET /metrics",
+        "url": "/metrics",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 1450,
+        "y": 620,
+        "wires": [
+            [
+                "0ced8ba7f1d08d0a"
+            ]
+        ]
+    },
+    {
+        "id": "0ced8ba7f1d08d0a",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "Render Prometheus exposition",
+        "func": "'use strict';\nconst m = flow.get('metrics') || {};\nconst out = [];\nconst seen = new Set();\nfor (const k of Object.keys(m)) {\n  const { metric, help } = m[k];\n  if (!seen.has(metric)) {\n    out.push(`# HELP ${metric} ${help}`);\n    out.push(`# TYPE ${metric} gauge`);\n    seen.add(metric);\n  }\n}\nfor (const k of Object.keys(m)) {\n  const { metric, value, labels } = m[k];\n  const labelStr = Object.entries(labels || {})\n    .map(([kk, vv]) => `${kk}=\"${String(vv).replace(/\"/g, '\\\\\"')}\"`)\n    .join(',');\n  out.push(labelStr ? `${metric}{${labelStr}} ${value}` : `${metric} ${value}`);\n}\nmsg.headers = { 'Content-Type': 'text/plain; version=0.0.4; charset=utf-8' };\nmsg.payload = out.join('\\n') + '\\n';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1710,
+        "y": 620,
+        "wires": [
+            [
+                "719be0429f26c623"
+            ]
+        ]
+    },
+    {
+        "id": "719be0429f26c623",
+        "type": "http response",
+        "z": "b70b1ddccee39978",
+        "name": "HTTP Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 2000,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "314afdeacf1acc6f",
+        "type": "ui-switch",
+        "z": "b70b1ddccee39978",
+        "name": "",
+        "label": "Logging ON/OFF",
+        "group": "e86ce08b06c0beb4",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 1370,
+        "y": 900,
+        "wires": [
+            [
+                "67d5ff734eccde61"
+            ]
+        ]
+    },
+    {
+        "id": "337cf0368a717ee5",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "set daily csv filename",
+        "func": "'use strict';\n\n// where to store logs\nconst baseDir = \"/var/lib/revpi-nodered/csvlogs\";\nconst tz = \"Asia/Riyadh\";\n\n// get \"local\" date in the desired timezone\nconst now = new Date();\n// Build date parts without using locale formatters (which may add /)\nconst y = new Intl.DateTimeFormat('en', { timeZone: tz, year: 'numeric' }).format(now);\nconst m = new Intl.DateTimeFormat('en', { timeZone: tz, month: '2-digit' }).format(now);\nconst d = new Intl.DateTimeFormat('en', { timeZone: tz, day: '2-digit' }).format(now);\n\n// Assemble a filename that CANNOT contain slashes\nconst dateStr = `${y}_${m}_${d}`;                // e.g., 2025_10_26\nmsg.filename = `${baseDir}/sensors_${dateStr}.csv`;\n\nconst today = new Date().toISOString().slice(0, 10);\nflow.set(\"csv_header_written_YYYY-MM-DD\", false, \"file\");\n\n\n// Rollover header at day change\nconst prev = flow.get('current_csv_date');\nif (prev !== dateStr) {\n  flow.set('csv_header_written', false);\n  flow.set('current_csv_date', dateStr);\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1860,
+        "y": 1040,
+        "wires": [
+            [
+                "f2a807af235e865f"
+            ]
+        ]
+    },
+    {
+        "id": "9c381d440fc920c6",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "Log W1LedLeft_status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "LD.Relay.W1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 2120,
+        "wires": [
+            [
+                "1468d466f3b446e1",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "43bb7fb18329fcdc",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "Log RD1LedLeft_status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "LD.Relay.D1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 2180,
+        "wires": [
+            [
+                "6baa74edc38f4829",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "6e8bedca6bbf1a57",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "Log W2LedRight state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "LD.Relay.W2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 2360,
+        "wires": [
+            [
+                "32ac7b0ae6909b13",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "dfc2cf3bd298039e",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "Log RA1LedLeft_status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "LD.Relay.A1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 2240,
+        "wires": [
+            [
+                "c8aa7d7f74428bef",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "ee03d3e06040f8cd",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "Log RA2LedRight",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "LD.Relay.A2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 2420,
+        "wires": [
+            [
+                "2464de9f18ca9460",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "ad8336f933f7e979",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "Log RD2LedRight",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "LD.Relay.D2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 2480,
+        "wires": [
+            [
+                "a884b374f578efaa",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "452ae60ac223d210",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2VEL-CLMN",
+        "group": "c4b796b294db2552",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "needle",
+        "title": "Column Velocity (m/s)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fafafa",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": 10,
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 550,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "381a31937911347c",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "calc-clmn vel",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$round($number(payload) * 0.21673, 2)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 1000,
+        "wires": [
+            [
+                "452ae60ac223d210"
+            ]
+        ]
+    },
+    {
+        "id": "3279d7513b4b6ed4",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "calc-flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$round($number(payload) * 25, 2)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 960,
+        "wires": [
+            [
+                "8cbbd2b65fcf306b"
+            ]
+        ]
+    },
+    {
+        "id": "3c37ec1a4c9985c5",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "1A02- Abs Hum Calc",
+        "func": "'use strict';\n\n// Expect msg.topic like \"LU.Temp.C\" or \"LU.RH.%\"\nconst zone = \"LU\";\nconst kind = String(msg.topic || '').toLowerCase();\n\nconst keyT = `${zone}:T`;\nconst keyRH = `${zone}:RH`;\n\n// Cache latest values\nif (kind.includes('temp.c')) {\n  const T = Number(msg.payload);\n  if (Number.isFinite(T)) flow.set(keyT, T);\n} else if (kind.includes('rh.%')) {\n  const RH = Number(msg.payload);\n  if (Number.isFinite(RH)) flow.set(keyRH, RH);\n}\n\nconst T = Number(flow.get(keyT));\nconst RH = Number(flow.get(keyRH));\nif (!Number.isFinite(T) || !Number.isFinite(RH)) return null;\n\n// --- Humidity ratio (kg water / kg dry air) ---\nconst P = 1013.25; // hPa\nconst es = 6.112 * Math.exp((17.67 * T) / (T + 243.5));\nconst Pv = (RH / 100) * es;\nconst w = 0.622 * Pv / (P - Pv); // kg/kg\n\nconst rounded = Math.round(w * 10000) / 10000;  // 4 decimal places\nnode.status({ fill: 'blue', shape: 'dot', text: `${zone} w=${rounded} kg/kg` });\n\nreturn {\n  topic: `${zone}.HumidityRatio.kgkg`,\n  payload: rounded\n};\n",
+        "outputs": 1,
+        "timeout": "2",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 300,
+        "wires": [
+            [
+                "d1596e9a0bb609a5"
+            ]
+        ]
+    },
+    {
+        "id": "d1596e9a0bb609a5",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A02- Abs Hum",
+        "group": "44de1c430cbb5601",
+        "order": 5,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "needle",
+        "title": "Abs Hum (kgW/kgDA)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fafafa",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": 10,
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 960,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "efa2bd3ed036679c",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "2A12- Abs Hum Calc",
+        "func": "'use strict';\n\n// Expect msg.topic like \"RU.Temp.C\" or \"RU.RH.%\"\nconst zone = \"RU\";\nconst kind = String(msg.topic || '').toLowerCase();\n\nconst keyT  = `${zone}:T`;\nconst keyRH = `${zone}:RH`;\n\nif (kind.includes('temp.c')) {\n  const T = Number(msg.payload);\n  if (Number.isFinite(T)) flow.set(keyT, T);\n} else if (kind.includes('rh.%')) {\n  const RH = Number(msg.payload);\n  if (Number.isFinite(RH)) flow.set(keyRH, RH);\n}\n\nconst T  = Number(flow.get(keyT));\nconst RH = Number(flow.get(keyRH));\nif (!Number.isFinite(T) || !Number.isFinite(RH)) return null;\n\nconst P  = 1013.25; // hPa\nconst es = 6.112 * Math.exp((17.67 * T) / (T + 243.5));\nconst Pv = (RH / 100) * es;\nconst w  = 0.622 * Pv / (P - Pv);\n\nconst rounded = Math.round(w * 10000) / 10000;\nnode.status({ fill: 'purple', shape: 'dot', text: `${zone} w=${rounded} kg/kg` });\n\nreturn {\n  topic: `${zone}.HumidityRatio.kgkg`,\n  payload: rounded\n};\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 440,
+        "wires": [
+            [
+                "0f656286e98ae350"
+            ]
+        ]
+    },
+    {
+        "id": "f74de64b1f2bb313",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "2A11- Abs Hum Calc",
+        "func": "'use strict';\n\n// Expect msg.topic like \"RD.Temp.C\" or \"RD.RH.%\"\nconst zone = \"RD\";\nconst kind = String(msg.topic || '').toLowerCase();\n\nconst keyT = `${zone}:T`;\nconst keyRH = `${zone}:RH`;\n\nif (kind.includes('temp.c')) {\n  const T = Number(msg.payload);\n  if (Number.isFinite(T)) flow.set(keyT, T);\n} else if (kind.includes('rh.%')) {\n  const RH = Number(msg.payload);\n  if (Number.isFinite(RH)) flow.set(keyRH, RH);\n}\n\nconst T = Number(flow.get(keyT));\nconst RH = Number(flow.get(keyRH));\nif (!Number.isFinite(T) || !Number.isFinite(RH)) return null;\n\nconst P = 1013.25; // hPa\nconst es = 6.112 * Math.exp((17.67 * T) / (T + 243.5));\nconst Pv = (RH / 100) * es;\nconst w = 0.622 * Pv / (P - Pv);\n\nconst rounded = Math.round(w * 10000) / 10000;\nnode.status({ fill: 'green', shape: 'dot', text: `${zone} w=${rounded} kg/kg` });\n\nreturn {\n  topic: `${zone}.HumidityRatio.kgkg`,\n  payload: rounded\n};\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 500,
+        "wires": [
+            [
+                "121737ad52d69334"
+            ]
+        ]
+    },
+    {
+        "id": "cf3510a985181e71",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "1A01- Abs Hum Calc",
+        "func": "'use strict';\n\n// Expect msg.topic like \"LD.Temp.C\" or \"LD.RH.%\"\nconst zone = \"LD\";\nconst kind = String(msg.topic || '').toLowerCase();\n\nconst keyT  = `${zone}:T`;\nconst keyRH = `${zone}:RH`;\n\n// Cache latest readings in flow context\nif (kind.includes('temp.c')) {\n  const T = Number(msg.payload);\n  if (Number.isFinite(T)) flow.set(keyT, T);\n} else if (kind.includes('rh.%')) {\n  const RH = Number(msg.payload);\n  if (Number.isFinite(RH)) flow.set(keyRH, RH);\n}\n\n// Retrieve stored values\nconst T  = Number(flow.get(keyT));\nconst RH = Number(flow.get(keyRH));\n\n// Wait until both temperature and RH are available\nif (!Number.isFinite(T) || !Number.isFinite(RH)) return null;\n\n// --- Psychrometric formula for humidity ratio (kg water / kg dry air) ---\nconst P  = 1013.25; // hPa (standard atmospheric pressure)\nconst es = 6.112 * Math.exp((17.67 * T) / (T + 243.5)); // hPa\nconst Pv = (RH / 100) * es;                              // hPa\nconst w  = 0.622 * Pv / (P - Pv);                        // kg/kg\n\n// Round to 4 decimal places\nconst rounded = Math.round(w * 10000) / 10000;\n\nnode.status({ fill: 'yellow', shape: 'dot', text: `${zone} w=${rounded} kg/kg` });\n\nreturn {\n  topic: `${zone}.HumidityRatio.kgkg`,\n  payload: rounded\n};\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 360,
+        "wires": [
+            [
+                "f1cfb31b41a79ddb"
+            ]
+        ]
+    },
+    {
+        "id": "f1cfb31b41a79ddb",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1A01- Abs Hum",
+        "group": "1b0119535e1d3350",
+        "order": 5,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "needle",
+        "title": "Abs Hum (kgW/kgDA)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fafafa",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": 10,
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 980,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0f656286e98ae350",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A12- Abs Hum",
+        "group": "ac6a5966878e6de8",
+        "order": 5,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "needle",
+        "title": "Abs Hum (kgW/kgDA)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fafafa",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": 10,
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 980,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "121737ad52d69334",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "2A11- Abs Hum",
+        "group": "b4e0dab4bd8c05b7",
+        "order": 5,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "needle",
+        "title": "Abs Hum (kgW/kgDA)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fafafa",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": 10,
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 980,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8b565aae0fde5f00",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "snapshot updater",
+        "func": "// Snapshot Updater (cache + timestamps)\nlet snap   = flow.get('snap')   || {};\nlet snapTs = flow.get('snap_ts') || {};   // per-sensor last update time\n\nif (typeof msg.topic === 'string') {\n  snap[msg.topic] = msg.payload;\n  snapTs[msg.topic] = Date.now();   // record when this value arrived\n  flow.set('snap', snap);\n  flow.set('snap_ts', snapTs);\n}\n\nreturn null; // don’t send anything downstream",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 1040,
+        "wires": [
+            [
+                "e30abf48da0893e6"
+            ]
+        ]
+    },
+    {
+        "id": "25758b58ecb6aa34",
+        "type": "inject",
+        "z": "b70b1ddccee39978",
+        "name": "Tick every  5 second",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1040,
+        "y": 1120,
+        "wires": [
+            [
+                "e30abf48da0893e6"
+            ]
+        ]
+    },
+    {
+        "id": "ca2505c6df9f695b",
+        "type": "function",
+        "z": "b70b1ddccee39978",
+        "name": "Object -> CSV line (wiht header-once)",
+        "func": "// Function: Object → CSV line (with header-once)\n// Input:  msg.payload = { timestamp: \"...\", <36 fixed columns> }\n// Output: msg.payload = \"header?\\n\" + \"csv line\\n\" (string)\n\nconst COLS = [\n  \"LD.Relay.W1\",\"LD.Relay.W2\",\"L.VFD.freq.Hz\",\"R.VFD.freq.Hz\",\n  \"LEM.W\",\"REM.W\",\n  \"LU.Temp.C\",\"LU.RH.%\",\"LU.CO2.avg\",\"LU.CO2.raw\",\"1A02PR\",\n  \"RU.Temp.C\",\"RU.RH.%\",\"RU.CO2.avg\",\"RU.CO2.raw\",\"RU.P.hPa\",\n  \"LD.Temp.C\",\"LD.RH.%\",\"LD.CO2.raw\",\"LD.CO2.avg\",\"LD.P.hPa\",\n  \"RD.Temp.C\",\"RD.RH.%\",\"RD.CO2.raw\",\"RD.CO2.avg\",\"RD.P.hPa\",\n  \"2A15\",\"LEE600\",\"REE650AV.mps\",\"REE650T.C\",\"LEE650AV.mps\",\"LEE650T.C\",\n  \"LD.Relay.D1\",\"LD.Relay.A1\",\"LD.Relay.A2\",\"LD.Relay.D2\",\"L.1H01\",\"R.2H11\"\n];\n\n// Optional: obey a UI toggle\nconst enabled = flow.get(\"csv_enabled\", \"file\");\nif (enabled === false) return null;\n\n// ---------- helpers ----------\nfunction csvEscape(val) {\n  if (val === null || val === undefined) return \"\";\n  let s = String(val);\n  if (s.includes('\"')) s = s.replace(/\"/g, '\"\"');\n  const needsQuote = s.includes(\",\") || s.includes(\"\\n\") || s.includes(\"\\r\") || /^\\s|\\s$/.test(s);\n  return needsQuote ? `\"${s}\"` : s;\n}\n\n// Determine a stable key for header tracking:\n// Prefer the active file path if your flow sets it; otherwise fallback to today's date.\nconst today = new Date().toISOString().slice(0, 10);\nconst filePath =\n  flow.get(\"current_csv_path\", \"file\") ||\n  msg.filepath ||\n  msg.filename ||\n  today;\n\nconst headerKey = `csv_header_written::${filePath}`;\nconst headerNeeded = flow.get(headerKey, \"file\") !== true;\n\n// Build header string (only once)\nconst header = [\"timestamp\", ...COLS].map(csvEscape).join(\",\") + \"\\n\";\n\n// Build data line in fixed order\nconst p = msg.payload || {};\nconst ts = p.timestamp || new Date().toISOString();\nconst fields = [ts, ...COLS.map(k => {\n  const v = p[k];\n  if (v === undefined || v === null || Number.isNaN(v)) return \"\";\n  return v; // let csvEscape handle quoting\n})];\n\nconst line = fields.map(csvEscape).join(\",\") + \"\\n\";\n\n// Output\nif (headerNeeded) {\n  flow.set(headerKey, true, \"file\");\n  msg.payload = header + line;\n} else {\n  msg.payload = line;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1550,
+        "y": 1040,
+        "wires": [
+            [
+                "337cf0368a717ee5"
+            ]
+        ]
+    },
+    {
+        "id": "6eb7daec419a22c4",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "log 1H01 status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "L.1H01",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 1480,
+        "wires": [
+            [
+                "deb11a31eaf54209",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "ea625e851b42f25b",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "log 2H11 status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "R.2H11",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1480,
+        "y": 1460,
+        "wires": [
+            [
+                "65625a125e7608a6",
+                "8b565aae0fde5f00"
+            ]
+        ]
+    },
+    {
+        "id": "084a30b781553f88",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "calc-flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$round($number(payload) * 25, 2)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 880,
+        "wires": [
+            [
+                "e0a57a1613b2d089"
+            ]
+        ]
+    },
+    {
+        "id": "c3483f4dc0043c7d",
+        "type": "ui-gauge",
+        "z": "b70b1ddccee39978",
+        "name": "1VEL-CLMN",
+        "group": "d0e68dc802300da0",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": "2",
+        "gtype": "gauge-tile",
+        "gstyle": "needle",
+        "title": "Column Velocity (m/s)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#fafafa",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": 10,
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 550,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea17d6a6ef602533",
+        "type": "change",
+        "z": "b70b1ddccee39978",
+        "name": "calc-clmn vel",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$round($number(payload) * 0.21673, 2)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 920,
+        "wires": [
+            [
+                "c3483f4dc0043c7d"
+            ]
+        ]
+    },
+    {
+        "id": "d3e8251c2f05a30e",
+        "type": "modbus-client",
+        "name": "NodeRedModbusSerMaster",
+        "clienttype": "serial",
+        "bufferCommands": true,
+        "stateLogEnabled": true,
+        "queueLogEnabled": true,
+        "failureLogEnabled": true,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyAMA5",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "19200",
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 43,
+        "commandDelay": 10,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": false,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "c2b3dd79366cad0c",
+        "type": "serial-port",
+        "name": "tusb",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "9600",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "0xAA",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "4",
+        "bin": "bin",
+        "out": "count",
+        "addchar": "",
+        "responsetimeout": "1000"
+    },
+    {
+        "id": "c34f777b31ff0d3e",
+        "type": "ui-group",
+        "name": "Relays - Column 1",
+        "page": "8aa6d6140cfde471",
+        "width": "6",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "ps-left",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "6cf2ef424cfcf0b9",
+        "type": "ui-group",
+        "name": "Relays - Column 2",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "b135539d7634acf8",
+        "type": "ui-group",
+        "name": "Fan - Column 1",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 3,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "13816c2f51c27294",
+        "type": "ui-group",
+        "name": "Fan - Column 2",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "44de1c430cbb5601",
+        "type": "ui-group",
+        "name": "EE872 Out (1A02)",
+        "page": "8aa6d6140cfde471",
+        "width": "3",
+        "height": 1,
+        "order": 12,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "ac6a5966878e6de8",
+        "type": "ui-group",
+        "name": "EE872 Out (2A12)",
+        "page": "8aa6d6140cfde471",
+        "width": "3",
+        "height": 1,
+        "order": 14,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "1b0119535e1d3350",
+        "type": "ui-group",
+        "name": "EE872 In (1A01)",
+        "page": "8aa6d6140cfde471",
+        "width": "3",
+        "height": 1,
+        "order": 11,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "b4e0dab4bd8c05b7",
+        "type": "ui-group",
+        "name": "EE872 In (2A11)",
+        "page": "8aa6d6140cfde471",
+        "width": "3",
+        "height": 1,
+        "order": 13,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "be8e2d192e710aa5",
+        "type": "ui-group",
+        "name": "Pressure/Energy",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 7,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "14ffaba87334b6a7",
+        "type": "ui-group",
+        "name": "Pressure/Energy",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 8,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "d0e68dc802300da0",
+        "type": "ui-group",
+        "name": "Velocity (1A08) ",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 9,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "c4b796b294db2552",
+        "type": "ui-group",
+        "name": "Velocity (2A18)",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 10,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "7aa27d4b2d1c0ea6",
+        "type": "ui-group",
+        "name": "Heater - Column 1",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 5,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "1150877cb6638246",
+        "type": "ui-group",
+        "name": "Heater - Column 2",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 6,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "e86ce08b06c0beb4",
+        "type": "ui-group",
+        "name": "Logging",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 15,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "8aa6d6140cfde471",
+        "type": "ui-page",
+        "name": "My Process Control",
+        "ui": "8d17c08d50d1770f",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "b423e96545d4ae28",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "8d17c08d50d1770f",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": true
+    },
+    {
+        "id": "b423e96545d4ae28",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#0094ce",
+            "primary": "#0094ce",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#787878"
+        },
+        "sizes": {
+            "density": "comfortable",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "20px"
+        }
+    },
+    {
+        "id": "24d0e25ef1037b65",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.43.0",
+            "node-red-node-serialport": "2.0.3",
+            "@flowfuse/node-red-dashboard": "1.26.0",
+            "@flowfuse/node-red-dashboard-2-ui-led": "1.1.0"
+        }
+    }
+]
