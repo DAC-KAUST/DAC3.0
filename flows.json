@@ -8,6 +8,453 @@
         "env": []
     },
     {
+        "id": "8d17c08d50d1770f",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": true
+    },
+    {
+        "id": "d3e8251c2f05a30e",
+        "type": "modbus-client",
+        "name": "NodeRedModbusSerMaster",
+        "clienttype": "serial",
+        "bufferCommands": true,
+        "stateLogEnabled": true,
+        "queueLogEnabled": true,
+        "failureLogEnabled": true,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyAMA5",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "19200",
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 43,
+        "commandDelay": 10,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": false,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "c2b3dd79366cad0c",
+        "type": "serial-port",
+        "name": "tusb",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "9600",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "0xAA",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "4",
+        "bin": "bin",
+        "out": "count",
+        "addchar": "",
+        "responsetimeout": "1000"
+    },
+    {
+        "id": "b423e96545d4ae28",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#0094ce",
+            "primary": "#0094ce",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#787878"
+        },
+        "sizes": {
+            "density": "comfortable",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "20px"
+        }
+    },
+    {
+        "id": "8aa6d6140cfde471",
+        "type": "ui-page",
+        "name": "My Process Control",
+        "ui": "8d17c08d50d1770f",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "b423e96545d4ae28",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "c34f777b31ff0d3e",
+        "type": "ui-group",
+        "name": "Relays - Column 1",
+        "page": "8aa6d6140cfde471",
+        "width": "6",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "ps-left",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "6cf2ef424cfcf0b9",
+        "type": "ui-group",
+        "name": "Relays - Column 2",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "b135539d7634acf8",
+        "type": "ui-group",
+        "name": "Fan - Column 1",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 3,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "13816c2f51c27294",
+        "type": "ui-group",
+        "name": "Fan - Column 2",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "44de1c430cbb5601",
+        "type": "ui-group",
+        "name": "EE872 Out (1A02)",
+        "page": "8aa6d6140cfde471",
+        "width": "3",
+        "height": 1,
+        "order": 12,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "a94205eff71ff9ec",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "ac6a5966878e6de8",
+        "type": "ui-group",
+        "name": "EE872 Out (2A12)",
+        "page": "8aa6d6140cfde471",
+        "width": "3",
+        "height": 1,
+        "order": 14,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "1b0119535e1d3350",
+        "type": "ui-group",
+        "name": "EE872 In (1A01)",
+        "page": "8aa6d6140cfde471",
+        "width": "3",
+        "height": 1,
+        "order": 11,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "b4e0dab4bd8c05b7",
+        "type": "ui-group",
+        "name": "EE872 In (2A11)",
+        "page": "8aa6d6140cfde471",
+        "width": "3",
+        "height": 1,
+        "order": 13,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "be8e2d192e710aa5",
+        "type": "ui-group",
+        "name": "Pressure/Energy",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 7,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "14ffaba87334b6a7",
+        "type": "ui-group",
+        "name": "Pressure/Energy",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 8,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "d0e68dc802300da0",
+        "type": "ui-group",
+        "name": "Velocity (1A08) ",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 9,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "c4b796b294db2552",
+        "type": "ui-group",
+        "name": "Velocity (2A18)",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 10,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "7aa27d4b2d1c0ea6",
+        "type": "ui-group",
+        "name": "Heater - Column 1",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 5,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "1150877cb6638246",
+        "type": "ui-group",
+        "name": "Heater - Column 2",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 6,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "e86ce08b06c0beb4",
+        "type": "ui-group",
+        "name": "Logging",
+        "page": "8aa6d6140cfde471",
+        "width": 6,
+        "height": 1,
+        "order": 15,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "81f1ac7f76ca28a5",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "InfluxDB-out",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://localhost:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
         "id": "423c505137896c6d",
         "type": "modbus-flex-getter",
         "z": "b70b1ddccee39978",
@@ -50,7 +497,7 @@
         "type": "function",
         "z": "b70b1ddccee39978",
         "name": "function 3",
-        "func": "\nglobal.set(\"addrInfo\", [\n  // VFDs\n  { tag: \"LVFD\", unitid: 101, fc: 3, address: 2057, quantity: 6 },\n  { tag: \"2FN11\", unitid: 201, fc: 3, address: 2057, quantity: 6 },\n\n  // Energy Meters\n  { tag: \"LEM\", unitid: 102, fc: 4, address: 12, quantity: 2 },\n  { tag: \"REM\", unitid: 202, fc: 4, address: 12, quantity: 2 },\n\n  // PIDs (read variables block 1..15 in one shot)\n  { tag: \"LPID\", unitid: 103, fc: 3, address: 1, quantity: 15 },\n  { tag: \"RPID\", unitid: 203, fc: 3, address: 1, quantity: 15 },\n\n  // EE872 Up (grouped) (1A02 & 2A12)\n  // CO2 avg+raw (0x424..0x427)\n  { tag: \"LUPEE872CO2\", unitid: 111, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RUPEE872CO2\", unitid: 211, fc: 4, address: 0x424, quantity: 0x04 },\n  // Temp+RH (0x3EA..0x3FD)\n  { tag: \"LUPEE872TRH\", unitid: 111, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RUPEE872TRH\", unitid: 211, fc: 4, address: 0x3EA, quantity: 0x14 },\n  // Pressure (0x4B0..0x4B1)\n  { tag: \"LUPEE872P\", unitid: 111, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RUPEE872P\", unitid: 211, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE872 Down (grouped)\n  { tag: \"LDOWNEE872CO2\", unitid: 112, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RDOWNEE872CO2\", unitid: 212, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"LDOWNEE872TRH\", unitid: 112, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RDOWNEE872TRH\", unitid: 212, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"LDOWNEE872P\", unitid: 112, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RDOWNEE872P\", unitid: 212, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE600 (as you had)\n  { tag: \"LEE600\", unitid: 113, fc: 4, address: 0x4BE, quantity: 0x02 },\n  { tag: \"2A15\", unitid: 213, fc: 4, address: 0x4BE, quantity: 0x02 },\n\n  // EE650 (as you had)\n  { tag: \"LEE650T\", unitid: 114, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"REE650T\", unitid: 214, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"LEE650AV\", unitid: 114, fc: 4, address: 0x410, quantity: 0x02 },\n  { tag: \"REE650AV\", unitid: 214, fc: 4, address: 0x410, quantity: 0x02 }\n]);\n\nglobal.set(\"index\", 0);\nnode.warn(\"Global variables initialized\");\nreturn msg;",
+        "func": "\nglobal.set(\"addrInfo\", [\n  // VFDs\n  { tag: \"LVFD\", unitid: 101, fc: 3, address: 2057, quantity: 6 },\n  { tag: \"2FN11\", unitid: 201, fc: 3, address: 2057, quantity: 6 },\n\n  // Energy Meters\n  { tag: \"LEM\", unitid: 102, fc: 4, address: 12, quantity: 2 },\n  { tag: \"REM\", unitid: 202, fc: 4, address: 12, quantity: 2 },\n\n  // PIDs (read variables block 1..15 in one shot)\n  { tag: \"LPID\", unitid: 103, fc: 3, address: 1, quantity: 15 },\n  { tag: \"RPID\", unitid: 203, fc: 3, address: 1, quantity: 15 },\n\n  // EE872 Up (grouped) (1A02 & 2A12)\n  // CO2 avg+raw (0x424..0x427)\n  { tag: \"LUPEE872CO2\", unitid: 111, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RUPEE872CO2\", unitid: 211, fc: 4, address: 0x424, quantity: 0x04 },\n  // Temp+RH (0x3EA..0x3FD)\n  { tag: \"LUPEE872TRH\", unitid: 111, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RUPEE872TRH\", unitid: 211, fc: 4, address: 0x3EA, quantity: 0x14 },\n  // Pressure (0x4B0..0x4B1)\n  { tag: \"LUPEE872P\", unitid: 111, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RUPEE872P\", unitid: 211, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE872 Down (grouped)\n  { tag: \"LDOWNEE872CO2\", unitid: 112, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RDOWNEE872CO2\", unitid: 212, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"LDOWNEE872TRH\", unitid: 112, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RDOWNEE872TRH\", unitid: 212, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"LDOWNEE872P\", unitid: 112, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RDOWNEE872P\", unitid: 212, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE600 (as you had)\n  { tag: \"1A05\", unitid: 113, fc: 4, address: 0x4BE, quantity: 0x02 },\n  { tag: \"2A15\", unitid: 213, fc: 4, address: 0x4BE, quantity: 0x02 },\n\n  // EE650 (as you had)\n  { tag: \"LEE650T\", unitid: 114, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"REE650T\", unitid: 214, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"LEE650AV\", unitid: 114, fc: 4, address: 0x410, quantity: 0x02 },\n  { tag: \"REE650AV\", unitid: 214, fc: 4, address: 0x410, quantity: 0x02 }\n]);\n\nglobal.set(\"index\", 0);\nnode.warn(\"Global variables initialized\");\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1009,7 +1456,7 @@
         "type": "function",
         "z": "b70b1ddccee39978",
         "name": "Switch Function",
-        "func": "// =============== Switch Function (32 + 1 outputs, 2-dp rounding) ===============\n// Output map:\n//  1  LU (1A02) CO2 avg        2  LU (1A02) CO2 raw         3  LU (1A02) Temp (°C)      4  LU (1A02) RH (%)        5  LU(1A02) Pressure (hPa)\n//  6  RU (2A12) CO2 avg        7  RU (2A12) CO2 raw         8  RU (2A12) Temp (°C)      9  RU (2A12) RH (%)       10  RU (2A12) Pressure (hPa)\n// 11  LD (1A01) CO2 avg       12  LD (1A01) CO2 raw        13  LD (1A01) Temp (°C)     14  LD (1A01) RH (%)       15  LD (1A01) Pressure (hPa)\n// 16  RD (2A11) CO2 avg       17  RD (2A11) CO2 raw        18  RD (2A11) Temp (°C)     19  RD (2A11) RH (%)       20  RD (2A11) Pressure (hPa)\n// 21  LEE600 (1A05)          22  REE600 (2A15)          23  LEE650T (1A08)(°C)     24  REE650T (2A18) (°C)    25  LEE650AV (1A08) (m/s)\n// 26  REE650AV (2A18)(m/s)   27  LEM watts         28  REM watts        29  LPID block(1..15)  30  RPID block(1..15)\n// 31  LVFD (array→splitter)                 32  2FN11 (array→splitter)\n// 33  Mirrored scalar metrics for Grafana (/metrics flow)\n\n// -------- helpers --------\n\n// E+E float32 values are word-swapped (hi,lo -> lo,hi for bytes)\nfunction readFloat32Swap(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r1, 0); // low word\n  b.writeUInt16BE(r0, 2); // high word\n  return b.readFloatBE(0);\n}\nfunction f32at(regs, i) { return readFloat32Swap(regs[i], regs[i + 1]); }\n\n// Generic Int32 (big-endian) from two holding registers\nfunction readInt32BE(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r0, 0);\n  b.writeUInt16BE(r1, 2);\n  return b.readInt32BE(0); // signed\n}\n\n// SDM230 (energy meter): float32, MS-register first (r0 = high reg, r1 = low reg)\nfunction f32be(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r0, 0); // high reg\n  b.writeUInt16BE(r1, 2); // low  reg\n  return b.readFloatBE(0);\n}\n\n// round to 2 decimals\nfunction round2(v) { return Math.round(v * 100) / 100; }\n\nconst regs = msg.payload;\nconst tag = String(msg.topic || \"\");\n\nif (!Array.isArray(regs)) {\n  //node.error(\"Payload is not an array of registers\", msg);\n  return null;\n}\n\n// ===== MINIMAL CHANGE: make 33 outputs & add a mirror helper =====\nconst out = Array.from({ length: 33 }, () => null);\nconst out33 = [];\nfunction mirror(topic, value, labels) {\n  if (value == null || isNaN(value)) return;\n  out33.push({ topic, payload: Number(value), labels: labels || {} });\n}\n\n// side helpers\nfunction isLeftUp(t) { return /^LU/i.test(t); }\nfunction isRightUp(t) { return /^RU/i.test(t); }\nfunction isLeftDown(t) { return /^LD/i.test(t); }\nfunction isRightDown(t) { return /^RD/i.test(t); }\n\n// ---------- EE872: CO2 block (avg+raw at 0x424..0x427) (LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872CO2$/i.test(tag)) {\n  if (regs.length < 4) { node.error(`${tag} requires 4 registers`, msg); return null; }\n  const co2_avg = round2(f32at(regs, 0)); // 0x424..0x425\n  const co2_raw = round2(f32at(regs, 2)); // 0x426..0x427\n\n  if (isLeftUp(tag)) {\n    out[0] = { topic: \"LU.CO2.avg\", payload: co2_avg };\n    out[1] = { topic: \"LU.CO2.raw\", payload: co2_raw };\n    mirror(\"LU.CO2.avg\", co2_avg, { zone: \"lu\" });\n    mirror(\"LU.CO2.raw\", co2_raw, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[5] = { topic: \"RU.CO2.avg\", payload: co2_avg };\n    out[6] = { topic: \"RU.CO2.raw\", payload: co2_raw };\n    mirror(\"RU.CO2.avg\", co2_avg, { zone: \"ru\" });\n    mirror(\"RU.CO2.raw\", co2_raw, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[10] = { topic: \"LD.CO2.avg\", payload: co2_avg };\n    out[11] = { topic: \"LD.CO2.raw\", payload: co2_raw };\n    mirror(\"LD.CO2.avg\", co2_avg, { zone: \"ld\" });\n    mirror(\"LD.CO2.raw\", co2_raw, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[15] = { topic: \"RD.CO2.avg\", payload: co2_avg };\n    out[16] = { topic: \"RD.CO2.raw\", payload: co2_raw };\n    mirror(\"RD.CO2.avg\", co2_avg, { zone: \"rd\" });\n    mirror(\"RD.CO2.raw\", co2_raw, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled CO2 tag: ${tag}`);\n\n  out[32] = out33; // <- emit mirrored metrics\n  return out;\n}\n\n// ---------- EE872: TRH wide block (Temp at 0x3EA..0x3EB, RH at 0x3FC..0x3FD) (LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872TRH$/i.test(tag)) {\n  if (regs.length < 20) { node.error(`${tag} requires 20 registers`, msg); return null; }\n  const temperature_c = round2(f32at(regs, 0));   // 0x3EA..0x3EB\n  const rh_percent = round2(f32at(regs, 18));     // 0x3FC..0x3FD\n\n  if (isLeftUp(tag)) {\n    out[2] = { topic: \"LU.Temp.C\", payload: temperature_c };\n    out[3] = { topic: \"LU.RH.%\", payload: rh_percent };\n    mirror(\"LU.Temp.C\", temperature_c, { zone: \"lu\" });\n    mirror(\"LU.RH.%\", rh_percent, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[7] = { topic: \"RU.Temp.C\", payload: temperature_c };\n    out[8] = { topic: \"RU.RH.%\", payload: rh_percent };\n    mirror(\"RU.Temp.C\", temperature_c, { zone: \"ru\" });\n    mirror(\"RU.RH.%\", rh_percent, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[12] = { topic: \"LD.Temp.C\", payload: temperature_c };\n    out[13] = { topic: \"LD.RH.%\", payload: rh_percent };\n    mirror(\"LD.Temp.C\", temperature_c, { zone: \"ld\" });\n    mirror(\"LD.RH.%\", rh_percent, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[17] = { topic: \"RD.Temp.C\", payload: temperature_c };\n    out[18] = { topic: \"RD.RH.%\", payload: rh_percent };\n    mirror(\"RD.Temp.C\", temperature_c, { zone: \"rd\" });\n    mirror(\"RD.RH.%\", rh_percent, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled TRH tag: ${tag}`);\n\n  out[32] = out33;\n  return out;\n}\n\n// ---------- EE872: Pressure (0x4B0..0x4B1)(LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872P$/i.test(tag)) {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const pressure_hpa = round2(f32at(regs, 0));\n\n  if (isLeftUp(tag)) {\n    out[4] = { topic: \"LU.P.hPa\", payload: pressure_hpa };\n    mirror(\"LU.P.hPa\", pressure_hpa, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[9] = { topic: \"RU.P.hPa\", payload: pressure_hpa };\n    mirror(\"RU.P.hPa\", pressure_hpa, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[14] = { topic: \"LD.P.hPa\", payload: pressure_hpa };\n    mirror(\"LD.P.hPa\", pressure_hpa, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[19] = { topic: \"RD.P.hPa\", payload: pressure_hpa };\n    mirror(\"RD.P.hPa\", pressure_hpa, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled Pressure tag: ${tag}`);\n\n  out[32] = out33;\n  return out;\n}\n\n// ---------- EE600 / EE650 (single float32 swap) (LEE650 is 1A08; REE650 is 2A18; LEE600 is 1A05; REE600 is 2A15) ----------\nif (tag === \"LEE600\" || tag === \"2A15\" || tag === \"LEE650T\" || tag === \"REE650T\" || tag === \"LEE650AV\" || tag === \"REE650AV\") {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const val = round2(f32at(regs, 0));\n\n  switch (tag) {\n    case \"LEE600\": out[20] = { topic: \"LEE600\", payload: val }; mirror(\"LEE600\", val, { sensor: \"LEE600\" }); break;\n    case \"2A15\": out[21] = { topic: \"2A15\", payload: val }; mirror(\"2A15\", val, { sensor: \"2A15\" }); break;\n    case \"LEE650T\": out[22] = { topic: \"LEE650T.C\", payload: val }; mirror(\"LEE650T.C\", val, { sensor: \"LEE650T\" }); break;\n    case \"REE650T\": out[23] = { topic: \"REE650T.C\", payload: val }; mirror(\"REE650T.C\", val, { sensor: \"REE650T\" }); break;\n    case \"LEE650AV\": out[24] = { topic: \"LEE650AV.mps\", payload: val }; mirror(\"LU.LEE650AV.mps\",  val, { sensor: \"LEE650AV\"}); break;\n    case \"REE650AV\": out[25] = { topic: \"REE650AV.mps\", payload: val }; mirror(\"RU.REE650AV.mps\",  val, { sensor: \"REE650AV\"}); break;\n    \n  }\n  out[32] = out33;\n  return out;\n}\n\n// ---------- Energy meters ----------\n// SDM230 (LEM/REM): float32 in Input Registers (FC=4), MS-register first\nif (tag === \"LEM\" || tag === \"REM\") {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const watts = round2(f32be(regs[0], regs[1]));   // Active Power (W)\n  if (tag === \"LEM\") { out[26] = { topic: \"LEM.W\", payload: watts }; mirror(\"LEM.W\", watts, { sensor: \"LEM\" }); }\n  else { out[27] = { topic: \"REM.W\", payload: watts }; mirror(\"REM.W\", watts, { sensor: \"REM\" }); }\n  out[32] = out33;\n  return out;\n}\n\n// ---------- PIDs: pass-through full 15-register variables block (addr 1..15) ----------\nif (tag === \"LPID\" || tag === \"RPID\") {\n  if (regs.length < 15) { node.error(`${tag} requires 15 registers (addr 1..15)`, msg); return null; }\n  const block = regs.slice(0, 15); // keep raw words; decode downstream\n\n  if (tag === \"LPID\") out[28] = { topic: \"LPID.block\", payload: block };\n  else out[29] = { topic: \"RPID.block\", payload: block };\n\n  // Not mirrored to metrics (block/array). Add if you want.\n  out[32] = out33;\n  return out;\n}\n\n// ---------- VFDs (6 regs pass-through to your splitter nodes) ----------\nif (tag === \"LVFD\" || tag === \"2FN11\") {\n  if (regs.length < 6) { node.error(`${tag} requires 6 registers`, msg); return null; }\n  const arr6 = regs.slice(0, 6);\n  if (tag === \"LVFD\") out[30] = { topic: \"LVFD\", payload: arr6 };\n  else out[31] = { topic: \"2FN11\", payload: arr6 };\n\n  // Not mirrored to metrics (array). Add if you want.\n  out[32] = out33;\n  return out;\n}\n\nnode.warn(`Decoder: unhandled tag \"${tag}\"`);\nout[32] = out33;\nreturn out;\n",
+        "func": "// =============== Switch Function (32 + 1 outputs, 2-dp rounding) ===============\n// Output map:\n//  1  LU (1A02) CO2 avg        2  LU (1A02) CO2 raw         3  LU (1A02) Temp (°C)      4  LU (1A02) RH (%)        5  LU(1A02) Pressure (hPa)\n//  6  RU (2A12) CO2 avg        7  RU (2A12) CO2 raw         8  RU (2A12) Temp (°C)      9  RU (2A12) RH (%)       10  RU (2A12) Pressure (hPa)\n// 11  LD (1A01) CO2 avg       12  LD (1A01) CO2 raw        13  LD (1A01) Temp (°C)     14  LD (1A01) RH (%)       15  LD (1A01) Pressure (hPa)\n// 16  RD (2A11) CO2 avg       17  RD (2A11) CO2 raw        18  RD (2A11) Temp (°C)     19  RD (2A11) RH (%)       20  RD (2A11) Pressure (hPa)\n// 21  LEE600 (1A05)          22  REE600 (2A15)          23  LEE650T (1A08)(°C)     24  REE650T (2A18) (°C)    25  LEE650AV (1A08) (m/s)\n// 26  REE650AV (2A18)(m/s)   27  LEM watts         28  REM watts        29  LPID block(1..15)  30  RPID block(1..15)\n// 31  LVFD (array→splitter)                 32  2FN11 (array→splitter)\n// 33  Mirrored scalar metrics for Grafana (/metrics flow)\n\n// -------- helpers --------\n\n// E+E float32 values are word-swapped (hi,lo -> lo,hi for bytes)\nfunction readFloat32Swap(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r1, 0); // low word\n  b.writeUInt16BE(r0, 2); // high word\n  return b.readFloatBE(0);\n}\nfunction f32at(regs, i) { return readFloat32Swap(regs[i], regs[i + 1]); }\n\n// Generic Int32 (big-endian) from two holding registers\nfunction readInt32BE(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r0, 0);\n  b.writeUInt16BE(r1, 2);\n  return b.readInt32BE(0); // signed\n}\n\n// SDM230 (energy meter): float32, MS-register first (r0 = high reg, r1 = low reg)\nfunction f32be(r0, r1) {\n  const b = Buffer.alloc(4);\n  b.writeUInt16BE(r0, 0); // high reg\n  b.writeUInt16BE(r1, 2); // low  reg\n  return b.readFloatBE(0);\n}\n\n// round to 2 decimals\nfunction round2(v) { return Math.round(v * 100) / 100; }\n\nconst regs = msg.payload;\nconst tag = String(msg.topic || \"\");\n\nif (!Array.isArray(regs)) {\n  //node.error(\"Payload is not an array of registers\", msg);\n  return null;\n}\n\n// ===== MINIMAL CHANGE: make 33 outputs & add a mirror helper =====\nconst out = Array.from({ length: 33 }, () => null);\nconst out33 = [];\nfunction mirror(topic, value, labels) {\n  if (value == null || isNaN(value)) return;\n  out33.push({ topic, payload: Number(value), labels: labels || {} });\n}\n\n// side helpers\nfunction isLeftUp(t) { return /^LU/i.test(t); }\nfunction isRightUp(t) { return /^RU/i.test(t); }\nfunction isLeftDown(t) { return /^LD/i.test(t); }\nfunction isRightDown(t) { return /^RD/i.test(t); }\n\n// ---------- EE872: CO2 block (avg+raw at 0x424..0x427) (LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872CO2$/i.test(tag)) {\n  if (regs.length < 4) { node.error(`${tag} requires 4 registers`, msg); return null; }\n  const co2_avg = round2(f32at(regs, 0)); // 0x424..0x425\n  const co2_raw = round2(f32at(regs, 2)); // 0x426..0x427\n\n  if (isLeftUp(tag)) {\n    out[0] = { topic: \"LU.CO2.avg\", payload: co2_avg };\n    out[1] = { topic: \"LU.CO2.raw\", payload: co2_raw };\n    mirror(\"LU.CO2.avg\", co2_avg, { zone: \"lu\" });\n    mirror(\"LU.CO2.raw\", co2_raw, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[5] = { topic: \"RU.CO2.avg\", payload: co2_avg };\n    out[6] = { topic: \"RU.CO2.raw\", payload: co2_raw };\n    mirror(\"RU.CO2.avg\", co2_avg, { zone: \"ru\" });\n    mirror(\"RU.CO2.raw\", co2_raw, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[10] = { topic: \"LD.CO2.avg\", payload: co2_avg };\n    out[11] = { topic: \"LD.CO2.raw\", payload: co2_raw };\n    mirror(\"LD.CO2.avg\", co2_avg, { zone: \"ld\" });\n    mirror(\"LD.CO2.raw\", co2_raw, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[15] = { topic: \"RD.CO2.avg\", payload: co2_avg };\n    out[16] = { topic: \"RD.CO2.raw\", payload: co2_raw };\n    mirror(\"RD.CO2.avg\", co2_avg, { zone: \"rd\" });\n    mirror(\"RD.CO2.raw\", co2_raw, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled CO2 tag: ${tag}`);\n\n  out[32] = out33; // <- emit mirrored metrics\n  return out;\n}\n\n// ---------- EE872: TRH wide block (Temp at 0x3EA..0x3EB, RH at 0x3FC..0x3FD) (LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872TRH$/i.test(tag)) {\n  if (regs.length < 20) { node.error(`${tag} requires 20 registers`, msg); return null; }\n  const temperature_c = round2(f32at(regs, 0));   // 0x3EA..0x3EB\n  const rh_percent = round2(f32at(regs, 18));     // 0x3FC..0x3FD\n\n  if (isLeftUp(tag)) {\n    out[2] = { topic: \"LU.Temp.C\", payload: temperature_c };\n    out[3] = { topic: \"LU.RH.%\", payload: rh_percent };\n    mirror(\"LU.Temp.C\", temperature_c, { zone: \"lu\" });\n    mirror(\"LU.RH.%\", rh_percent, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[7] = { topic: \"RU.Temp.C\", payload: temperature_c };\n    out[8] = { topic: \"RU.RH.%\", payload: rh_percent };\n    mirror(\"RU.Temp.C\", temperature_c, { zone: \"ru\" });\n    mirror(\"RU.RH.%\", rh_percent, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[12] = { topic: \"LD.Temp.C\", payload: temperature_c };\n    out[13] = { topic: \"LD.RH.%\", payload: rh_percent };\n    mirror(\"LD.Temp.C\", temperature_c, { zone: \"ld\" });\n    mirror(\"LD.RH.%\", rh_percent, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[17] = { topic: \"RD.Temp.C\", payload: temperature_c };\n    out[18] = { topic: \"RD.RH.%\", payload: rh_percent };\n    mirror(\"RD.Temp.C\", temperature_c, { zone: \"rd\" });\n    mirror(\"RD.RH.%\", rh_percent, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled TRH tag: ${tag}`);\n\n  out[32] = out33;\n  return out;\n}\n\n// ---------- EE872: Pressure (0x4B0..0x4B1)(LU is 1A08; RU is 2A18; LD is 1A01; RD is 2A11) ----------\nif (/EE872P$/i.test(tag)) {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const pressure_hpa = round2(f32at(regs, 0));\n\n  if (isLeftUp(tag)) {\n    out[4] = { topic: \"LU.P.hPa\", payload: pressure_hpa };\n    mirror(\"LU.P.hPa\", pressure_hpa, { zone: \"lu\" });\n  }\n  else if (isRightUp(tag)) {\n    out[9] = { topic: \"RU.P.hPa\", payload: pressure_hpa };\n    mirror(\"RU.P.hPa\", pressure_hpa, { zone: \"ru\" });\n  }\n  else if (isLeftDown(tag)) {\n    out[14] = { topic: \"LD.P.hPa\", payload: pressure_hpa };\n    mirror(\"LD.P.hPa\", pressure_hpa, { zone: \"ld\" });\n  }\n  else if (isRightDown(tag)) {\n    out[19] = { topic: \"RD.P.hPa\", payload: pressure_hpa };\n    mirror(\"RD.P.hPa\", pressure_hpa, { zone: \"rd\" });\n  }\n  else node.warn(`Unhandled Pressure tag: ${tag}`);\n\n  out[32] = out33;\n  return out;\n}\n\n// ---------- EE600 / EE650 (single float32 swap) (LEE650 is 1A08; REE650 is 2A18; LEE600 is 1A05; REE600 is 2A15) ----------\nif (tag === \"1A05\" || tag === \"2A15\" || tag === \"LEE650T\" || tag === \"REE650T\" || tag === \"LEE650AV\" || tag === \"REE650AV\") {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const val = round2(f32at(regs, 0));\n\n  switch (tag) {\n    case \"1A05\": out[20] = { topic: \"1A05\", payload: val }; mirror(\"1A05\", val, { sensor: \"1A05\" }); break;\n    case \"2A15\": out[21] = { topic: \"2A15\", payload: val }; mirror(\"2A15\", val, { sensor: \"2A15\" }); break;\n    case \"LEE650T\": out[22] = { topic: \"LEE650T.C\", payload: val }; mirror(\"LEE650T.C\", val, { sensor: \"LEE650T\" }); break;\n    case \"REE650T\": out[23] = { topic: \"REE650T.C\", payload: val }; mirror(\"REE650T.C\", val, { sensor: \"REE650T\" }); break;\n    case \"LEE650AV\": out[24] = { topic: \"LEE650AV.mps\", payload: val }; mirror(\"LEE650AV.mps\",  val, { sensor: \"LEE650AV\"}); break;\n    case \"REE650AV\": out[25] = { topic: \"REE650AV.mps\", payload: val }; mirror(\"REE650AV.mps\",  val, { sensor: \"REE650AV\"}); break;\n    \n  }\n  out[32] = out33;\n  return out;\n}\n\n// ---------- Energy meters ----------\n// SDM230 (LEM/REM): float32 in Input Registers (FC=4), MS-register first\nif (tag === \"LEM\" || tag === \"REM\") {\n  if (regs.length < 2) { node.error(`${tag} requires 2 registers`, msg); return null; }\n  const watts = round2(f32be(regs[0], regs[1]));   // Active Power (W)\n  if (tag === \"LEM\") { out[26] = { topic: \"LEM.W\", payload: watts }; mirror(\"LEM.W\", watts, { sensor: \"LEM\" }); }\n  else { out[27] = { topic: \"REM.W\", payload: watts }; mirror(\"REM.W\", watts, { sensor: \"REM\" }); }\n  out[32] = out33;\n  return out;\n}\n\n// ---------- PIDs: pass-through full 15-register variables block (addr 1..15) ----------\nif (tag === \"LPID\" || tag === \"RPID\") {\n  if (regs.length < 15) { node.error(`${tag} requires 15 registers (addr 1..15)`, msg); return null; }\n  const block = regs.slice(0, 15); // keep raw words; decode downstream\n\n  if (tag === \"LPID\") out[28] = { topic: \"LPID.block\", payload: block };\n  else out[29] = { topic: \"RPID.block\", payload: block };\n\n  // Not mirrored to metrics (block/array). Add if you want.\n  out[32] = out33;\n  return out;\n}\n\n// ---------- VFDs (6 regs pass-through to your splitter nodes) ----------\nif (tag === \"LVFD\" || tag === \"2FN11\") {\n  if (regs.length < 6) { node.error(`${tag} requires 6 registers`, msg); return null; }\n  const arr6 = regs.slice(0, 6);\n  if (tag === \"LVFD\") out[30] = { topic: \"LVFD\", payload: arr6 };\n  else out[31] = { topic: \"2FN11\", payload: arr6 };\n\n  // Not mirrored to metrics (array). Add if you want.\n  out[32] = out33;\n  return out;\n}\n\nnode.warn(`Decoder: unhandled tag \"${tag}\"`);\nout[32] = out33;\nreturn out;\n",
         "outputs": 33,
         "timeout": 0,
         "noerr": 0,
@@ -2419,7 +2866,7 @@
         "id": "0558e62275bf49cc",
         "type": "ui-gauge",
         "z": "b70b1ddccee39978",
-        "name": "1EM",
+        "name": "1EM-3A20",
         "group": "be8e2d192e710aa5",
         "order": 2,
         "value": "payload",
@@ -2463,7 +2910,7 @@
         "styleRounded": true,
         "styleGlow": false,
         "className": "",
-        "x": 930,
+        "x": 950,
         "y": 1000,
         "wires": [
             []
@@ -2533,7 +2980,7 @@
         "id": "f6fe75cab8d6a2df",
         "type": "ui-gauge",
         "z": "b70b1ddccee39978",
-        "name": "REM",
+        "name": "2EM-3A21",
         "group": "14ffaba87334b6a7",
         "order": 2,
         "value": "payload",
@@ -2577,7 +3024,7 @@
         "styleRounded": true,
         "styleGlow": false,
         "className": "",
-        "x": 1130,
+        "x": 1150,
         "y": 1000,
         "wires": [
             []
@@ -3782,7 +4229,7 @@
         "type": "function",
         "z": "b70b1ddccee39978",
         "name": "CSV logging gate (flow.csv_enabled)",
-        "func": "// Function: Logging Gate (timestamp + 36 columns from pivoted example)\nconst COLS = [\n  \"LD.Relay.W1\",\n  \"LD.Relay.W2\",\n  \"L.VFD.freq.Hz\",\n  \"R.VFD.freq.Hz\",\n  \"LEM.W\",\n  \"REM.W\",\n  \"LU.Temp.C\",\n  \"LU.RH.%\",  \n  \"LU.CO2.avg\",\n  \"LU.CO2.raw\",\n  \"1A02PR\",\n  \"RU.Temp.C\",\n  \"RU.RH.%\",\n  \"RU.CO2.avg\",\n  \"RU.CO2.raw\",\n  \"RU.P.hPa\",\n  \"LD.Temp.C\",\n  \"LD.RH.%\",\n  \"LD.CO2.raw\",\n  \"LD.CO2.avg\",\n  \"LD.P.hPa\",\n  \"RD.Temp.C\",\n  \"RD.RH.%\",\n  \"RD.CO2.raw\",\n  \"RD.CO2.avg\",\n  \"RD.P.hPa\",\n  \"2A15\",\n  \"LEE600\",\n  \"REE650AV.mps\",\n  \"REE650T.C\",\n  \"LEE650AV.mps\",\n  \"LEE650T.C\",\n  \"LD.Relay.D1\",\n  \"LD.Relay.A1\",\n  \"LD.Relay.A2\",\n  \"LD.Relay.D2\",\n  \"L.1H01\",\n  \"R.2H11\"\n  ];\n\nconst snap   = flow.get('snap')   || {};\nconst snapTs = flow.get('snap_ts') || {};\nconst now = Date.now();\nconst STALE_MS = 4800; // mark blank if older than 4.8 s\n\n// --- build timestamp in local timezone ---\nconst d = new Date();\nconst row = {\n  timestamp: d.toLocaleString(\"en-GB\", {\n    timeZone: \"Asia/Riyadh\", // set to your local zone\n    hour12: false\n  })\n};\n\n// --- fill columns, blank stale ones ---\nfor (const k of COLS) {\n  const age = now - (snapTs[k] || 0);\n  if (age > STALE_MS) {\n    row[k] = \"\"; // blank if not fresh\n  } else {\n    const v = snap[k];\n    row[k] = (v === undefined || Number.isNaN(v)) ? \"\" : v;\n  }\n}\n\n// output row object for CSV conversion or direct write\nmsg.payload = row;\nreturn msg;",
+        "func": "// Function: Logging Gate (timestamp + 36 columns from pivoted example)\nconst COLS = [\n  \"LD.Relay.W1\",\n  \"LD.Relay.W2\",\n  \"L.VFD.freq.Hz\",\n  \"R.VFD.freq.Hz\",\n  \"LEM.W\",\n  \"REM.W\",\n  \"LU.Temp.C\",\n  \"LU.RH.%\",  \n  \"LU.CO2.avg\",\n  \"LU.CO2.raw\",\n  \"LU.P.hPa\",\n  \"RU.Temp.C\",\n  \"RU.RH.%\",\n  \"RU.CO2.avg\",\n  \"RU.CO2.raw\",\n  \"RU.P.hPa\",\n  \"LD.Temp.C\",\n  \"LD.RH.%\",\n  \"LD.CO2.raw\",\n  \"LD.CO2.avg\",\n  \"LD.P.hPa\",\n  \"RD.Temp.C\",\n  \"RD.RH.%\",\n  \"RD.CO2.raw\",\n  \"RD.CO2.avg\",\n  \"RD.P.hPa\",\n  \"2A15\",\n  \"1A05\",\n  \"REE650AV.mps\",\n  \"REE650T.C\",\n  \"LEE650AV.mps\",\n  \"LEE650T.C\",\n  \"LD.Relay.D1\",\n  \"LD.Relay.A1\",\n  \"LD.Relay.A2\",\n  \"LD.Relay.D2\",\n  \"L.1H01\",\n  \"R.2H11\"\n  ];\n\nconst snap   = flow.get('snap')   || {};\nconst snapTs = flow.get('snap_ts') || {};\nconst now = Date.now();\nconst STALE_MS = 4800; // mark blank if older than 4.8 s\n\n// --- build timestamp in local timezone ---\nconst d = new Date();\nconst row = {\n  timestamp: d.toLocaleString(\"en-GB\", {\n    timeZone: \"Asia/Riyadh\", // set to your local zone\n    hour12: false\n  })\n};\n\n// --- fill columns, blank stale ones ---\nfor (const k of COLS) {\n  const age = now - (snapTs[k] || 0);\n  if (age > STALE_MS) {\n    row[k] = \"\"; // blank if not fresh\n  } else {\n    const v = snap[k];\n    row[k] = (v === undefined || Number.isNaN(v)) ? \"\" : v;\n  }\n}\n\n// output row object for CSV conversion or direct write\nmsg.payload = row;\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -4517,7 +4964,7 @@
         "type": "function",
         "z": "b70b1ddccee39978",
         "name": "Object -> CSV line (wiht header-once)",
-        "func": "// Function: Object → CSV line (with header-once)\n// Input:  msg.payload = { timestamp: \"...\", <36 fixed columns> }\n// Output: msg.payload = \"header?\\n\" + \"csv line\\n\" (string)\n\nconst COLS = [\n  \"LD.Relay.W1\",\"LD.Relay.W2\",\"L.VFD.freq.Hz\",\"R.VFD.freq.Hz\",\n  \"LEM.W\",\"REM.W\",\n  \"LU.Temp.C\",\"LU.RH.%\",\"LU.CO2.avg\",\"LU.CO2.raw\",\"1A02PR\",\n  \"RU.Temp.C\",\"RU.RH.%\",\"RU.CO2.avg\",\"RU.CO2.raw\",\"RU.P.hPa\",\n  \"LD.Temp.C\",\"LD.RH.%\",\"LD.CO2.raw\",\"LD.CO2.avg\",\"LD.P.hPa\",\n  \"RD.Temp.C\",\"RD.RH.%\",\"RD.CO2.raw\",\"RD.CO2.avg\",\"RD.P.hPa\",\n  \"2A15\",\"LEE600\",\"REE650AV.mps\",\"REE650T.C\",\"LEE650AV.mps\",\"LEE650T.C\",\n  \"LD.Relay.D1\",\"LD.Relay.A1\",\"LD.Relay.A2\",\"LD.Relay.D2\",\"L.1H01\",\"R.2H11\"\n];\n\n// Optional: obey a UI toggle\nconst enabled = flow.get(\"csv_enabled\", \"file\");\nif (enabled === false) return null;\n\n// ---------- helpers ----------\nfunction csvEscape(val) {\n  if (val === null || val === undefined) return \"\";\n  let s = String(val);\n  if (s.includes('\"')) s = s.replace(/\"/g, '\"\"');\n  const needsQuote = s.includes(\",\") || s.includes(\"\\n\") || s.includes(\"\\r\") || /^\\s|\\s$/.test(s);\n  return needsQuote ? `\"${s}\"` : s;\n}\n\n// Determine a stable key for header tracking:\n// Prefer the active file path if your flow sets it; otherwise fallback to today's date.\nconst today = new Date().toISOString().slice(0, 10);\nconst filePath =\n  flow.get(\"current_csv_path\", \"file\") ||\n  msg.filepath ||\n  msg.filename ||\n  today;\n\nconst headerKey = `csv_header_written::${filePath}`;\nconst headerNeeded = flow.get(headerKey, \"file\") !== true;\n\n// Build header string (only once)\nconst header = [\"timestamp\", ...COLS].map(csvEscape).join(\",\") + \"\\n\";\n\n// Build data line in fixed order\nconst p = msg.payload || {};\nconst ts = p.timestamp || new Date().toISOString();\nconst fields = [ts, ...COLS.map(k => {\n  const v = p[k];\n  if (v === undefined || v === null || Number.isNaN(v)) return \"\";\n  return v; // let csvEscape handle quoting\n})];\n\nconst line = fields.map(csvEscape).join(\",\") + \"\\n\";\n\n// Output\nif (headerNeeded) {\n  flow.set(headerKey, true, \"file\");\n  msg.payload = header + line;\n} else {\n  msg.payload = line;\n}\n\nreturn msg;",
+        "func": "// Function: Object → CSV line (with header-once)\n// Input:  msg.payload = { timestamp: \"...\", <36 fixed columns> }\n// Output: msg.payload = \"header?\\n\" + \"csv line\\n\" (string)\n\nconst COLS = [\n  \"LD.Relay.W1\",\"LD.Relay.W2\",\"L.VFD.freq.Hz\",\"R.VFD.freq.Hz\",\n  \"LEM.W\",\"REM.W\",\n  \"LU.Temp.C\",\"LU.RH.%\",\"LU.CO2.avg\",\"LU.CO2.raw\",\"LU.P.hPa\",\n  \"RU.Temp.C\",\"RU.RH.%\",\"RU.CO2.avg\",\"RU.CO2.raw\",\"RU.P.hPa\",\n  \"LD.Temp.C\",\"LD.RH.%\",\"LD.CO2.raw\",\"LD.CO2.avg\",\"LD.P.hPa\",\n  \"RD.Temp.C\",\"RD.RH.%\",\"RD.CO2.raw\",\"RD.CO2.avg\",\"RD.P.hPa\",\n  \"2A15\",\"1A05\",\"REE650AV.mps\",\"REE650T.C\",\"LEE650AV.mps\",\"LEE650T.C\",\n  \"LD.Relay.D1\",\"LD.Relay.A1\",\"LD.Relay.A2\",\"LD.Relay.D2\",\"L.1H01\",\"R.2H11\"\n];\n\n// Optional: obey a UI toggle\nconst enabled = flow.get(\"csv_enabled\", \"file\");\nif (enabled === false) return null;\n\n// ---------- helpers ----------\nfunction csvEscape(val) {\n  if (val === null || val === undefined) return \"\";\n  let s = String(val);\n  if (s.includes('\"')) s = s.replace(/\"/g, '\"\"');\n  const needsQuote = s.includes(\",\") || s.includes(\"\\n\") || s.includes(\"\\r\") || /^\\s|\\s$/.test(s);\n  return needsQuote ? `\"${s}\"` : s;\n}\n\n// Determine a stable key for header tracking:\n// Prefer the active file path if your flow sets it; otherwise fallback to today's date.\nconst today = new Date().toISOString().slice(0, 10);\nconst filePath =\n  flow.get(\"current_csv_path\", \"file\") ||\n  msg.filepath ||\n  msg.filename ||\n  today;\n\nconst headerKey = `csv_header_written::${filePath}`;\nconst headerNeeded = flow.get(headerKey, \"file\") !== true;\n\n// Build header string (only once)\nconst header = [\"timestamp\", ...COLS].map(csvEscape).join(\",\") + \"\\n\";\n\n// Build data line in fixed order\nconst p = msg.payload || {};\nconst ts = p.timestamp || new Date().toISOString();\nconst fields = [ts, ...COLS.map(k => {\n  const v = p[k];\n  if (v === undefined || v === null || Number.isNaN(v)) return \"\";\n  return v; // let csvEscape handle quoting\n})];\n\nconst line = fields.map(csvEscape).join(\",\") + \"\\n\";\n\n// Output\nif (headerNeeded) {\n  flow.set(headerKey, true, \"file\");\n  msg.payload = header + line;\n} else {\n  msg.payload = line;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -4683,351 +5130,5 @@
                 "c3483f4dc0043c7d"
             ]
         ]
-    },
-    {
-        "id": "d3e8251c2f05a30e",
-        "type": "modbus-client",
-        "name": "NodeRedModbusSerMaster",
-        "clienttype": "serial",
-        "bufferCommands": true,
-        "stateLogEnabled": true,
-        "queueLogEnabled": true,
-        "failureLogEnabled": true,
-        "tcpHost": "127.0.0.1",
-        "tcpPort": 502,
-        "tcpType": "DEFAULT",
-        "serialPort": "/dev/ttyAMA5",
-        "serialType": "RTU-BUFFERD",
-        "serialBaudrate": "19200",
-        "serialDatabits": 8,
-        "serialStopbits": 1,
-        "serialParity": "none",
-        "serialConnectionDelay": "100",
-        "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 43,
-        "commandDelay": 10,
-        "clientTimeout": 1000,
-        "reconnectOnTimeout": false,
-        "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": true,
-        "showWarnings": true,
-        "showLogs": true
-    },
-    {
-        "id": "c2b3dd79366cad0c",
-        "type": "serial-port",
-        "name": "tusb",
-        "serialport": "/dev/ttyUSB0",
-        "serialbaud": "9600",
-        "databits": 8,
-        "parity": "none",
-        "stopbits": 1,
-        "waitfor": "0xAA",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "4",
-        "bin": "bin",
-        "out": "count",
-        "addchar": "",
-        "responsetimeout": "1000"
-    },
-    {
-        "id": "c34f777b31ff0d3e",
-        "type": "ui-group",
-        "name": "Relays - Column 1",
-        "page": "8aa6d6140cfde471",
-        "width": "6",
-        "height": 1,
-        "order": 1,
-        "showTitle": true,
-        "className": "ps-left",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "6cf2ef424cfcf0b9",
-        "type": "ui-group",
-        "name": "Relays - Column 2",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 2,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "b135539d7634acf8",
-        "type": "ui-group",
-        "name": "Fan - Column 1",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 3,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "13816c2f51c27294",
-        "type": "ui-group",
-        "name": "Fan - Column 2",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 4,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "44de1c430cbb5601",
-        "type": "ui-group",
-        "name": "EE872 Out (1A02)",
-        "page": "8aa6d6140cfde471",
-        "width": "3",
-        "height": 1,
-        "order": 12,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "ac6a5966878e6de8",
-        "type": "ui-group",
-        "name": "EE872 Out (2A12)",
-        "page": "8aa6d6140cfde471",
-        "width": "3",
-        "height": 1,
-        "order": 14,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "1b0119535e1d3350",
-        "type": "ui-group",
-        "name": "EE872 In (1A01)",
-        "page": "8aa6d6140cfde471",
-        "width": "3",
-        "height": 1,
-        "order": 11,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "b4e0dab4bd8c05b7",
-        "type": "ui-group",
-        "name": "EE872 In (2A11)",
-        "page": "8aa6d6140cfde471",
-        "width": "3",
-        "height": 1,
-        "order": 13,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "be8e2d192e710aa5",
-        "type": "ui-group",
-        "name": "Pressure/Energy",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 7,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "14ffaba87334b6a7",
-        "type": "ui-group",
-        "name": "Pressure/Energy",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 8,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "d0e68dc802300da0",
-        "type": "ui-group",
-        "name": "Velocity (1A08) ",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 9,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "c4b796b294db2552",
-        "type": "ui-group",
-        "name": "Velocity (2A18)",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 10,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "7aa27d4b2d1c0ea6",
-        "type": "ui-group",
-        "name": "Heater - Column 1",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 5,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "1150877cb6638246",
-        "type": "ui-group",
-        "name": "Heater - Column 2",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 6,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "e86ce08b06c0beb4",
-        "type": "ui-group",
-        "name": "Logging",
-        "page": "8aa6d6140cfde471",
-        "width": 6,
-        "height": 1,
-        "order": 15,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "8aa6d6140cfde471",
-        "type": "ui-page",
-        "name": "My Process Control",
-        "ui": "8d17c08d50d1770f",
-        "path": "/page1",
-        "icon": "home",
-        "layout": "grid",
-        "theme": "b423e96545d4ae28",
-        "breakpoints": [
-            {
-                "name": "Default",
-                "px": "0",
-                "cols": "3"
-            },
-            {
-                "name": "Tablet",
-                "px": "576",
-                "cols": "6"
-            },
-            {
-                "name": "Small Desktop",
-                "px": "768",
-                "cols": "9"
-            },
-            {
-                "name": "Desktop",
-                "px": "1024",
-                "cols": "12"
-            }
-        ],
-        "order": 1,
-        "className": "",
-        "visible": true,
-        "disabled": false
-    },
-    {
-        "id": "8d17c08d50d1770f",
-        "type": "ui-base",
-        "name": "My Dashboard",
-        "path": "/dashboard",
-        "appIcon": "",
-        "includeClientData": true,
-        "acceptsClientConfig": [
-            "ui-notification",
-            "ui-control"
-        ],
-        "showPathInSidebar": false,
-        "headerContent": "page",
-        "navigationStyle": "default",
-        "titleBarStyle": "default",
-        "showReconnectNotification": true,
-        "notificationDisplayTime": 1,
-        "showDisconnectNotification": true,
-        "allowInstall": true
-    },
-    {
-        "id": "b423e96545d4ae28",
-        "type": "ui-theme",
-        "name": "Default Theme",
-        "colors": {
-            "surface": "#0094ce",
-            "primary": "#0094ce",
-            "bgPage": "#eeeeee",
-            "groupBg": "#ffffff",
-            "groupOutline": "#787878"
-        },
-        "sizes": {
-            "density": "comfortable",
-            "pagePadding": "12px",
-            "groupGap": "12px",
-            "groupBorderRadius": "4px",
-            "widgetGap": "20px"
-        }
-    },
-    {
-        "id": "24d0e25ef1037b65",
-        "type": "global-config",
-        "env": [],
-        "modules": {
-            "node-red-contrib-modbus": "5.43.0",
-            "node-red-node-serialport": "2.0.3",
-            "@flowfuse/node-red-dashboard": "1.26.0",
-            "@flowfuse/node-red-dashboard-2-ui-led": "1.1.0"
-        }
     }
 ]
