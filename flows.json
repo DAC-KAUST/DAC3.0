@@ -88,6 +88,14 @@
         "env": []
     },
     {
+        "id": "2bbf57fc8e030b1a",
+        "type": "tab",
+        "label": "safety",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "8d17c08d50d1770f",
         "type": "ui-base",
         "name": "My Dashboard",
@@ -764,6 +772,16 @@
                 "type": "bool"
             }
         ]
+    },
+    {
+        "id": "942691b083f48b94",
+        "type": "revpi-server",
+        "host": "localhost",
+        "port": 8000,
+        "user": "",
+        "password": "",
+        "rejectUnauthorized": false,
+        "ca": ""
     },
     {
         "id": "1f1e83b76c3ea0e5",
@@ -10834,6 +10852,159 @@
         "statusType": "auto",
         "x": 1400,
         "y": 800,
+        "wires": []
+    },
+    {
+        "id": "2fa3f9523160dd38",
+        "type": "function",
+        "z": "2bbf57fc8e030b1a",
+        "name": "function 2",
+        "func": "let heater=global.get(\"1PIDPV\")\nif(heater>60){\n    msg.payload=\"DANGER\"\n    return msg;\n}\nreturn null",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 320,
+        "wires": [
+            [
+                "b16886031e50966a",
+                "b984976514bdfd3b"
+            ]
+        ]
+    },
+    {
+        "id": "0a547b2f0a7dbb02",
+        "type": "inject",
+        "z": "2bbf57fc8e030b1a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "2fa3f9523160dd38"
+            ]
+        ]
+    },
+    {
+        "id": "b16886031e50966a",
+        "type": "switch",
+        "z": "2bbf57fc8e030b1a",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "DANGER",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 770,
+        "y": 320,
+        "wires": [
+            [
+                "7af11b12bec1eb5f",
+                "44a574bec9058528"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7af11b12bec1eb5f",
+        "type": "revpi-output",
+        "z": "2bbf57fc8e030b1a",
+        "server": "942691b083f48b94",
+        "outputpin": "RevPiOutput",
+        "overwritevalue": true,
+        "outputvalue": "1",
+        "x": 1040,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6d54977c6a0334ba",
+        "type": "inject",
+        "z": "2bbf57fc8e030b1a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 540,
+        "y": 460,
+        "wires": [
+            [
+                "7af11b12bec1eb5f"
+            ]
+        ]
+    },
+    {
+        "id": "b984976514bdfd3b",
+        "type": "debug",
+        "z": "2bbf57fc8e030b1a",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "44a574bec9058528",
+        "type": "debug",
+        "z": "2bbf57fc8e030b1a",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 240,
         "wires": []
     }
 ]
