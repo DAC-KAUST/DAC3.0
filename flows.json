@@ -591,7 +591,7 @@
         "page": "dd9559acea433198",
         "width": 10,
         "height": 1,
-        "order": 2,
+        "order": 4,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -605,7 +605,7 @@
         "page": "dd9559acea433198",
         "width": 6,
         "height": 1,
-        "order": 3,
+        "order": 5,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -619,7 +619,7 @@
         "page": "dd9559acea433198",
         "width": 6,
         "height": 1,
-        "order": 4,
+        "order": 6,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -633,7 +633,7 @@
         "page": "dd9559acea433198",
         "width": 12,
         "height": 1,
-        "order": 5,
+        "order": 7,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -730,10 +730,10 @@
         "id": "3b4416e0e341a409",
         "type": "ui-group",
         "name": "Column 1",
-        "page": "f75802c0c8dc841f",
-        "width": 6,
+        "page": "dd9559acea433198",
+        "width": 5,
         "height": 1,
-        "order": 1,
+        "order": 2,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -744,10 +744,10 @@
         "id": "ac5cd3f739284022",
         "type": "ui-group",
         "name": "Column 2",
-        "page": "f75802c0c8dc841f",
-        "width": 6,
+        "page": "dd9559acea433198",
+        "width": 5,
         "height": 1,
-        "order": 2,
+        "order": 3,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -828,8 +828,8 @@
         "topic": "",
         "payload": "$globalContext(\"autoParams\")",
         "payloadType": "jsonata",
-        "x": 610,
-        "y": 540,
+        "x": 630,
+        "y": 500,
         "wires": [
             [
                 "9252a2d49f4a204b"
@@ -1790,8 +1790,7 @@
         "y": 820,
         "wires": [
             [
-                "3192ff7d837e34a1",
-                "4482509f3144a476"
+                "3192ff7d837e34a1"
             ]
         ]
     },
@@ -1800,7 +1799,7 @@
         "type": "ui-slider",
         "z": "6e36f219c9f64058",
         "group": "13816c2f51c27294",
-        "name": "Right Slider",
+        "name": "CTRL_2FN11_Speed",
         "label": "Frequency",
         "tooltip": "",
         "order": 1,
@@ -1822,7 +1821,7 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 1290,
+        "x": 1260,
         "y": 820,
         "wires": [
             [
@@ -2161,7 +2160,7 @@
         "topic": "",
         "payload": "30",
         "payloadType": "num",
-        "x": 1175,
+        "x": 1115,
         "y": 820,
         "wires": [
             [
@@ -3860,8 +3859,7 @@
         "y": 860,
         "wires": [
             [
-                "918f5c29a0441edd",
-                "4482509f3144a476"
+                "918f5c29a0441edd"
             ]
         ]
     },
@@ -3871,7 +3869,7 @@
         "z": "6e36f219c9f64058",
         "name": "CTRL_2FN11_Speed in",
         "links": [],
-        "x": 1175,
+        "x": 1115,
         "y": 860,
         "wires": [
             [
@@ -4019,20 +4017,34 @@
         ]
     },
     {
-        "id": "4482509f3144a476",
-        "type": "debug",
+        "id": "18dc3621df587d6c",
+        "type": "inject",
         "z": "6e36f219c9f64058",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 900,
-        "wires": []
+        "name": "Start Value",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "20",
+        "payloadType": "num",
+        "x": 1125,
+        "y": 120,
+        "wires": [
+            [
+                "d2415e3188fbcb6f"
+            ]
+        ],
+        "l": false
     },
     {
         "id": "6aa0d8d92de7620c",
@@ -7353,6 +7365,60 @@
         ]
     },
     {
+        "id": "d291360bd1e3f2c2",
+        "type": "inject",
+        "z": "f905477ca465f455",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 550,
+        "y": 80,
+        "wires": [
+            [
+                "36441bbdf8cfa40f"
+            ]
+        ]
+    },
+    {
+        "id": "36441bbdf8cfa40f",
+        "type": "change",
+        "z": "f905477ca465f455",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "csv_enabled",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "e6812da3b2b1f2e3",
         "type": "ui-switch",
         "z": "72c01d5347f89ed1",
@@ -7400,7 +7466,7 @@
         "topic": "1-regen-T",
         "topicType": "str",
         "min": 0,
-        "max": "100",
+        "max": "60",
         "step": 1,
         "tooltip": "Regen temprature setpoint for column 1",
         "passthru": true,
@@ -7432,8 +7498,8 @@
         "height": 0,
         "topic": "1-regen-FanSpeed",
         "topicType": "str",
-        "min": 0,
-        "max": "100",
+        "min": "20",
+        "max": "60",
         "step": 1,
         "tooltip": "Regen Fan speed during Regen for column 1",
         "passthru": true,
@@ -7459,15 +7525,15 @@
         "z": "72c01d5347f89ed1",
         "group": "185425e149e377ad",
         "name": "1-regen-HumidtyDiffThreshold",
-        "label": "Regen Humidtity threshold",
+        "label": "Regen Humidtity threshold %",
         "order": 3,
         "width": 0,
         "height": 0,
         "topic": "1-regen-HumidtyDiffThreshold",
         "topicType": "str",
         "min": 0,
-        "max": "1",
-        "step": "0.05",
+        "max": "100",
+        "step": "1",
         "tooltip": "the is the threshold used to end regen process",
         "passthru": true,
         "sendOnBlur": true,
@@ -7499,7 +7565,7 @@
         "topic": "2-regen-T",
         "topicType": "str",
         "min": 0,
-        "max": "100",
+        "max": "60",
         "step": 1,
         "tooltip": "Regen temprature setpoint for column 2",
         "passthru": true,
@@ -7531,8 +7597,8 @@
         "height": 0,
         "topic": "2-regen-FanSpeed",
         "topicType": "str",
-        "min": 0,
-        "max": "100",
+        "min": "20",
+        "max": "60",
         "step": 1,
         "tooltip": "Regen Fan speed during Regen for column 2",
         "passthru": true,
@@ -7638,9 +7704,9 @@
         "height": 0,
         "topic": "1-Adsorption-FanSpeed",
         "topicType": "str",
-        "min": 0,
-        "max": "100",
-        "step": 1,
+        "min": "20",
+        "max": "60",
+        "step": "1",
         "tooltip": "Fan speed during Adsorption for column 1",
         "passthru": true,
         "sendOnBlur": true,
@@ -7665,7 +7731,7 @@
         "z": "72c01d5347f89ed1",
         "group": "185425e149e377ad",
         "name": "1-Adsorption-CO2Threshold",
-        "label": "Adsorption CO2 threshold",
+        "label": "Adsorption CO2 % threshold",
         "order": 6,
         "width": 0,
         "height": 0,
@@ -7705,8 +7771,8 @@
         "topic": "1-permission-GHCo2Threshold",
         "topicType": "str",
         "min": 0,
-        "max": "100",
-        "step": 1,
+        "max": "5000",
+        "step": "20",
         "tooltip": "threshold from greenhouse to allow coulm to start Desorption",
         "passthru": true,
         "sendOnBlur": true,
@@ -7738,8 +7804,8 @@
         "height": 0,
         "topic": "1-Desorption-FanSpeed",
         "topicType": "str",
-        "min": 0,
-        "max": "100",
+        "min": "20",
+        "max": "60",
         "step": 1,
         "tooltip": "Fan speed during Desorption for column 1",
         "passthru": true,
@@ -7871,8 +7937,8 @@
         "topic": "1-Desorption-Co2StopThreshold",
         "topicType": "str",
         "min": 0,
-        "max": "100",
-        "step": 1,
+        "max": "5000",
+        "step": "5",
         "tooltip": "threshold to stop Desorption",
         "passthru": true,
         "sendOnBlur": true,
@@ -8784,7 +8850,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1140,
+        "x": 860,
         "y": 860,
         "wires": [
             [
@@ -8795,7 +8861,7 @@
             ],
             [
                 "e4714acbb2357dfc",
-                "b69df4519cb27ede"
+                "ba061e94e7d0d429"
             ]
         ]
     },
@@ -8816,11 +8882,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 880,
+        "x": 1280,
         "y": 880,
         "wires": [
             [
-                "4946ac2f9c20be40"
+                "b69df4519cb27ede"
             ]
         ]
     },
@@ -8908,10 +8974,12 @@
         "wires": [
             [
                 "82736fc6612a34c8",
-                "f18c0a463f8375e5"
+                "f18c0a463f8375e5",
+                "a43176a67c5c8b1d"
             ],
             [
-                "4bddbbfdfcd8b1cc"
+                "4bddbbfdfcd8b1cc",
+                "0c189386c7383c58"
             ]
         ]
     },
@@ -8934,7 +9002,7 @@
         "z": "7679ace97d2d2d0d",
         "name": "",
         "pauseType": "delay",
-        "timeout": "1",
+        "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -9006,12 +9074,12 @@
         "rules": [
             {
                 "t": "eq",
-                "v": "1",
+                "v": "0",
                 "vt": "num"
             },
             {
                 "t": "eq",
-                "v": "0",
+                "v": "1",
                 "vt": "num"
             }
         ],
@@ -9022,13 +9090,13 @@
         "y": 140,
         "wires": [
             [
-                "5f3b9578b1ae44b4",
-                "41deb542e33bf9d5",
-                "73e7a28a7e292758",
-                "e4c4c87de3887327"
+                "b3ce66307bfd955d"
             ],
             [
-                "b3ce66307bfd955d"
+                "e4c4c87de3887327",
+                "41deb542e33bf9d5",
+                "5f3b9578b1ae44b4",
+                "73e7a28a7e292758"
             ]
         ]
     },
@@ -9231,7 +9299,7 @@
         "wires": [
             [
                 "e6f0613babbc3811",
-                "ba061e94e7d0d429"
+                "4946ac2f9c20be40"
             ]
         ]
     },
@@ -9258,8 +9326,8 @@
         "links": [
             "c7ec5ea909759580"
         ],
-        "x": 1295,
-        "y": 820,
+        "x": 1025,
+        "y": 800,
         "wires": []
     },
     {
@@ -9271,7 +9339,7 @@
         "links": [
             "8e6f6eb4426b3b57"
         ],
-        "x": 1295,
+        "x": 1035,
         "y": 860,
         "wires": []
     },
@@ -9284,7 +9352,7 @@
         "links": [
             "25e05f5cba0cc072"
         ],
-        "x": 1355,
+        "x": 1035,
         "y": 900,
         "wires": []
     },
@@ -9381,7 +9449,7 @@
             "2b8ceeba837cee7a"
         ],
         "x": 2825,
-        "y": 80,
+        "y": 260,
         "wires": []
     },
     {
@@ -9404,7 +9472,7 @@
         "to": "",
         "reg": false,
         "x": 2690,
-        "y": 80,
+        "y": 260,
         "wires": [
             [
                 "f84a212adfe16105"
@@ -9535,8 +9603,8 @@
         "id": "4710d6869f1be0b6",
         "type": "function",
         "z": "7679ace97d2d2d0d",
-        "name": "Humidity(A02) is <90% diff Humidity (A01)",
-        "func": "let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\nlet ceriteria = a01AbsHum*percentageThreshold\n\nmsg.a02=a02ABSHum\nmsg.a01=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.criteria=ceriteria\nif (a02ABSHum>=ceriteria){\n    msg.payload=true\n    return msg;\n}else{\n    msg.payload=false\n    return msg;\n}\n",
+        "name": "Humidity(A02) is <% diff Humidity (A01)",
+        "func": "let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a01AbsHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a02ABSHum<ceriteria){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -9547,7 +9615,9 @@
         "y": 140,
         "wires": [
             [
-                "7289a53c02a6fd02"
+                "7289a53c02a6fd02",
+                "0ccb5c2e8273c8fc",
+                "8cdfc3d0b9560ff7"
             ]
         ]
     },
@@ -9556,7 +9626,7 @@
         "type": "function",
         "z": "7679ace97d2d2d0d",
         "name": "Humidity(A02) is <90% diff Humidity (A01)",
-        "func": "let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\nlet ceriteria = a01AbsHum*percentageThreshold\n\nmsg.a02=a02ABSHum\nmsg.a01=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.criteria=ceriteria\nif (a02ABSHum>=ceriteria){\n    msg.payload=true\n    return msg;\n}else{\n    msg.payload=false\n    return msg;\n}\n",
+        "func": "let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a01AbsHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a02ABSHum<ceriteria){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -9567,7 +9637,8 @@
         "y": 140,
         "wires": [
             [
-                "772a925021feea1d"
+                "772a925021feea1d",
+                "6bf39504b24f70ec"
             ]
         ]
     },
@@ -9581,12 +9652,12 @@
         "rules": [
             {
                 "t": "eq",
-                "v": "1",
+                "v": "0",
                 "vt": "num"
             },
             {
                 "t": "eq",
-                "v": "0",
+                "v": "1",
                 "vt": "num"
             }
         ],
@@ -9612,7 +9683,7 @@
         "type": "function",
         "z": "7679ace97d2d2d0d",
         "name": "CO2(A02) is higher than threshold% of (A01)",
-        "func": "let a02Co2Avg = global.get(\"1A02-Co2Avg\")\nlet a01Co2Avg = global.get(\"1A01-Co2Avg\")\nlet percentageThreshold = global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"]\nlet ceriteria = a01Co2Avg*percentageThreshold\n\nmsg.a02Co2 = a02Co2Avg\nmsg.a01Co2 = a01Co2Avg\nmsg.Co2percentage = percentageThreshold\nmsg.Co2criteria=ceriteria\nif (a02Co2Avg >=ceriteria){\n    msg.payload=true\n    return msg;\n}else{\n    msg.payload=false\n    return msg;\n}\n",
+        "func": "let a02Co2Avg = global.get(\"1A02-Co2Avg\")\nlet a01Co2Avg = global.get(\"1A01-Co2Avg\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"])/100\nlet ceriteria = a01Co2Avg*percentageThreshold\n\nmsg.a02Co2 = a02Co2Avg\nmsg.a01Co2 = a01Co2Avg\nmsg.Co2percentage = percentageThreshold\nmsg.Co2criteria=ceriteria\nif (a02Co2Avg >=ceriteria){\n    msg.payload=true\n    return msg;\n}else{\n    msg.payload=false\n    return msg;\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -9624,7 +9695,8 @@
         "wires": [
             [
                 "7834f127592792d8",
-                "8d7f1fec6cd7a689"
+                "60ea47f6d57072e9",
+                "9bcbf1291ee46bd5"
             ]
         ]
     },
@@ -9691,11 +9763,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1540,
+        "x": 1480,
         "y": 880,
         "wires": [
             [
-                "c42253268c09c16f"
+                "c42253268c09c16f",
+                "1e95cfea2f9ac540",
+                "954e5f703afcb084"
             ]
         ]
     },
@@ -9752,8 +9826,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2450,
-        "y": 60,
+        "x": 2230,
+        "y": 40,
         "wires": [
             [
                 "b3ce66307bfd955d"
@@ -9833,8 +9907,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1270,
-        "y": 720,
+        "x": 1450,
+        "y": 800,
         "wires": [
             [
                 "ba061e94e7d0d429"
@@ -9882,7 +9956,46 @@
         ]
     },
     {
-        "id": "8d7f1fec6cd7a689",
+        "id": "60ea47f6d57072e9",
+        "type": "link out",
+        "z": "7679ace97d2d2d0d",
+        "name": "Automation_data_out",
+        "mode": "link",
+        "links": [
+            "894909ffc90da041"
+        ],
+        "x": 1095,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "8cdfc3d0b9560ff7",
+        "type": "link out",
+        "z": "7679ace97d2d2d0d",
+        "name": "Automation_data_out",
+        "mode": "link",
+        "links": [
+            "894909ffc90da041"
+        ],
+        "x": 2415,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "1e95cfea2f9ac540",
+        "type": "link out",
+        "z": "7679ace97d2d2d0d",
+        "name": "Automation_data_out",
+        "mode": "link",
+        "links": [
+            "894909ffc90da041"
+        ],
+        "x": 1665,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "9bcbf1291ee46bd5",
         "type": "debug",
         "z": "7679ace97d2d2d0d",
         "name": "debug 2",
@@ -9894,8 +10007,93 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1211,
-        "y": 573,
+        "x": 1180,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "0ccb5c2e8273c8fc",
+        "type": "debug",
+        "z": "7679ace97d2d2d0d",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2520,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "0c189386c7383c58",
+        "type": "debug",
+        "z": "7679ace97d2d2d0d",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1820,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "954e5f703afcb084",
+        "type": "debug",
+        "z": "7679ace97d2d2d0d",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1720,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "a43176a67c5c8b1d",
+        "type": "debug",
+        "z": "7679ace97d2d2d0d",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1760,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "6bf39504b24f70ec",
+        "type": "debug",
+        "z": "7679ace97d2d2d0d",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 200,
         "wires": []
     },
     {
@@ -9903,7 +10101,7 @@
         "type": "ui-text",
         "z": "e84c71dc344a4f56",
         "group": "3b4416e0e341a409",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Column 1 current status",
@@ -9938,6 +10136,70 @@
         "wires": [
             [
                 "609cde9fbc2b4a8d"
+            ]
+        ]
+    },
+    {
+        "id": "d1bbf7f42be54fa6",
+        "type": "ui-table",
+        "z": "e84c71dc344a4f56",
+        "group": "3b4416e0e341a409",
+        "name": "tr",
+        "label": "",
+        "order": 1,
+        "width": 0,
+        "height": 4,
+        "maxrows": "0",
+        "passthru": false,
+        "autocols": true,
+        "showSearch": false,
+        "deselect": true,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "x": 650,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "894909ffc90da041",
+        "type": "link in",
+        "z": "e84c71dc344a4f56",
+        "name": "CLM1_AUTO_Data in",
+        "links": [
+            "60ea47f6d57072e9",
+            "8cdfc3d0b9560ff7",
+            "1e95cfea2f9ac540"
+        ],
+        "x": 355,
+        "y": 320,
+        "wires": [
+            [
+                "28db102575e83fc7"
+            ]
+        ]
+    },
+    {
+        "id": "28db102575e83fc7",
+        "type": "function",
+        "z": "e84c71dc344a4f56",
+        "name": "function 1",
+        "func": "msg.payload = {\n    a02: msg.a02,\n    a01: msg.a01,\n    percentage: msg.percentage,\n    criteria: msg.criteria,\n    a02Co2: msg.a02Co2,\n    a01Co2: msg.a01Co2,\n    Co2percentage: msg.Co2percentage,\n    Co2criteria: msg.Co2criteria,\n    columnTurn: msg.columnTurn,\n    GHC02Value: msg.GHC02Value,\n    GHThershold: msg.GHThershold\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 320,
+        "wires": [
+            [
+                "d1bbf7f42be54fa6"
             ]
         ]
     },
