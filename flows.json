@@ -545,11 +545,10 @@
     {
         "id": "cade41266e313ff1",
         "type": "global-config",
-        "name": "global-config",
         "env": [
             {
                 "name": "TestMode",
-                "value": "true",
+                "value": "false",
                 "type": "bool"
             }
         ]
@@ -910,7 +909,8 @@
         "wires": [
             [
                 "a2a7548bcbdd4f18",
-                "41b0ff6d20845e9d"
+                "41b0ff6d20845e9d",
+                "24369150eac52d9c"
             ]
         ]
     },
@@ -932,6 +932,53 @@
         "x": 825,
         "y": 460,
         "wires": []
+    },
+    {
+        "id": "9eee0479eeed86e0",
+        "type": "link out",
+        "z": "f4e27689ddb97c39",
+        "name": "CLM1_AUTO_Status in",
+        "mode": "link",
+        "links": [
+            "0fba521e6efa0ca7"
+        ],
+        "x": 1005,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "24369150eac52d9c",
+        "type": "change",
+        "z": "f4e27689ddb97c39",
+        "name": "status OFF",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Automation Disabled",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Automation Disabled",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 340,
+        "wires": [
+            [
+                "9eee0479eeed86e0"
+            ]
+        ]
     },
     {
         "id": "2ffd1e15d3e25253",
@@ -2430,7 +2477,7 @@
         "type": "function",
         "z": "ab6b047640b7f520",
         "name": "1SV Set",
-        "func": "// Expects: msg.payload = { address:<number>, unitid:<number> }\n// Optional: msg.payload.value -> write this (integer)\n// If address = SP (6..9 or 16): falls back to leftSliderPIDValue if no value\n// If address = 15: Control Status (0=Auto,1=Manual,2=Standby)\n\nif (msg && msg.payload && msg.payload.address !== undefined && msg.payload.unitid !== undefined) {\n    if (typeof msg.payload === \"string\") {\n        try { msg.payload = JSON.parse(msg.payload); }\n        catch(e) { node.error(\"Button payload is not valid JSON\", msg); return null; }\n    }\n\n    const unitid  = Number(msg.payload.unitid);\n    const address = Number(msg.payload.address);\n\n    if (!Number.isInteger(unitid) || unitid <= 0) { node.error(\"Invalid unitid\", msg); return null; }\n    if (!Number.isInteger(address) || address < 0) { node.error(\"Invalid address\", msg); return null; }\n\n    let val;\n\n    if (msg.payload.value !== undefined) {\n        val = Number(msg.payload.value);\n    } else {\n        // For SP registers only → fallback to slider\n        if ([6,7,8,9,16].includes(address)) {\n            val = flow.get(\"leftSliderPIDValue\");\n            if (val === undefined || isNaN(val)) {\n                node.warn(\"leftSliderPIDValue not set, defaulting to 0\");\n                val = 0;\n            }\n            val = Math.round(val);\n            if (val < 0) val = 0;\n            if (val > 50) val = 50;\n        } else {\n            node.error(\"No value provided for non-SP address\", msg);\n            return null;\n        }\n    }\n\n    // Build Flex Write\n    msg.payload = {\n        fc: 6,\n        unitid,\n        address,     // zero-based offset\n        quantity: 1,\n        value: [ val ]\n    };\n\n    node.status({ fill: \"green\", shape: \"dot\", text: `Write ${val} @U${unitid}:${address}` });\n    return msg;\n}\n\nreturn null;\n",
+        "func": "// Expects: msg.payload = { address:<number>, unitid:<number> }\n// Optional: msg.payload.value -> write this (integer)\n// If address = SP (6..9 or 16): falls back to leftSliderPIDValue if no value\n// If address = 15: Control Status (0=Auto,1=Manual,2=Standby)\n\nif (msg && msg.payload && msg.payload.address !== undefined && msg.payload.unitid !== undefined) {\n    if (typeof msg.payload === \"string\") {\n        try { msg.payload = JSON.parse(msg.payload); }\n        catch(e) { node.error(\"Button payload is not valid JSON\", msg); return null; }\n    }\n\n    const unitid  = Number(msg.payload.unitid);\n    const address = Number(msg.payload.address);\n\n    if (!Number.isInteger(unitid) || unitid <= 0) { node.error(\"Invalid unitid\", msg); return null; }\n    if (!Number.isInteger(address) || address < 0) { node.error(\"Invalid address\", msg); return null; }\n\n    let val;\n\n    if (msg.payload.value !== undefined) {\n        val = Number(msg.payload.value);\n    } else {\n        // For SP registers only → fallback to slider\n        if ([6,7,8,9,16].includes(address)) {\n            val = flow.get(\"leftSliderPIDValue\");\n            if (val === undefined || isNaN(val)) {\n                node.warn(\"leftSliderPIDValue not set, defaulting to 0\");\n                val = 0;\n            }\n            val = Math.round(val);\n            if (val < 0) val = 0;\n            if (val > 55) val = 55;\n        } else {\n            node.error(\"No value provided for non-SP address\", msg);\n            return null;\n        }\n    }\n\n    // Build Flex Write\n    msg.payload = {\n        fc: 6,\n        unitid,\n        address,     // zero-based offset\n        quantity: 1,\n        value: [ val ]\n    };\n\n    node.status({ fill: \"green\", shape: \"dot\", text: `Write ${val} @U${unitid}:${address}` });\n    return msg;\n}\n\nreturn null;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2441,7 +2488,8 @@
         "y": 240,
         "wires": [
             [
-                "d3a14c48a382d583"
+                "d3a14c48a382d583",
+                "ef6b2674745c41ae"
             ]
         ]
     },
@@ -2480,7 +2528,7 @@
         "type": "function",
         "z": "ab6b047640b7f520",
         "name": "2SV Set",
-        "func": "// Expects: msg.payload = { address:<number>, unitid:<number> }\n// Optional: msg.payload.value -> write this (integer)\n// If address = SP (6..9 or 16): falls back to rihghtSliderPIDValue if no value\n// If address = 15: Control Status (0=Auto,1=Manual,2=Standby)\n\nif (msg && msg.payload && msg.payload.address !== undefined && msg.payload.unitid !== undefined) {\n    if (typeof msg.payload === \"string\") {\n        try { msg.payload = JSON.parse(msg.payload); }\n        catch(e) { node.error(\"Button payload is not valid JSON\", msg); return null; }\n    }\n\n    const unitid  = Number(msg.payload.unitid);\n    const address = Number(msg.payload.address);\n\n    if (!Number.isInteger(unitid) || unitid <= 0) { node.error(\"Invalid unitid\", msg); return null; }\n    if (!Number.isInteger(address) || address < 0) { node.error(\"Invalid address\", msg); return null; }\n\n    let val;\n\n    if (msg.payload.value !== undefined) {\n        val = Number(msg.payload.value);\n    } else {\n        // For SP registers only → fallback to slider\n        if ([6,7,8,9,16].includes(address)) {\n            val = flow.get(\"rightSliderPIDValue\");\n            if (val === undefined || isNaN(val)) {\n                node.warn(\"rightSliderPIDValue not set, defaulting to 0\");\n                val = 0;\n            }\n            val = Math.round(val);\n            if (val < 0) val = 0;\n            if (val > 60) val = 60;\n        } else {\n            node.error(\"No value provided for non-SP address\", msg);\n            return null;\n        }\n    }\n\n    // Build Flex Write\n    msg.payload = {\n        fc: 6,\n        unitid,\n        address,     // zero-based offset\n        quantity: 1,\n        value: [ val ]\n    };\n\n    node.status({ fill: \"green\", shape: \"dot\", text: `Write ${val} @U${unitid}:${address}` });\n    return msg;\n}\n\nreturn null;\n",
+        "func": "// Expects: msg.payload = { address:<number>, unitid:<number> }\n// Optional: msg.payload.value -> write this (integer)\n// If address = SP (6..9 or 16): falls back to rihghtSliderPIDValue if no value\n// If address = 15: Control Status (0=Auto,1=Manual,2=Standby)\n\nif (msg && msg.payload && msg.payload.address !== undefined && msg.payload.unitid !== undefined) {\n    if (typeof msg.payload === \"string\") {\n        try { msg.payload = JSON.parse(msg.payload); }\n        catch(e) { node.error(\"Button payload is not valid JSON\", msg); return null; }\n    }\n\n    const unitid  = Number(msg.payload.unitid);\n    const address = Number(msg.payload.address);\n\n    if (!Number.isInteger(unitid) || unitid <= 0) { node.error(\"Invalid unitid\", msg); return null; }\n    if (!Number.isInteger(address) || address < 0) { node.error(\"Invalid address\", msg); return null; }\n\n    let val;\n\n    if (msg.payload.value !== undefined) {\n        val = Number(msg.payload.value);\n    } else {\n        // For SP registers only → fallback to slider\n        if ([6,7,8,9,16].includes(address)) {\n            val = flow.get(\"rightSliderPIDValue\");\n            if (val === undefined || isNaN(val)) {\n                node.warn(\"rightSliderPIDValue not set, defaulting to 0\");\n                val = 0;\n            }\n            val = Math.round(val);\n            if (val < 0) val = 0;\n            if (val > 55) val = 55;\n        } else {\n            node.error(\"No value provided for non-SP address\", msg);\n            return null;\n        }\n    }\n\n    // Build Flex Write\n    msg.payload = {\n        fc: 6,\n        unitid,\n        address,     // zero-based offset\n        quantity: 1,\n        value: [ val ]\n    };\n\n    node.status({ fill: \"green\", shape: \"dot\", text: `Write ${val} @U${unitid}:${address}` });\n    return msg;\n}\n\nreturn null;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3512,8 +3560,8 @@
         "links": [
             "6a39c574f75a81cf"
         ],
-        "x": 1745,
-        "y": 1200,
+        "x": 1765,
+        "y": 1180,
         "wires": []
     },
     {
@@ -3690,7 +3738,8 @@
         "links": [
             "ff7341214a22508b",
             "fa6d858db77c9acf",
-            "c000a50ff806cc6c"
+            "893bc293429c09aa",
+            "9e6972e4d4d26080"
         ],
         "x": 285,
         "y": 620,
@@ -3708,7 +3757,8 @@
         "links": [
             "e8e73e462e78236d",
             "f36efd8a2d681e4b",
-            "41b0ff6d20845e9d"
+            "41b0ff6d20845e9d",
+            "1f45f3e856c25745"
         ],
         "x": 285,
         "y": 660,
@@ -3724,9 +3774,10 @@
         "z": "ab6b047640b7f520",
         "name": "CTRL_1FN01_ApplySpeed in",
         "links": [
-            "ff7341214a22508b",
-            "fa6d858db77c9acf",
-            "c000a50ff806cc6c"
+            "c000a50ff806cc6c",
+            "fa3d9b03a4b7d840",
+            "d7f168a60869fcbe",
+            "d23db37e6618c74d"
         ],
         "x": 285,
         "y": 700,
@@ -3787,7 +3838,7 @@
         "z": "ab6b047640b7f520",
         "name": "CTRL_1H01_ApplySetpoint in",
         "links": [
-            "ff7341214a22508b"
+            "fa3d9b03a4b7d840"
         ],
         "x": 425,
         "y": 200,
@@ -3822,7 +3873,7 @@
         "z": "ab6b047640b7f520",
         "name": "CTRL_1H01_ON in",
         "links": [
-            "ff7341214a22508b"
+            "0371a3fb8e30cb3d"
         ],
         "x": 415,
         "y": 280,
@@ -3885,7 +3936,8 @@
         "links": [
             "99fbfd992871e5ad",
             "4139c99d933c6615",
-            "434aab6c708b932a"
+            "434aab6c708b932a",
+            "5b71c621da2a29d6"
         ],
         "x": 275,
         "y": 860,
@@ -3979,7 +4031,7 @@
         "z": "ab6b047640b7f520",
         "name": "CTRL_1V03_ON in",
         "links": [
-            "c000a50ff806cc6c"
+            "60289543f0de3b18"
         ],
         "x": 215,
         "y": 1120,
@@ -3996,8 +4048,9 @@
         "name": "CTRL_1V02_ON in",
         "links": [
             "fa6d858db77c9acf",
-            "490fdf2adf9359db",
-            "ff7341214a22508b"
+            "ff7341214a22508b",
+            "f9ded39232025bab",
+            "b3d393c762260c3a"
         ],
         "x": 235,
         "y": 1160,
@@ -4015,8 +4068,8 @@
         "links": [
             "f36efd8a2d681e4b",
             "41b0ff6d20845e9d",
-            "490fdf2adf9359db",
-            "ff7341214a22508b"
+            "ff7341214a22508b",
+            "1ee8aa68b553a93d"
         ],
         "x": 545,
         "y": 1120,
@@ -4033,10 +4086,9 @@
         "name": "CTRL_1V02_OFF in",
         "links": [
             "e8e73e462e78236d",
-            "f9ded39232025bab",
             "f36efd8a2d681e4b",
             "41b0ff6d20845e9d",
-            "c000a50ff806cc6c"
+            "60289543f0de3b18"
         ],
         "x": 545,
         "y": 1160,
@@ -4105,6 +4157,22 @@
                 "b3364a657e0f8436"
             ]
         ]
+    },
+    {
+        "id": "ef6b2674745c41ae",
+        "type": "debug",
+        "z": "ab6b047640b7f520",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 100,
+        "wires": []
     },
     {
         "id": "5afede30517cc75e",
@@ -7836,8 +7904,7 @@
         "y": 340,
         "wires": [
             [
-                "10af6fbdd9a0b241",
-                "43b7768a838f0953"
+                "10af6fbdd9a0b241"
             ]
         ]
     },
@@ -7896,20 +7963,20 @@
         ]
     },
     {
-        "id": "43b7768a838f0953",
-        "type": "debug",
+        "id": "c44fa98e0090170f",
+        "type": "link in",
         "z": "5d75bf7d19d6c301",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 320,
-        "y": 440,
-        "wires": []
+        "name": "Logging On in",
+        "links": [
+            "155ef805f54df57e"
+        ],
+        "x": 435,
+        "y": 200,
+        "wires": [
+            [
+                "99100b1a4aeb665a"
+            ]
+        ]
     },
     {
         "id": "259d9691c1cb3b2d",
@@ -7943,7 +8010,8 @@
             [
                 "37f95f0511ac7b24",
                 "4af76fc8fb2e9345",
-                "f36efd8a2d681e4b"
+                "f36efd8a2d681e4b",
+                "155ef805f54df57e"
             ]
         ]
     },
@@ -8225,14 +8293,14 @@
         "z": "c939f5c97e10afd3",
         "group": "b4435693f46f8ae5",
         "name": "1-Adsorption-CO2Threshold",
-        "label": "Adsorption CO2 % threshold",
+        "label": "Adsorption CO2 threshold",
         "order": 5,
         "width": 0,
         "height": 0,
         "topic": "1-Adsorption-CO2Threshold",
         "topicType": "str",
         "min": 0,
-        "max": "100",
+        "max": "500",
         "step": 1,
         "tooltip": "threshold used to end Adsorption process",
         "passthru": true,
@@ -8496,7 +8564,7 @@
         "topic": "2-Adsorption-CO2Threshold",
         "topicType": "str",
         "min": 0,
-        "max": "100",
+        "max": "500",
         "step": 1,
         "tooltip": "threshold used to end Adsorption process",
         "passthru": true,
@@ -8922,7 +8990,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
+        "x": 740,
         "y": 1380,
         "wires": [
             []
@@ -9075,8 +9143,7 @@
         "name": "Enable AutoMode out",
         "mode": "link",
         "links": [
-            "5837b668b3d564a1",
-            "ebf6dff2be41d655"
+            "5837b668b3d564a1"
         ],
         "x": 705,
         "y": 1340,
@@ -9512,6 +9579,19 @@
         ]
     },
     {
+        "id": "155ef805f54df57e",
+        "type": "link out",
+        "z": "c939f5c97e10afd3",
+        "name": "logging on out",
+        "mode": "link",
+        "links": [
+            "c44fa98e0090170f"
+        ],
+        "x": 625,
+        "y": 1480,
+        "wires": []
+    },
+    {
         "id": "9ea0fe7bd908325e",
         "type": "switch",
         "z": "32981e8e6835223e",
@@ -9597,7 +9677,7 @@
         "id": "5627e235af99cdfa",
         "type": "delay",
         "z": "32981e8e6835223e",
-        "name": "",
+        "name": "wait",
         "pauseType": "delay",
         "timeout": "1",
         "timeoutUnits": "seconds",
@@ -9610,8 +9690,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2040,
-        "y": 240,
+        "x": 3490,
+        "y": 260,
         "wires": [
             [
                 "377956e56076f835"
@@ -9664,7 +9744,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 1930,
+        "x": 2190,
         "y": 580,
         "wires": [
             [
@@ -9675,8 +9755,8 @@
             [],
             [
                 "e3d1116d88a6a539",
-                "4e41ac535b2d371d",
-                "4f8f77dba9c24d53"
+                "4f8f77dba9c24d53",
+                "0358abc77c63570f"
             ]
         ]
     },
@@ -9697,8 +9777,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1440,
-        "y": 520,
+        "x": 1700,
+        "y": 580,
         "wires": [
             [
                 "f676f765215b01f2"
@@ -9710,14 +9790,14 @@
         "type": "function",
         "z": "32981e8e6835223e",
         "name": "water spraying",
-        "func": "let waterBrusts = global.get(\"autoParams\")[\"1-Desorption-waterSprayBrusts\"] || 0;\nlet onTime = (1000*global.get(\"autoParams\")[\"1-Desorption-WSBrustsLength\"])|| 1000;\nlet offTime = (1000*global.get(\"autoParams\")[\"1-Desorption-WSIntervals\"]) || 1000;\n\nlet i = 0;\n\nnode.status({ fill: \"blue\", shape: \"ring\", text: \"current brust: \" + i });\n\n\nfunction iterate() {\n    if (i >= waterBrusts) {\n        // Loop finished → send \"continue\" message\n        node.send([null, null, { payload: \"done\" }]);\n        node.status({});\n        return;\n    }\n    \n    // Trigger button A\n    node.send([{ payload: true }, null, null]);\n\n    node.status({ fill: \"green\", shape: \"dot\", text: \"on\" + \" current brust: \" + i });\n    setTimeout(() => {\n        // Trigger button B\n        node.send([null, { payload: true }, null]);\n        node.status({ fill: \"red\", shape: \"dot\", text: \"off\" });\n        setTimeout(() => {\n            i++;\n            iterate();  // next iteration\n        }, offTime);\n\n    }, onTime);\n}\n\niterate();\nreturn;\n",
+        "func": "let waterBrusts = global.get(\"autoParams\")[\"1-Desorption-waterSprayBrusts\"] || 0;\nlet onTime = (1000*global.get(\"autoParams\")[\"1-Desorption-WSBrustsLength\"])|| 1000;\nlet offTime = (1000*global.get(\"autoParams\")[\"1-Desorption-WSIntervals\"]) || 1000;\n\nlet i = 0;\n\nnode.status({ fill: \"blue\", shape: \"ring\", text: \"current brust: \" + i });\n\nlet stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nfunction iterate() {\n    if (i >= waterBrusts) {\n        // Loop finished → send \"continue\" message\n        node.send([null, null, { payload: \"done\" }]);\n        node.status({});\n        return;\n    }\n    \n    // Trigger button A\n    node.send([{ payload: true }, null, null]);\n\n    node.status({ fill: \"green\", shape: \"dot\", text: \"on\" + \" current brust: \" + i });\n    setTimeout(() => {\n        // Trigger button B\n        node.send([null, { payload: true }, null]);\n        node.status({ fill: \"red\", shape: \"dot\", text: \"off\" });\n        setTimeout(() => {\n            i++;\n            iterate();  // next iteration\n        }, offTime);\n\n    }, onTime);\n}\n\niterate();\nreturn;\n",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
+        "x": 1140,
         "y": 960,
         "wires": [
             [
@@ -9727,7 +9807,6 @@
                 "476c31ec9d392f8a"
             ],
             [
-                "f9ded39232025bab",
                 "30ce1e621ea1940f"
             ]
         ]
@@ -9749,7 +9828,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1360,
+        "x": 1500,
         "y": 980,
         "wires": [
             [
@@ -9786,7 +9865,8 @@
         "y": 260,
         "wires": [
             [
-                "60d32cb808cdb2ac"
+                "7aa7eeb9003d3a28",
+                "5bb1a7596b3da967"
             ],
             [
                 "523ffa83b522201b",
@@ -9804,7 +9884,7 @@
         "links": [
             "846d0692c7204b8d"
         ],
-        "x": 1795,
+        "x": 2955,
         "y": 200,
         "wires": []
     },
@@ -9820,7 +9900,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1630,
+        "x": 2790,
         "y": 240,
         "wires": [
             [
@@ -9843,7 +9923,7 @@
         "links": [
             "144ab0e01fe98894"
         ],
-        "x": 1805,
+        "x": 2965,
         "y": 280,
         "wires": []
     },
@@ -9851,7 +9931,7 @@
         "id": "e4fdc3d99d1a42d4",
         "type": "delay",
         "z": "32981e8e6835223e",
-        "name": "",
+        "name": "F&SV ON",
         "pauseType": "delay",
         "timeout": "1",
         "timeoutUnits": "seconds",
@@ -9864,12 +9944,12 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1880,
+        "x": 2980,
         "y": 240,
         "wires": [
             [
                 "ff7341214a22508b",
-                "5627e235af99cdfa"
+                "3443fb9e960e724c"
             ]
         ]
     },
@@ -9877,17 +9957,14 @@
         "id": "ff7341214a22508b",
         "type": "link out",
         "z": "32981e8e6835223e",
-        "name": "apply and turn on Heater and fan close SV03 open SV02",
+        "name": "turn on Heater and fan close SV03 open SV02",
         "mode": "link",
         "links": [
             "443d3afa06f7e3e5",
-            "5553aaa637e267fb",
             "962ed7f4b121978f",
-            "9fe8d5b4bdc03a43",
-            "e345219d2d18d6d7",
             "faf81b990d1ae70e"
         ],
-        "x": 1955,
+        "x": 3065,
         "y": 180,
         "wires": []
     },
@@ -9900,8 +9977,8 @@
         "links": [
             "71ecf974b23a0568"
         ],
-        "x": 2795,
-        "y": 280,
+        "x": 4255,
+        "y": 300,
         "wires": []
     },
     {
@@ -9913,7 +9990,7 @@
         "links": [
             "71ecf974b23a0568"
         ],
-        "x": 1565,
+        "x": 2725,
         "y": 280,
         "wires": []
     },
@@ -9939,8 +10016,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2570,
-        "y": 240,
+        "x": 4030,
+        "y": 260,
         "wires": [
             [
                 "5627e235af99cdfa",
@@ -9971,7 +10048,7 @@
         "id": "ee84e5ba352c18d6",
         "type": "delay",
         "z": "32981e8e6835223e",
-        "name": "",
+        "name": "F ON",
         "pauseType": "delay",
         "timeout": "1",
         "timeoutUnits": "seconds",
@@ -9984,12 +10061,12 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 560,
+        "x": 550,
         "y": 580,
         "wires": [
             [
                 "fa6d858db77c9acf",
-                "53fedaef35cd36ad"
+                "03906e3167426796"
             ]
         ]
     },
@@ -10001,18 +10078,17 @@
         "mode": "link",
         "links": [
             "443d3afa06f7e3e5",
-            "9fe8d5b4bdc03a43",
             "962ed7f4b121978f"
         ],
-        "x": 675,
-        "y": 660,
+        "x": 605,
+        "y": 640,
         "wires": []
     },
     {
         "id": "53fedaef35cd36ad",
         "type": "delay",
         "z": "32981e8e6835223e",
-        "name": "",
+        "name": "wait",
         "pauseType": "delay",
         "timeout": "5",
         "timeoutUnits": "seconds",
@@ -10025,7 +10101,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 740,
+        "x": 970,
         "y": 580,
         "wires": [
             [
@@ -10045,12 +10121,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1660,
+        "x": 1920,
         "y": 580,
         "wires": [
             [
-                "32c088be8ec1b972",
-                "db35c155dc98be9a"
+                "32c088be8ec1b972"
             ]
         ]
     },
@@ -10064,7 +10139,7 @@
             "f891c7e34bac21b4",
             "bcdcae869ad783bf"
         ],
-        "x": 2105,
+        "x": 2365,
         "y": 500,
         "wires": []
     },
@@ -10094,8 +10169,8 @@
         "links": [
             "e615011df45d0e6d"
         ],
-        "x": 2255,
-        "y": 980,
+        "x": 2735,
+        "y": 1020,
         "wires": []
     },
     {
@@ -10110,12 +10185,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
+        "x": 360,
         "y": 960,
         "wires": [
             [
                 "434aab6c708b932a",
-                "b63dbd62d31d66de"
+                "60a0898d105cab77"
             ]
         ]
     },
@@ -10128,7 +10203,7 @@
         "links": [
             "144ab0e01fe98894"
         ],
-        "x": 585,
+        "x": 455,
         "y": 1040,
         "wires": []
     },
@@ -10136,7 +10211,7 @@
         "id": "b63dbd62d31d66de",
         "type": "delay",
         "z": "32981e8e6835223e",
-        "name": "",
+        "name": "F speed",
         "pauseType": "delay",
         "timeout": "1",
         "timeoutUnits": "seconds",
@@ -10149,13 +10224,13 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 680,
+        "x": 760,
         "y": 960,
         "wires": [
             [
                 "c000a50ff806cc6c",
-                "af8f46640494b64a",
-                "46b74b221a13985b"
+                "46b74b221a13985b",
+                "17ec9af626820c7d"
             ]
         ]
     },
@@ -10163,16 +10238,13 @@
         "id": "c000a50ff806cc6c",
         "type": "link out",
         "z": "32981e8e6835223e",
-        "name": "apply fan speed,open SV03 close SV02",
+        "name": "apply fan speed,and turn on fan",
         "mode": "link",
         "links": [
-            "93b789bcc3907053",
-            "962ed7f4b121978f",
-            "9fe8d5b4bdc03a43",
-            "bcdcae869ad783bf"
+            "9fe8d5b4bdc03a43"
         ],
-        "x": 745,
-        "y": 1040,
+        "x": 795,
+        "y": 1080,
         "wires": []
     },
     {
@@ -10184,7 +10256,7 @@
         "links": [
             "8455081bb4738b55"
         ],
-        "x": 1105,
+        "x": 1305,
         "y": 900,
         "wires": []
     },
@@ -10197,7 +10269,7 @@
         "links": [
             "bf1c544424eadbf8"
         ],
-        "x": 1115,
+        "x": 1315,
         "y": 960,
         "wires": []
     },
@@ -10205,13 +10277,13 @@
         "id": "f9ded39232025bab",
         "type": "link out",
         "z": "32981e8e6835223e",
-        "name": "Close 1SV01",
+        "name": "Open V02",
         "mode": "link",
         "links": [
-            "bcdcae869ad783bf"
+            "443d3afa06f7e3e5"
         ],
-        "x": 1115,
-        "y": 1000,
+        "x": 2145,
+        "y": 920,
         "wires": []
     },
     {
@@ -10233,8 +10305,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2090,
-        "y": 980,
+        "x": 2490,
+        "y": 1020,
         "wires": [
             [
                 "46e9681082c64fb8"
@@ -10247,8 +10319,7 @@
         "z": "32981e8e6835223e",
         "name": "Enable AutoMode in",
         "links": [
-            "4af76fc8fb2e9345",
-            "7923dbedc043f950"
+            "4af76fc8fb2e9345"
         ],
         "x": 235,
         "y": 340,
@@ -10267,7 +10338,7 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 1625,
+        "x": 2805,
         "y": 180,
         "wires": []
     },
@@ -10283,6 +10354,13 @@
                 "pt": "msg",
                 "to": "Regenration",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Regenration",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -10290,7 +10368,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1490,
+        "x": 2690,
         "y": 180,
         "wires": [
             [
@@ -10307,8 +10385,8 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 2795,
-        "y": 360,
+        "x": 4255,
+        "y": 380,
         "wires": []
     },
     {
@@ -10323,6 +10401,13 @@
                 "pt": "msg",
                 "to": "Adsorption",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Adsorption",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -10330,8 +10415,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2710,
-        "y": 360,
+        "x": 4170,
+        "y": 380,
         "wires": [
             [
                 "f4dc0e223b5fd429"
@@ -10347,7 +10432,7 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 2215,
+        "x": 2475,
         "y": 660,
         "wires": []
     },
@@ -10363,6 +10448,13 @@
                 "pt": "msg",
                 "to": "Desorption",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Desorption",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -10370,7 +10462,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2120,
+        "x": 2380,
         "y": 660,
         "wires": [
             [
@@ -10387,7 +10479,7 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 2375,
+        "x": 2635,
         "y": 520,
         "wires": []
     },
@@ -10403,6 +10495,13 @@
                 "pt": "msg",
                 "to": "Standby",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Standby",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -10410,7 +10509,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2250,
+        "x": 2510,
         "y": 520,
         "wires": [
             [
@@ -10443,6 +10542,13 @@
                 "pt": "msg",
                 "to": "Automation Disabled",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Automation Disabled",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -10462,16 +10568,16 @@
         "id": "377956e56076f835",
         "type": "function",
         "z": "32981e8e6835223e",
-        "name": "Humidity(A02) is <% diff Humidity (A01)",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nlet a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a01AbsHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a02ABSHum<ceriteria){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}\n",
+        "name": "AHumidity(A01) is >% criteria AHumidity (A02)",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n/*let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a02ABSHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a01AbsHum>ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}*/\n\n\nlet a02RHum = global.get(\"1A02-inRH\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2300,
-        "y": 240,
+        "x": 3780,
+        "y": 260,
         "wires": [
             [
                 "56948e68bbd266ee",
@@ -10484,16 +10590,16 @@
         "id": "60d32cb808cdb2ac",
         "type": "function",
         "z": "32981e8e6835223e",
-        "name": "Humidity(A02) is <90% diff Humidity (A01)",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nlet a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a01AbsHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a02ABSHum<ceriteria){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}\n",
+        "name": "AHumidity(A01) is >%criteria AHumidity (A02)",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n/*let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a02ABSHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a01AbsHum>ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}*/\n\n\nlet a02RHum = global.get(\"1A02-inRH\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1200,
-        "y": 240,
+        "x": 2240,
+        "y": 220,
         "wires": [
             [
                 "036560ec3996b9d7",
@@ -10523,7 +10629,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1430,
+        "x": 2590,
         "y": 240,
         "wires": [
             [
@@ -10542,14 +10648,14 @@
         "type": "function",
         "z": "32981e8e6835223e",
         "name": "CO2(A02) is higher than threshold% of (A01)",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nlet a02Co2Avg = global.get(\"1A02-Co2Avg\")\nlet a01Co2Avg = global.get(\"1A01-Co2Avg\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"])/100\nlet ceriteria = a01Co2Avg*percentageThreshold\n\nmsg.a02Co2 = a02Co2Avg\nmsg.a01Co2 = a01Co2Avg\nmsg.Co2percentage = percentageThreshold\nmsg.Co2criteria=ceriteria\nif (a02Co2Avg >=ceriteria){\n    msg.payload=true\n    return msg;\n}else{\n    msg.payload=false\n    return msg;\n}\n",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nlet a02Co2Avg = global.get(\"1A02-Co2Avg\")\nlet a01Co2Avg = global.get(\"1A01-Co2Avg\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"])/100\nlet ceriteria = (global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"])\n\nmsg.a02Co2 = a02Co2Avg\nmsg.a01Co2 = a01Co2Avg\n//msg.Co2percentage = percentageThreshold\nmsg.Co2criteria=ceriteria\nif (a02Co2Avg >=ceriteria){\n    msg.payload=true\n    return msg;\n}else{\n    msg.payload=false\n    return msg;\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 990,
+        "x": 1230,
         "y": 580,
         "wires": [
             [
@@ -10581,7 +10687,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1230,
+        "x": 1510,
         "y": 580,
         "wires": [
             [
@@ -10606,7 +10712,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1560,
+        "x": 1700,
         "y": 980,
         "wires": [
             [
@@ -10638,12 +10744,12 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1790,
+        "x": 1930,
         "y": 980,
         "wires": [
             [
-                "f718d6ace64bd26f",
-                "ca46cb1352d8b206"
+                "ca46cb1352d8b206",
+                "030c8d536ed4a9c8"
             ],
             [
                 "30ce1e621ea1940f",
@@ -10670,8 +10776,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2310,
-        "y": 140,
+        "x": 3770,
+        "y": 160,
         "wires": [
             [
                 "5627e235af99cdfa"
@@ -10697,7 +10803,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1050,
+        "x": 1090,
         "y": 520,
         "wires": [
             [
@@ -10724,8 +10830,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1450,
-        "y": 680,
+        "x": 1870,
+        "y": 760,
         "wires": [
             [
                 "b798e2a52e237646"
@@ -10751,7 +10857,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1530,
+        "x": 1670,
         "y": 900,
         "wires": [
             [
@@ -10768,7 +10874,7 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 1525,
+        "x": 2685,
         "y": 340,
         "wires": []
     },
@@ -10784,6 +10890,13 @@
                 "pt": "msg",
                 "to": "Adsorption",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Adsorption",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -10791,7 +10904,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1430,
+        "x": 2590,
         "y": 340,
         "wires": [
             [
@@ -10808,7 +10921,7 @@
         "links": [
             "38612e187d343efc"
         ],
-        "x": 1175,
+        "x": 1415,
         "y": 660,
         "wires": []
     },
@@ -10821,8 +10934,8 @@
         "links": [
             "38612e187d343efc"
         ],
-        "x": 2495,
-        "y": 200,
+        "x": 3955,
+        "y": 220,
         "wires": []
     },
     {
@@ -10834,7 +10947,7 @@
         "links": [
             "38612e187d343efc"
         ],
-        "x": 1745,
+        "x": 1885,
         "y": 1040,
         "wires": []
     },
@@ -10851,8 +10964,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1220,
-        "y": 700,
+        "x": 1460,
+        "y": 500,
         "wires": []
     },
     {
@@ -10868,8 +10981,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2600,
-        "y": 140,
+        "x": 4060,
+        "y": 160,
         "wires": []
     },
     {
@@ -10885,7 +10998,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1760,
+        "x": 2920,
         "y": 320,
         "wires": []
     },
@@ -10902,7 +11015,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1600,
+        "x": 1740,
         "y": 1080,
         "wires": []
     },
@@ -10919,7 +11032,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1780,
+        "x": 2940,
         "y": 160,
         "wires": []
     },
@@ -10936,8 +11049,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1240,
-        "y": 300,
+        "x": 2360,
+        "y": 120,
         "wires": []
     },
     {
@@ -10978,6 +11091,13 @@
                 "pt": "msg",
                 "to": "Wait start time",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Wait start time",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -11002,8 +11122,8 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 2795,
-        "y": 180,
+        "x": 4255,
+        "y": 200,
         "wires": []
     },
     {
@@ -11016,7 +11136,14 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "Regeneration - Waiting Humidity(A02) is < % diff Humidity (A01)",
+                "to": "Regeneration - Waiting Humidity(A02) criteria Column 1",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "msg",
+                "to": "Regeneration - Waiting Humidity(A02) criteria Column 1",
                 "tot": "str"
             }
         ],
@@ -11025,8 +11152,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2700,
-        "y": 180,
+        "x": 4160,
+        "y": 200,
         "wires": [
             [
                 "947b10e0362a21ad"
@@ -11042,8 +11169,8 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 1055,
-        "y": 700,
+        "x": 1665,
+        "y": 680,
         "wires": []
     },
     {
@@ -11065,8 +11192,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 960,
-        "y": 700,
+        "x": 1570,
+        "y": 680,
         "wires": [
             [
                 "b510aafd9341edd6"
@@ -11082,7 +11209,7 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 995,
+        "x": 1135,
         "y": 1040,
         "wires": []
     },
@@ -11098,6 +11225,13 @@
                 "pt": "msg",
                 "to": "Desorption - Spraying water",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Desorption - Spraying water",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -11105,7 +11239,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
+        "x": 1050,
         "y": 1040,
         "wires": [
             [
@@ -11122,7 +11256,7 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 2005,
+        "x": 2145,
         "y": 1100,
         "wires": []
     },
@@ -11136,7 +11270,14 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "Desorption - CO2(A02) < Threshold",
+                "to": "Desorption - CO2(A02) < Threshold Column 1",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "msg",
+                "to": "Desorption - CO2(A02) < Threshold Column 1",
                 "tot": "str"
             }
         ],
@@ -11145,7 +11286,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1910,
+        "x": 2050,
         "y": 1100,
         "wires": [
             [
@@ -11154,10 +11295,338 @@
         ]
     },
     {
-        "id": "db35c155dc98be9a",
+        "id": "0a2180290ca06702",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "Apply setpoints",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 3280,
+        "y": 260,
+        "wires": [
+            [
+                "fa3d9b03a4b7d840",
+                "5627e235af99cdfa"
+            ]
+        ]
+    },
+    {
+        "id": "fa3d9b03a4b7d840",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "Apply heater setpoint",
+        "mode": "link",
+        "links": [
+            "9fe8d5b4bdc03a43",
+            "e345219d2d18d6d7"
+        ],
+        "x": 3375,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "03906e3167426796",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "Apply speed",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 710,
+        "y": 580,
+        "wires": [
+            [
+                "53fedaef35cd36ad",
+                "d7f168a60869fcbe"
+            ]
+        ]
+    },
+    {
+        "id": "d7f168a60869fcbe",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "apply fan speed",
+        "mode": "link",
+        "links": [
+            "9fe8d5b4bdc03a43"
+        ],
+        "x": 835,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "60a0898d105cab77",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "V03 on V020 off",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 960,
+        "wires": [
+            [
+                "60289543f0de3b18",
+                "b63dbd62d31d66de"
+            ]
+        ]
+    },
+    {
+        "id": "60289543f0de3b18",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "apply fan speed,and turn on fan",
+        "mode": "link",
+        "links": [
+            "93b789bcc3907053",
+            "bcdcae869ad783bf"
+        ],
+        "x": 655,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "1f45f3e856c25745",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "Turn Off Fan",
+        "mode": "link",
+        "links": [
+            "f891c7e34bac21b4"
+        ],
+        "x": 225,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "0358abc77c63570f",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 160,
+        "y": 940,
+        "wires": [
+            [
+                "4e41ac535b2d371d",
+                "1f45f3e856c25745"
+            ]
+        ]
+    },
+    {
+        "id": "17ec9af626820c7d",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "F ON",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 960,
+        "wires": [
+            [
+                "af8f46640494b64a",
+                "893bc293429c09aa",
+                "076b8261c88038cd"
+            ]
+        ]
+    },
+    {
+        "id": "893bc293429c09aa",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "apply fan speed,and turn on fan",
+        "mode": "link",
+        "links": [
+            "962ed7f4b121978f"
+        ],
+        "x": 915,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "030c8d536ed4a9c8",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "V02 open",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2089.5078125,
+        "y": 1019.5078125,
+        "wires": [
+            [
+                "f9ded39232025bab",
+                "4a25b1a068f05e9f"
+            ]
+        ]
+    },
+    {
+        "id": "4a25b1a068f05e9f",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "V03 close",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2240,
+        "y": 1020,
+        "wires": [
+            [
+                "f718d6ace64bd26f",
+                "1ee8aa68b553a93d"
+            ]
+        ]
+    },
+    {
+        "id": "1ee8aa68b553a93d",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "CLose V03",
+        "mode": "link",
+        "links": [
+            "faf81b990d1ae70e"
+        ],
+        "x": 2268.5078125,
+        "y": 900.5078125,
+        "wires": []
+    },
+    {
+        "id": "7957e86d06734db5",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1920,
+        "y": 240,
+        "wires": [
+            [
+                "60d32cb808cdb2ac",
+                "d3eb96caf8b19411"
+            ]
+        ]
+    },
+    {
+        "id": "b3d393c762260c3a",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "Open V02",
+        "mode": "link",
+        "links": [
+            "443d3afa06f7e3e5"
+        ],
+        "x": 1245,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7aa7eeb9003d3a28",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "V02 open",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1180,
+        "y": 240,
+        "wires": [
+            [
+                "b3d393c762260c3a",
+                "aa1ad20d8c1ef185"
+            ]
+        ]
+    },
+    {
+        "id": "076b8261c88038cd",
         "type": "debug",
         "z": "32981e8e6835223e",
-        "name": "debug 4",
+        "name": "debug 15",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -11166,8 +11635,233 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1880,
-        "y": 720,
+        "x": 1100,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "aa1ad20d8c1ef185",
+        "type": "function",
+        "z": "32981e8e6835223e",
+        "name": "regen fan speed",
+        "func": "let fanSpeed=global.get(\"autoParams\")[\"1-regen-FanSpeed\"] \n\nmsg.payload = fanSpeed \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1340,
+        "y": 240,
+        "wires": [
+            [
+                "5b71c621da2a29d6",
+                "e2ee1c0307521803"
+            ]
+        ]
+    },
+    {
+        "id": "5b71c621da2a29d6",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "adjust fan speed",
+        "mode": "link",
+        "links": [
+            "144ab0e01fe98894"
+        ],
+        "x": 1515,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e2ee1c0307521803",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "F speed",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1560,
+        "y": 240,
+        "wires": [
+            [
+                "d23db37e6618c74d",
+                "e87fcfd886a0e4bd"
+            ]
+        ]
+    },
+    {
+        "id": "d23db37e6618c74d",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "apply fan speed,and turn on fan",
+        "mode": "link",
+        "links": [
+            "9fe8d5b4bdc03a43"
+        ],
+        "x": 1625,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e87fcfd886a0e4bd",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "F ON",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1730,
+        "y": 240,
+        "wires": [
+            [
+                "9e6972e4d4d26080",
+                "7957e86d06734db5"
+            ]
+        ]
+    },
+    {
+        "id": "9e6972e4d4d26080",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "apply fan speed,and turn on fan",
+        "mode": "link",
+        "links": [
+            "962ed7f4b121978f"
+        ],
+        "x": 1765,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "d3eb96caf8b19411",
+        "type": "change",
+        "z": "32981e8e6835223e",
+        "name": "reset",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1930,
+        "y": 180,
+        "wires": [
+            [
+                "7957e86d06734db5"
+            ]
+        ]
+    },
+    {
+        "id": "258658c7dffb8bc8",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "CLM1_AUTO_Status in",
+        "mode": "link",
+        "links": [
+            "0fba521e6efa0ca7"
+        ],
+        "x": 1165,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "5bb1a7596b3da967",
+        "type": "change",
+        "z": "32981e8e6835223e",
+        "name": "status regen",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Regenration",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AutomationStatus",
+                "pt": "global",
+                "to": "Regenration",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 120,
+        "wires": [
+            [
+                "258658c7dffb8bc8"
+            ]
+        ]
+    },
+    {
+        "id": "3443fb9e960e724c",
+        "type": "delay",
+        "z": "32981e8e6835223e",
+        "name": "H ON",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 3110,
+        "y": 260,
+        "wires": [
+            [
+                "0371a3fb8e30cb3d",
+                "0a2180290ca06702"
+            ]
+        ]
+    },
+    {
+        "id": "0371a3fb8e30cb3d",
+        "type": "link out",
+        "z": "32981e8e6835223e",
+        "name": "turn on Heater and fan close SV03 open SV02",
+        "mode": "link",
+        "links": [
+            "5553aaa637e267fb"
+        ],
+        "x": 3195,
+        "y": 200,
         "wires": []
     },
     {
@@ -11208,7 +11902,9 @@
             "947b10e0362a21ad",
             "b510aafd9341edd6",
             "4981114b5ff18ccd",
-            "229093dc1ce8dfb8"
+            "229093dc1ce8dfb8",
+            "258658c7dffb8bc8",
+            "9eee0479eeed86e0"
         ],
         "x": 285,
         "y": 220,
