@@ -80,6 +80,14 @@
         "env": []
     },
     {
+        "id": "e6706dcb92e97a2c",
+        "type": "tab",
+        "label": "Automatic controls",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "35bbe611d2f9a0ea",
         "type": "tab",
         "label": "Testing",
@@ -3395,6 +3403,13 @@
                 "pt": "msg",
                 "to": "LD.Relay.W1",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "1W01Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -3423,6 +3438,13 @@
                 "pt": "msg",
                 "to": "LD.Relay.D1",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "1V03Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -3451,6 +3473,13 @@
                 "pt": "msg",
                 "to": "LD.Relay.W2",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "2W11Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -3479,6 +3508,13 @@
                 "pt": "msg",
                 "to": "LD.Relay.A1",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "1V02Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -3507,6 +3543,13 @@
                 "pt": "msg",
                 "to": "LD.Relay.A2",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "2V12Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -3535,6 +3578,13 @@
                 "pt": "msg",
                 "to": "LD.Relay.D2",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "2V13Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -3738,8 +3788,7 @@
         "links": [
             "ff7341214a22508b",
             "fa6d858db77c9acf",
-            "893bc293429c09aa",
-            "9e6972e4d4d26080"
+            "893bc293429c09aa"
         ],
         "x": 285,
         "y": 620,
@@ -3777,7 +3826,8 @@
             "c000a50ff806cc6c",
             "fa3d9b03a4b7d840",
             "d7f168a60869fcbe",
-            "d23db37e6618c74d"
+            "d23db37e6618c74d",
+            "082ffe42d4c4ee61"
         ],
         "x": 285,
         "y": 700,
@@ -3937,7 +3987,8 @@
             "99fbfd992871e5ad",
             "4139c99d933c6615",
             "434aab6c708b932a",
-            "5b71c621da2a29d6"
+            "5b71c621da2a29d6",
+            "213d2dbfb8119e95"
         ],
         "x": 275,
         "y": 860,
@@ -4050,7 +4101,8 @@
             "fa6d858db77c9acf",
             "ff7341214a22508b",
             "f9ded39232025bab",
-            "b3d393c762260c3a"
+            "b3d393c762260c3a",
+            "58888668826e5d92"
         ],
         "x": 235,
         "y": 1160,
@@ -4069,7 +4121,8 @@
             "f36efd8a2d681e4b",
             "41b0ff6d20845e9d",
             "ff7341214a22508b",
-            "1ee8aa68b553a93d"
+            "1ee8aa68b553a93d",
+            "58888668826e5d92"
         ],
         "x": 545,
         "y": 1120,
@@ -5250,7 +5303,8 @@
         "wires": [
             [
                 "03349489b99ee32d",
-                "a575c396f2ce1499"
+                "a575c396f2ce1499",
+                "babc37789efbd98b"
             ],
             [
                 "5168ac2f5538bd41"
@@ -5276,6 +5330,13 @@
                 "pt": "msg",
                 "to": "L.1H01",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "1H01Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -5419,7 +5480,8 @@
             [],
             [],
             [
-                "1ff08a61fea4ff70"
+                "1ff08a61fea4ff70",
+                "e4236629ce8ff13c"
             ],
             []
         ]
@@ -5849,6 +5911,56 @@
         "reg": false,
         "x": 470,
         "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "babc37789efbd98b",
+        "type": "change",
+        "z": "d2a853aa4cee757f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "1PIDSV",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e4236629ce8ff13c",
+        "type": "change",
+        "z": "d2a853aa4cee757f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "1FN01Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1690,
+        "y": 1060,
         "wires": [
             []
         ]
@@ -6926,7 +7038,8 @@
                 "442c4df94ea98a3e"
             ],
             [
-                "a09ba5409cf7d1dc"
+                "a09ba5409cf7d1dc",
+                "64ea3e93f346cdf5"
             ],
             [
                 "dd2fa817c746743c"
@@ -6950,6 +7063,13 @@
                 "pt": "msg",
                 "to": "R.2H11",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "2H11Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -7051,7 +7171,8 @@
             [],
             [],
             [
-                "bb69cce5899ea5a9"
+                "bb69cce5899ea5a9",
+                "bd5dccaf71ed1292"
             ],
             []
         ]
@@ -7523,6 +7644,56 @@
         "reg": false,
         "x": 1540,
         "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64ea3e93f346cdf5",
+        "type": "change",
+        "z": "f9cdf73470cc790b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "2PIDSV",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bd5dccaf71ed1292",
+        "type": "change",
+        "z": "f9cdf73470cc790b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "2FN11Status",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1586.333251953125,
+        "y": 950.3333129882812,
         "wires": [
             []
         ]
@@ -9690,8 +9861,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 3490,
-        "y": 260,
+        "x": 2590,
+        "y": 200,
         "wires": [
             [
                 "377956e56076f835"
@@ -9865,8 +10036,8 @@
         "y": 260,
         "wires": [
             [
-                "7aa7eeb9003d3a28",
-                "5bb1a7596b3da967"
+                "5bb1a7596b3da967",
+                "83e0199a48b9dac2"
             ],
             [
                 "523ffa83b522201b",
@@ -9874,99 +10045,6 @@
             ],
             []
         ]
-    },
-    {
-        "id": "78ac0308dcc39614",
-        "type": "link out",
-        "z": "32981e8e6835223e",
-        "name": "CTRL_1H01_Setpoint out",
-        "mode": "link",
-        "links": [
-            "846d0692c7204b8d"
-        ],
-        "x": 2955,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "4fe82e643fdd455d",
-        "type": "function",
-        "z": "32981e8e6835223e",
-        "name": "start regen",
-        "func": "let params = global.get(\"autoParams\")\nlet heatersSetpoint = { payload: params[\"1-regen-T\"] }\nlet fanSpeed = { payload: params[\"1-regen-FanSpeed\"] }\n\n//heatersSetpoint.payload = global.get(\"1-regen-T\")\n//fanSpeed.payload = global.get(\"1-regen-FanSpeed\")\nreturn [heatersSetpoint,fanSpeed];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2790,
-        "y": 240,
-        "wires": [
-            [
-                "78ac0308dcc39614",
-                "e4fdc3d99d1a42d4",
-                "3b938cce3c2f5cf3"
-            ],
-            [
-                "99fbfd992871e5ad",
-                "4b4a43b37136329b"
-            ]
-        ]
-    },
-    {
-        "id": "99fbfd992871e5ad",
-        "type": "link out",
-        "z": "32981e8e6835223e",
-        "name": "CTRL_1FN01_Speed out",
-        "mode": "link",
-        "links": [
-            "144ab0e01fe98894"
-        ],
-        "x": 2965,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "e4fdc3d99d1a42d4",
-        "type": "delay",
-        "z": "32981e8e6835223e",
-        "name": "F&SV ON",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 2980,
-        "y": 240,
-        "wires": [
-            [
-                "ff7341214a22508b",
-                "3443fb9e960e724c"
-            ]
-        ]
-    },
-    {
-        "id": "ff7341214a22508b",
-        "type": "link out",
-        "z": "32981e8e6835223e",
-        "name": "turn on Heater and fan close SV03 open SV02",
-        "mode": "link",
-        "links": [
-            "443d3afa06f7e3e5",
-            "962ed7f4b121978f",
-            "faf81b990d1ae70e"
-        ],
-        "x": 3065,
-        "y": 180,
-        "wires": []
     },
     {
         "id": "a03292c0bea308ac",
@@ -9977,8 +10055,8 @@
         "links": [
             "71ecf974b23a0568"
         ],
-        "x": 4255,
-        "y": 300,
+        "x": 3355,
+        "y": 240,
         "wires": []
     },
     {
@@ -9990,8 +10068,8 @@
         "links": [
             "71ecf974b23a0568"
         ],
-        "x": 2725,
-        "y": 280,
+        "x": 2205,
+        "y": 260,
         "wires": []
     },
     {
@@ -10016,8 +10094,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 4030,
-        "y": 260,
+        "x": 3130,
+        "y": 200,
         "wires": [
             [
                 "5627e235af99cdfa",
@@ -10338,8 +10416,8 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 2805,
-        "y": 180,
+        "x": 2285,
+        "y": 160,
         "wires": []
     },
     {
@@ -10368,8 +10446,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2690,
-        "y": 180,
+        "x": 2170,
+        "y": 160,
         "wires": [
             [
                 "cac24c9778e2151c"
@@ -10385,8 +10463,8 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 4255,
-        "y": 380,
+        "x": 3355,
+        "y": 320,
         "wires": []
     },
     {
@@ -10415,8 +10493,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 4170,
-        "y": 380,
+        "x": 3270,
+        "y": 320,
         "wires": [
             [
                 "f4dc0e223b5fd429"
@@ -10576,8 +10654,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3780,
-        "y": 260,
+        "x": 2880,
+        "y": 200,
         "wires": [
             [
                 "56948e68bbd266ee",
@@ -10598,7 +10676,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2240,
+        "x": 1780,
         "y": 220,
         "wires": [
             [
@@ -10629,12 +10707,12 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2590,
-        "y": 240,
+        "x": 2070,
+        "y": 220,
         "wires": [
             [
-                "4fe82e643fdd455d",
-                "ba85250e1e0b9eb4"
+                "ba85250e1e0b9eb4",
+                "9a7f34455bd92757"
             ],
             [
                 "88aa3105fd704bb8",
@@ -10776,8 +10854,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3770,
-        "y": 160,
+        "x": 2870,
+        "y": 100,
         "wires": [
             [
                 "5627e235af99cdfa"
@@ -10874,8 +10952,8 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 2685,
-        "y": 340,
+        "x": 2165,
+        "y": 320,
         "wires": []
     },
     {
@@ -10904,8 +10982,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2590,
-        "y": 340,
+        "x": 2070,
+        "y": 320,
         "wires": [
             [
                 "547a8a616f7dafbe"
@@ -10934,8 +11012,8 @@
         "links": [
             "38612e187d343efc"
         ],
-        "x": 3955,
-        "y": 220,
+        "x": 3055,
+        "y": 160,
         "wires": []
     },
     {
@@ -10981,25 +11059,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 4060,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "4b4a43b37136329b",
-        "type": "debug",
-        "z": "32981e8e6835223e",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2920,
-        "y": 320,
+        "x": 3160,
+        "y": 100,
         "wires": []
     },
     {
@@ -11020,23 +11081,6 @@
         "wires": []
     },
     {
-        "id": "3b938cce3c2f5cf3",
-        "type": "debug",
-        "z": "32981e8e6835223e",
-        "name": "debug 11",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2940,
-        "y": 160,
-        "wires": []
-    },
-    {
         "id": "7bf5f7648772315b",
         "type": "debug",
         "z": "32981e8e6835223e",
@@ -11049,7 +11093,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2360,
+        "x": 1900,
         "y": 120,
         "wires": []
     },
@@ -11122,8 +11166,8 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 4255,
-        "y": 200,
+        "x": 3355,
+        "y": 140,
         "wires": []
     },
     {
@@ -11152,8 +11196,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 4160,
-        "y": 200,
+        "x": 3260,
+        "y": 140,
         "wires": [
             [
                 "947b10e0362a21ad"
@@ -11293,46 +11337,6 @@
                 "229093dc1ce8dfb8"
             ]
         ]
-    },
-    {
-        "id": "0a2180290ca06702",
-        "type": "delay",
-        "z": "32981e8e6835223e",
-        "name": "Apply setpoints",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 3280,
-        "y": 260,
-        "wires": [
-            [
-                "fa3d9b03a4b7d840",
-                "5627e235af99cdfa"
-            ]
-        ]
-    },
-    {
-        "id": "fa3d9b03a4b7d840",
-        "type": "link out",
-        "z": "32981e8e6835223e",
-        "name": "Apply heater setpoint",
-        "mode": "link",
-        "links": [
-            "9fe8d5b4bdc03a43",
-            "e345219d2d18d6d7"
-        ],
-        "x": 3375,
-        "y": 180,
-        "wires": []
     },
     {
         "id": "03906e3167426796",
@@ -11574,51 +11578,12 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1920,
+        "x": 1460,
         "y": 240,
         "wires": [
             [
                 "60d32cb808cdb2ac",
                 "d3eb96caf8b19411"
-            ]
-        ]
-    },
-    {
-        "id": "b3d393c762260c3a",
-        "type": "link out",
-        "z": "32981e8e6835223e",
-        "name": "Open V02",
-        "mode": "link",
-        "links": [
-            "443d3afa06f7e3e5"
-        ],
-        "x": 1245,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "7aa7eeb9003d3a28",
-        "type": "delay",
-        "z": "32981e8e6835223e",
-        "name": "V02 open",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1180,
-        "y": 240,
-        "wires": [
-            [
-                "b3d393c762260c3a",
-                "aa1ad20d8c1ef185"
             ]
         ]
     },
@@ -11640,118 +11605,6 @@
         "wires": []
     },
     {
-        "id": "aa1ad20d8c1ef185",
-        "type": "function",
-        "z": "32981e8e6835223e",
-        "name": "regen fan speed",
-        "func": "let fanSpeed=global.get(\"autoParams\")[\"1-regen-FanSpeed\"] \n\nmsg.payload = fanSpeed \nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1340,
-        "y": 240,
-        "wires": [
-            [
-                "5b71c621da2a29d6",
-                "e2ee1c0307521803"
-            ]
-        ]
-    },
-    {
-        "id": "5b71c621da2a29d6",
-        "type": "link out",
-        "z": "32981e8e6835223e",
-        "name": "adjust fan speed",
-        "mode": "link",
-        "links": [
-            "144ab0e01fe98894"
-        ],
-        "x": 1515,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "e2ee1c0307521803",
-        "type": "delay",
-        "z": "32981e8e6835223e",
-        "name": "F speed",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1560,
-        "y": 240,
-        "wires": [
-            [
-                "d23db37e6618c74d",
-                "e87fcfd886a0e4bd"
-            ]
-        ]
-    },
-    {
-        "id": "d23db37e6618c74d",
-        "type": "link out",
-        "z": "32981e8e6835223e",
-        "name": "apply fan speed,and turn on fan",
-        "mode": "link",
-        "links": [
-            "9fe8d5b4bdc03a43"
-        ],
-        "x": 1625,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "e87fcfd886a0e4bd",
-        "type": "delay",
-        "z": "32981e8e6835223e",
-        "name": "F ON",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1730,
-        "y": 240,
-        "wires": [
-            [
-                "9e6972e4d4d26080",
-                "7957e86d06734db5"
-            ]
-        ]
-    },
-    {
-        "id": "9e6972e4d4d26080",
-        "type": "link out",
-        "z": "32981e8e6835223e",
-        "name": "apply fan speed,and turn on fan",
-        "mode": "link",
-        "links": [
-            "962ed7f4b121978f"
-        ],
-        "x": 1765,
-        "y": 300,
-        "wires": []
-    },
-    {
         "id": "d3eb96caf8b19411",
         "type": "change",
         "z": "32981e8e6835223e",
@@ -11770,7 +11623,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1930,
+        "x": 1470,
         "y": 180,
         "wires": [
             [
@@ -11787,8 +11640,8 @@
         "links": [
             "0fba521e6efa0ca7"
         ],
-        "x": 1165,
-        "y": 120,
+        "x": 1125,
+        "y": 80,
         "wires": []
     },
     {
@@ -11817,8 +11670,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1030,
-        "y": 120,
+        "x": 990,
+        "y": 80,
         "wires": [
             [
                 "258658c7dffb8bc8"
@@ -11826,43 +11679,62 @@
         ]
     },
     {
-        "id": "3443fb9e960e724c",
-        "type": "delay",
+        "id": "83e0199a48b9dac2",
+        "type": "link out",
         "z": "32981e8e6835223e",
-        "name": "H ON",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 3110,
-        "y": 260,
+        "name": "prepare for Regen",
+        "mode": "link",
+        "links": [
+            "c9f039ed1a54aa86"
+        ],
+        "x": 1115,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "baa7d1a9c71bed71",
+        "type": "link in",
+        "z": "32981e8e6835223e",
+        "name": "regen prep done",
+        "links": [
+            "1d2ed20b2ba0f301"
+        ],
+        "x": 1315,
+        "y": 240,
         "wires": [
             [
-                "0371a3fb8e30cb3d",
-                "0a2180290ca06702"
+                "7957e86d06734db5"
             ]
         ]
     },
     {
-        "id": "0371a3fb8e30cb3d",
+        "id": "9a7f34455bd92757",
         "type": "link out",
         "z": "32981e8e6835223e",
-        "name": "turn on Heater and fan close SV03 open SV02",
+        "name": "CLMN1 Regen",
         "mode": "link",
         "links": [
-            "5553aaa637e267fb"
+            "626e46fbe51bc6f5"
         ],
-        "x": 3195,
+        "x": 2215,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "5fc24968fa3c9af6",
+        "type": "link in",
+        "z": "32981e8e6835223e",
+        "name": "RegnApplied",
+        "links": [
+            "7c4962fec30a0cb3"
+        ],
+        "x": 2475,
+        "y": 200,
+        "wires": [
+            [
+                "5627e235af99cdfa"
+            ]
+        ]
     },
     {
         "id": "f6d2d2917c8df183",
@@ -11977,6 +11849,1173 @@
                 "12100600db99c1d1"
             ]
         ]
+    },
+    {
+        "id": "9e6972e4d4d26080",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "apply fan speed,and turn on fan",
+        "mode": "link",
+        "links": [],
+        "x": 2375,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7aa7eeb9003d3a28",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "V02 open",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 260,
+        "wires": [
+            [
+                "b3d393c762260c3a",
+                "900845b76fabd6e1"
+            ]
+        ]
+    },
+    {
+        "id": "b3d393c762260c3a",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "Open V02",
+        "mode": "link",
+        "links": [
+            "443d3afa06f7e3e5"
+        ],
+        "x": 575,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "aa1ad20d8c1ef185",
+        "type": "function",
+        "z": "e6706dcb92e97a2c",
+        "name": "regen fan speed",
+        "func": "let fanSpeed=global.get(\"autoParams\")[\"1-regen-FanSpeed\"] \n\nmsg.payload = fanSpeed \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 260,
+        "wires": [
+            [
+                "5b71c621da2a29d6",
+                "e2ee1c0307521803"
+            ]
+        ]
+    },
+    {
+        "id": "5b71c621da2a29d6",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "adjust fan speed",
+        "mode": "link",
+        "links": [
+            "144ab0e01fe98894"
+        ],
+        "x": 1405,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e2ee1c0307521803",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "F speed",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1580,
+        "y": 260,
+        "wires": [
+            [
+                "d23db37e6618c74d",
+                "0dc128c200d4386b"
+            ]
+        ]
+    },
+    {
+        "id": "d23db37e6618c74d",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "apply fan speed",
+        "mode": "link",
+        "links": [
+            "9fe8d5b4bdc03a43"
+        ],
+        "x": 1645,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e87fcfd886a0e4bd",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "F ON",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2270,
+        "y": 260,
+        "wires": [
+            [
+                "9e6972e4d4d26080",
+                "f2cc5298e83dca48"
+            ]
+        ]
+    },
+    {
+        "id": "c9f039ed1a54aa86",
+        "type": "link in",
+        "z": "e6706dcb92e97a2c",
+        "name": "Prepare for Regen",
+        "links": [
+            "83e0199a48b9dac2"
+        ],
+        "x": 395,
+        "y": 260,
+        "wires": [
+            [
+                "7aa7eeb9003d3a28"
+            ]
+        ]
+    },
+    {
+        "id": "1d2ed20b2ba0f301",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "RegenPrep done",
+        "mode": "link",
+        "links": [
+            "baa7d1a9c71bed71"
+        ],
+        "x": 2835,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e719801da7e3393e",
+        "type": "switch",
+        "z": "e6706dcb92e97a2c",
+        "name": "1V02Status",
+        "property": "1V02Status",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 970,
+        "y": 260,
+        "wires": [
+            [
+                "aa1ad20d8c1ef185",
+                "03e9db41f417a236"
+            ],
+            [
+                "7aa7eeb9003d3a28"
+            ]
+        ]
+    },
+    {
+        "id": "900845b76fabd6e1",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 720,
+        "y": 260,
+        "wires": [
+            [
+                "e719801da7e3393e"
+            ]
+        ]
+    },
+    {
+        "id": "f2a605572561392a",
+        "type": "switch",
+        "z": "e6706dcb92e97a2c",
+        "name": "1FN01Freq",
+        "property": "1FN01Freq",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "payload",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1990,
+        "y": 260,
+        "wires": [
+            [
+                "e87fcfd886a0e4bd",
+                "a3d1d3a09aa1abde"
+            ],
+            [
+                "e2ee1c0307521803"
+            ]
+        ]
+    },
+    {
+        "id": "0dc128c200d4386b",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1780,
+        "y": 260,
+        "wires": [
+            [
+                "f2a605572561392a"
+            ]
+        ]
+    },
+    {
+        "id": "03e9db41f417a236",
+        "type": "change",
+        "z": "e6706dcb92e97a2c",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 140,
+        "wires": [
+            [
+                "900845b76fabd6e1"
+            ]
+        ]
+    },
+    {
+        "id": "a3d1d3a09aa1abde",
+        "type": "change",
+        "z": "e6706dcb92e97a2c",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1880.333251953125,
+        "y": 150.3333282470703,
+        "wires": [
+            [
+                "0dc128c200d4386b"
+            ]
+        ]
+    },
+    {
+        "id": "6204d67fd006cc7c",
+        "type": "switch",
+        "z": "e6706dcb92e97a2c",
+        "name": "1FN01Status",
+        "property": "1FN01Status",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2650,
+        "y": 260,
+        "wires": [
+            [
+                "a2301937c13fc4fe",
+                "1d2ed20b2ba0f301"
+            ],
+            [
+                "e87fcfd886a0e4bd"
+            ]
+        ]
+    },
+    {
+        "id": "f2cc5298e83dca48",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2440,
+        "y": 260,
+        "wires": [
+            [
+                "6204d67fd006cc7c"
+            ]
+        ]
+    },
+    {
+        "id": "a2301937c13fc4fe",
+        "type": "change",
+        "z": "e6706dcb92e97a2c",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2540.333251953125,
+        "y": 150.3333282470703,
+        "wires": [
+            [
+                "f2cc5298e83dca48"
+            ]
+        ]
+    },
+    {
+        "id": "4fe82e643fdd455d",
+        "type": "function",
+        "z": "e6706dcb92e97a2c",
+        "name": "Get Fan speed",
+        "func": "let params = global.get(\"autoParams\")\nlet fanSpeed = { payload: params[\"1-regen-FanSpeed\"] }\n\n//heatersSetpoint.payload = global.get(\"1-regen-T\")\n//fanSpeed.payload = global.get(\"1-regen-FanSpeed\")\nreturn fanSpeed;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 600,
+        "wires": [
+            [
+                "76a8ef84012737af",
+                "99fbfd992871e5ad"
+            ]
+        ]
+    },
+    {
+        "id": "78ac0308dcc39614",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "CTRL_1H01_Setpoint out",
+        "mode": "link",
+        "links": [
+            "846d0692c7204b8d"
+        ],
+        "x": 2845,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "99fbfd992871e5ad",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "CTRL_1FN01_Speed out",
+        "mode": "link",
+        "links": [
+            "144ab0e01fe98894"
+        ],
+        "x": 625,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "ff7341214a22508b",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "turn on Heater and fan close SV03 open SV02",
+        "mode": "link",
+        "links": [
+            "443d3afa06f7e3e5",
+            "962ed7f4b121978f",
+            "faf81b990d1ae70e"
+        ],
+        "x": 825,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "3443fb9e960e724c",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "H ON",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 3570,
+        "y": 600,
+        "wires": [
+            [
+                "0371a3fb8e30cb3d",
+                "4a845a918d3f0a90"
+            ]
+        ]
+    },
+    {
+        "id": "0371a3fb8e30cb3d",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "turn on Heater and fan close SV03 open SV02",
+        "mode": "link",
+        "links": [
+            "5553aaa637e267fb"
+        ],
+        "x": 3555,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "0a2180290ca06702",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "Apply setpoints",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2960,
+        "y": 600,
+        "wires": [
+            [
+                "fa3d9b03a4b7d840",
+                "8f1377f2b5a00552"
+            ]
+        ]
+    },
+    {
+        "id": "fa3d9b03a4b7d840",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "Apply heater setpoint",
+        "mode": "link",
+        "links": [
+            "9fe8d5b4bdc03a43",
+            "e345219d2d18d6d7"
+        ],
+        "x": 2945,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "626e46fbe51bc6f5",
+        "type": "link in",
+        "z": "e6706dcb92e97a2c",
+        "name": "CLMN 1 Regen",
+        "links": [
+            "9a7f34455bd92757"
+        ],
+        "x": 355,
+        "y": 600,
+        "wires": [
+            [
+                "4fe82e643fdd455d"
+            ]
+        ]
+    },
+    {
+        "id": "76a8ef84012737af",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "V02 open",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 600,
+        "wires": [
+            [
+                "58888668826e5d92",
+                "54933de91ef7fa6b"
+            ]
+        ]
+    },
+    {
+        "id": "58888668826e5d92",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "Open V02",
+        "mode": "link",
+        "links": [
+            "443d3afa06f7e3e5",
+            "faf81b990d1ae70e"
+        ],
+        "x": 755,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "6269a0f1809b2b32",
+        "type": "switch",
+        "z": "e6706dcb92e97a2c",
+        "name": "1V02Status",
+        "property": "1V02Status",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1150,
+        "y": 600,
+        "wires": [
+            [
+                "cc16037ce66ba47b",
+                "05dbc69058de7fa3"
+            ],
+            [
+                "76a8ef84012737af"
+            ]
+        ]
+    },
+    {
+        "id": "54933de91ef7fa6b",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 600,
+        "wires": [
+            [
+                "6269a0f1809b2b32"
+            ]
+        ]
+    },
+    {
+        "id": "cc16037ce66ba47b",
+        "type": "change",
+        "z": "e6706dcb92e97a2c",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 480,
+        "wires": [
+            [
+                "54933de91ef7fa6b"
+            ]
+        ]
+    },
+    {
+        "id": "05dbc69058de7fa3",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "F speed",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1409.666748046875,
+        "y": 609.6666717529297,
+        "wires": [
+            [
+                "082ffe42d4c4ee61",
+                "46aadca5bebbd5e7"
+            ]
+        ]
+    },
+    {
+        "id": "082ffe42d4c4ee61",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "apply fan speed",
+        "mode": "link",
+        "links": [
+            "9fe8d5b4bdc03a43"
+        ],
+        "x": 1474.666748046875,
+        "y": 669.6666717529297,
+        "wires": []
+    },
+    {
+        "id": "32476f83af0179be",
+        "type": "switch",
+        "z": "e6706dcb92e97a2c",
+        "name": "1FN01Freq",
+        "property": "1FN01Freq",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "payload",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1819.666748046875,
+        "y": 609.6666717529297,
+        "wires": [
+            [
+                "cda92c0ff587c5ea",
+                "3bc620adc256f007"
+            ],
+            [
+                "05dbc69058de7fa3"
+            ]
+        ]
+    },
+    {
+        "id": "46aadca5bebbd5e7",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1609.666748046875,
+        "y": 609.6666717529297,
+        "wires": [
+            [
+                "32476f83af0179be"
+            ]
+        ]
+    },
+    {
+        "id": "cda92c0ff587c5ea",
+        "type": "change",
+        "z": "e6706dcb92e97a2c",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1710,
+        "y": 500,
+        "wires": [
+            [
+                "46aadca5bebbd5e7"
+            ]
+        ]
+    },
+    {
+        "id": "b5b666e6256558d7",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "apply fan speed,and turn on fan",
+        "mode": "link",
+        "links": [],
+        "x": 2205,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "3bc620adc256f007",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "F ON",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2100,
+        "y": 600,
+        "wires": [
+            [
+                "b5b666e6256558d7",
+                "e24d6c45a62fb8bc"
+            ]
+        ]
+    },
+    {
+        "id": "3c1803b3a9bb308c",
+        "type": "switch",
+        "z": "e6706dcb92e97a2c",
+        "name": "1FN01Status",
+        "property": "1FN01Status",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2480,
+        "y": 600,
+        "wires": [
+            [
+                "e06cfceb9a84681d",
+                "1d980a148c1298c1"
+            ],
+            [
+                "3bc620adc256f007"
+            ]
+        ]
+    },
+    {
+        "id": "e24d6c45a62fb8bc",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2270,
+        "y": 600,
+        "wires": [
+            [
+                "3c1803b3a9bb308c"
+            ]
+        ]
+    },
+    {
+        "id": "e06cfceb9a84681d",
+        "type": "change",
+        "z": "e6706dcb92e97a2c",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2370.333251953125,
+        "y": 490.3333282470703,
+        "wires": [
+            [
+                "e24d6c45a62fb8bc"
+            ]
+        ]
+    },
+    {
+        "id": "17af1920f96635fe",
+        "type": "switch",
+        "z": "e6706dcb92e97a2c",
+        "name": "1PIDSV",
+        "property": "1PIDSV",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "payload",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 3360,
+        "y": 600,
+        "wires": [
+            [
+                "42cbafbdbdf84713",
+                "3443fb9e960e724c"
+            ],
+            [
+                "0a2180290ca06702"
+            ]
+        ]
+    },
+    {
+        "id": "8f1377f2b5a00552",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 3160,
+        "y": 600,
+        "wires": [
+            [
+                "17af1920f96635fe"
+            ]
+        ]
+    },
+    {
+        "id": "42cbafbdbdf84713",
+        "type": "change",
+        "z": "e6706dcb92e97a2c",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3260.333251953125,
+        "y": 490.3333282470703,
+        "wires": [
+            [
+                "8f1377f2b5a00552"
+            ]
+        ]
+    },
+    {
+        "id": "1d980a148c1298c1",
+        "type": "function",
+        "z": "e6706dcb92e97a2c",
+        "name": "Get temp setpoint",
+        "func": "let params = global.get(\"autoParams\")\nlet heaterSetpoint = { payload: params[\"1-regen-T\"] }\n\n\nreturn heaterSetpoint;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2730,
+        "y": 600,
+        "wires": [
+            [
+                "0a2180290ca06702",
+                "78ac0308dcc39614"
+            ]
+        ]
+    },
+    {
+        "id": "5b11983fc3194d69",
+        "type": "switch",
+        "z": "e6706dcb92e97a2c",
+        "name": "1H01Status",
+        "property": "1H01Status",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 3990,
+        "y": 600,
+        "wires": [
+            [
+                "3b5b81e2c48da1c5",
+                "7c4962fec30a0cb3"
+            ],
+            [
+                "3443fb9e960e724c"
+            ]
+        ]
+    },
+    {
+        "id": "4a845a918d3f0a90",
+        "type": "delay",
+        "z": "e6706dcb92e97a2c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 3780,
+        "y": 600,
+        "wires": [
+            [
+                "5b11983fc3194d69"
+            ]
+        ]
+    },
+    {
+        "id": "3b5b81e2c48da1c5",
+        "type": "change",
+        "z": "e6706dcb92e97a2c",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3880.333251953125,
+        "y": 490.3333282470703,
+        "wires": [
+            [
+                "4a845a918d3f0a90"
+            ]
+        ]
+    },
+    {
+        "id": "7c4962fec30a0cb3",
+        "type": "link out",
+        "z": "e6706dcb92e97a2c",
+        "name": "RegnApplied",
+        "mode": "link",
+        "links": [
+            "5fc24968fa3c9af6"
+        ],
+        "x": 4195,
+        "y": 600,
+        "wires": []
     },
     {
         "id": "e6544c4442963821",
