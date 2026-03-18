@@ -777,6 +777,11 @@
         "name": "wesely phone"
     },
     {
+        "id": "dc0d6ceeae9ac6e0",
+        "type": "node-red-contrib-whatsapp-cmb-account",
+        "name": "Zulma phone"
+    },
+    {
         "id": "e553c78b0fab920e",
         "type": "change",
         "z": "265ccb982c0cfc2a",
@@ -1129,7 +1134,7 @@
         "type": "function",
         "z": "b994839ba412691b",
         "name": "function 3",
-        "func": "\nglobal.set(\"addrInfo\", [\n  // VFDs\n  { tag: \"LVFD\", unitid: 101, fc: 3, address: 2057, quantity: 6 },\n  { tag: \"2FN11\", unitid: 201, fc: 3, address: 2057, quantity: 6 },\n\n  // Energy Meters\n  { tag: \"LEM\", unitid: 102, fc: 4, address: 12, quantity: 2 },\n  { tag: \"REM\", unitid: 202, fc: 4, address: 12, quantity: 2 },\n\n  // PIDs (read variables block 1..15 in one shot)\n  { tag: \"LPID\", unitid: 103, fc: 3, address: 1, quantity: 15 },\n  { tag: \"RPID\", unitid: 203, fc: 3, address: 1, quantity: 15 },\n\n  // EE872 Up (grouped) (1A02 & 2A12)\n  // CO2 avg+raw (0x424..0x427)\n  { tag: \"LUPEE872CO2\", unitid: 111, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RUPEE872CO2\", unitid: 211, fc: 4, address: 0x424, quantity: 0x04 },\n  // Temp+RH (0x3EA..0x3FD)\n  { tag: \"LUPEE872TRH\", unitid: 111, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RUPEE872TRH\", unitid: 211, fc: 4, address: 0x3EA, quantity: 0x14 },\n  // Pressure (0x4B0..0x4B1)\n  { tag: \"LUPEE872P\", unitid: 111, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RUPEE872P\", unitid: 211, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE872 Down (grouped)\n  { tag: \"LDOWNEE872CO2\", unitid: 112, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RDOWNEE872CO2\", unitid: 212, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"LDOWNEE872TRH\", unitid: 112, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RDOWNEE872TRH\", unitid: 212, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"LDOWNEE872P\", unitid: 112, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RDOWNEE872P\", unitid: 212, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE600 (as you had)\n  { tag: \"1A05\", unitid: 113, fc: 4, address: 0x4BE, quantity: 0x02 },\n  { tag: \"2A15\", unitid: 213, fc: 4, address: 0x4BE, quantity: 0x02 },\n\n  // EE650 (as you had)\n  { tag: \"LEE650T\", unitid: 114, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"REE650T\", unitid: 214, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"LEE650AV\", unitid: 114, fc: 4, address: 0x410, quantity: 0x02 },\n  { tag: \"REE650AV\", unitid: 214, fc: 4, address: 0x410, quantity: 0x02 }\n]);\n\nglobal.set(\"index\", 0);\nnode.warn(\"Global variables initialized\");\nreturn msg;",
+        "func": "\nglobal.set(\"addrInfo\", [\n  // VFDs\n  { tag: \"LVFD\", unitid: 101, fc: 3, address: 2057, quantity: 6 },\n  { tag: \"2FN11\", unitid: 201, fc: 3, address: 2057, quantity: 6 },\n\n  // Energy Meters\n  { tag: \"LEM\", unitid: 102, fc: 4, address: 12, quantity: 2 },\n  { tag: \"REM\", unitid: 202, fc: 4, address: 12, quantity: 2 },\n\n  // PIDs (read variables block 1..15 in one shot)\n  { tag: \"LPID\", unitid: 103, fc: 3, address: 1, quantity: 15 },\n  { tag: \"RPID\", unitid: 203, fc: 3, address: 1, quantity: 15 },\n\n  // EE872 Up (grouped) (1A02 & 2A12)\n  // CO2 avg+raw (0x424..0x427)\n  { tag: \"LUPEE872CO2\", unitid: 111, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RUPEE872CO2\", unitid: 211, fc: 4, address: 0x424, quantity: 0x04 },\n  // Temp+RH (0x3EA..0x3FD)\n  { tag: \"LUPEE872TRH\", unitid: 111, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RUPEE872TRH\", unitid: 211, fc: 4, address: 0x3EA, quantity: 0x14 },\n  // Pressure (0x4B0..0x4B1)\n  { tag: \"LUPEE872P\", unitid: 111, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RUPEE872P\", unitid: 211, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE872 Down (grouped)\n  { tag: \"LDOWNEE872CO2\", unitid: 112, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"RDOWNEE872CO2\", unitid: 212, fc: 4, address: 0x424, quantity: 0x04 },\n  { tag: \"LDOWNEE872TRH\", unitid: 112, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"RDOWNEE872TRH\", unitid: 212, fc: 4, address: 0x3EA, quantity: 0x14 },\n  { tag: \"LDOWNEE872P\", unitid: 112, fc: 4, address: 0x4B0, quantity: 0x02 },\n  { tag: \"RDOWNEE872P\", unitid: 212, fc: 4, address: 0x4B0, quantity: 0x02 },\n\n  // EE600 (as you had)\n  { tag: \"1A05\", unitid: 113, fc: 4, address: 0x4BE, quantity: 0x02 },\n  { tag: \"2A15\", unitid: 213, fc: 4, address: 0x4BE, quantity: 0x02 },\n\n  // EE650 (as you had)\n  { tag: \"LEE650T\", unitid: 114, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"REE650T\", unitid: 214, fc: 4, address: 0x3EA, quantity: 0x02 },\n  { tag: \"LEE650AV\", unitid: 114, fc: 4, address: 0x410, quantity: 0x02 },\n  { tag: \"REE650AV\", unitid: 214, fc: 4, address: 0x410, quantity: 0x02 }\n]);\n\nglobal.set(\"index\", 0);\n//node.warn(\"Global variables initialized\");\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -4263,7 +4268,8 @@
         "links": [
             "3cd802cee8dd1f24",
             "3f75c26370e71eae",
-            "f3414174ec3121f6"
+            "f3414174ec3121f6",
+            "4fcecbb93b74f241"
         ],
         "x": 545,
         "y": 1040,
@@ -4299,7 +4305,8 @@
             "b6b83c0b8cbf9409",
             "b6e0406cea5c1d18",
             "22dfc4f93e242e03",
-            "d52e013585772451"
+            "d52e013585772451",
+            "2d1db02e2f67cdb4"
         ],
         "x": 235,
         "y": 1160,
@@ -4320,7 +4327,8 @@
             "5c988f635d8d8665",
             "b6e0406cea5c1d18",
             "f0419d96ee475a28",
-            "d52e013585772451"
+            "d52e013585772451",
+            "e0a649172f3d0ac5"
         ],
         "x": 545,
         "y": 1120,
@@ -4453,7 +4461,8 @@
             "53856e8b313517fa",
             "f65b6c12f213e1f7",
             "a22be4dfe1e33821",
-            "1f279fa7342e49fb"
+            "1f279fa7342e49fb",
+            "b681395a6f987879"
         ],
         "x": 215,
         "y": 1380,
@@ -4469,7 +4478,8 @@
         "z": "1403119fa516edbc",
         "name": "CTRL_2W11_OFF in",
         "links": [
-            "56125b61d42406bc"
+            "56125b61d42406bc",
+            "ecb458510c9af2ef"
         ],
         "x": 545,
         "y": 1520,
@@ -4487,7 +4497,8 @@
         "links": [
             "44777a65f27b2b93",
             "f65b6c12f213e1f7",
-            "f8e69cce0876ff82"
+            "f8e69cce0876ff82",
+            "3afab4e5c4c49a2a"
         ],
         "x": 545,
         "y": 1420,
@@ -8347,25 +8358,6 @@
         ]
     },
     {
-        "id": "1bc8038dd9023dcd",
-        "type": "inject",
-        "z": "da547dd676c18c16",
-        "name": "Toggle CSV logging",
-        "props": [],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": "",
-        "topic": "",
-        "x": 630,
-        "y": 260,
-        "wires": [
-            [
-                "1b4f0d4666513ac8"
-            ]
-        ]
-    },
-    {
         "id": "1b4f0d4666513ac8",
         "type": "function",
         "z": "da547dd676c18c16",
@@ -8408,7 +8400,7 @@
         "officon": "",
         "offcolor": "",
         "x": 610,
-        "y": 200,
+        "y": 180,
         "wires": [
             [
                 "1b4f0d4666513ac8"
@@ -8615,7 +8607,9 @@
         "x": 760,
         "y": 80,
         "wires": [
-            []
+            [
+                "1b4f0d4666513ac8"
+            ]
         ]
     },
     {
@@ -8631,6 +8625,25 @@
         "wires": [
             [
                 "86c4cc9b355b8386",
+                "1b4f0d4666513ac8"
+            ]
+        ]
+    },
+    {
+        "id": "1bc8038dd9023dcd",
+        "type": "inject",
+        "z": "da547dd676c18c16",
+        "name": "Toggle CSV logging",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 520,
+        "y": 260,
+        "wires": [
+            [
                 "1b4f0d4666513ac8"
             ]
         ]
@@ -9511,7 +9524,7 @@
         "z": "897898ed0b432706",
         "group": "16c2d68fad5258bc",
         "name": "shutdownRegenInterval",
-        "label": "Shutdown Regen interval in minutes",
+        "label": "Shutdown Regen interval in minutes [DISABLED, HUMIDITY BASED ONLY]",
         "order": 2,
         "width": 0,
         "height": 0,
@@ -10395,8 +10408,8 @@
         "links": [
             "a509d5e9291f4e93"
         ],
-        "x": 1895,
-        "y": 1620,
+        "x": 1905,
+        "y": 1640,
         "wires": []
     },
     {
@@ -10515,8 +10528,8 @@
         "links": [
             "f8f4ea4c48b94722"
         ],
-        "x": 1875,
-        "y": 1800,
+        "x": 1925,
+        "y": 1840,
         "wires": []
     },
     {
@@ -10643,14 +10656,14 @@
                 "t": "set",
                 "p": "CLMN_2_AutomationStatus",
                 "pt": "global",
-                "to": "Regeneration - cooldown",
+                "to": "Stopping - cooldown",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "CLMN_1_AutomationStatus",
                 "pt": "global",
-                "to": "Regeneration - cooldown",
+                "to": "Stopping - cooldown",
                 "tot": "str"
             }
         ],
@@ -10659,8 +10672,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1330,
-        "y": 1880,
+        "x": 1190,
+        "y": 1540,
         "wires": [
             [
                 "a57a79c023cbb9b8"
@@ -10677,8 +10690,8 @@
             "53b8cc425155d0d7",
             "9d13758f880dfba3"
         ],
-        "x": 1456.333251953125,
-        "y": 1881.3333129882812,
+        "x": 1285,
+        "y": 1540,
         "wires": []
     },
     {
@@ -10771,7 +10784,7 @@
                 "t": "set",
                 "p": "CLMN_1_AutomationStatus",
                 "pt": "global",
-                "to": "Regeneration - cooldown",
+                "to": "Automation disabled",
                 "tot": "str"
             }
         ],
@@ -10780,8 +10793,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1920.333251953125,
-        "y": 1699.3333740234375,
+        "x": 1910,
+        "y": 1680,
         "wires": [
             [
                 "8346906d59d8d6a4"
@@ -10797,8 +10810,8 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 2011.66650390625,
-        "y": 1700.6666870117188,
+        "x": 2001.333251953125,
+        "y": 1681.3333129882812,
         "wires": []
     },
     {
@@ -10811,14 +10824,14 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "Final Regeneration",
+                "to": "Automation disabled",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "CLMN_2_AutomationStatus",
                 "pt": "global",
-                "to": "Regeneration - cooldown",
+                "to": "Automation disabled",
                 "tot": "str"
             }
         ],
@@ -10827,8 +10840,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1870,
-        "y": 1880,
+        "x": 1890,
+        "y": 1900,
         "wires": [
             [
                 "e01ed069b2df018a"
@@ -10844,8 +10857,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 1996.333251953125,
-        "y": 1881.3333129882812,
+        "x": 2016.333251953125,
+        "y": 1901.3333129882812,
         "wires": []
     },
     {
@@ -10947,7 +10960,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2710,
+        "x": 3310,
         "y": 200,
         "wires": [
             [
@@ -11013,8 +11026,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1200,
-        "y": 520,
+        "x": 1220,
+        "y": 540,
         "wires": [
             [
                 "700b241432b189cc"
@@ -11026,14 +11039,14 @@
         "type": "function",
         "z": "95d7a662357d5be5",
         "name": "water spraying",
-        "func": "let waterBrusts = global.get(\"autoParams\")[\"1-Desorption-waterSprayBrusts\"] || 0;\nlet onTime = (1000*global.get(\"autoParams\")[\"1-Desorption-WSBrustsLength\"])|| 1000;\nlet offTime = (1000*global.get(\"autoParams\")[\"1-Desorption-WSIntervals\"]) || 1000;\nlet i = 0;\nlet co2Exceeded = false;\nnode.status({ fill: \"blue\", shape: \"ring\", text: \"current brust: \" + i });\nlet stop = global.get(\"AutoMode\") || false;\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null;\n}\nfunction iterate() {\n    let stop = global.get(\"AutoMode\") || false;\n    if (!stop) {\n        node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n        return null;\n    }\n    \n    // Check CO2 threshold - send signal only once\n    if (!co2Exceeded) {\n        let co2Avg = global.get(\"1A02-Co2Avg\") || 0;\n        let threshold = global.get(\"autoParams\")[\"1-Desorption-Co2StopThreshold\"] || 9999;\n        if (co2Avg > threshold) {\n            co2Exceeded = true;\n            // Output 4: CO2 exceeded signal\n            node.send([null, null, null, { payload: true }]);\n        }\n    }\n    \n    if (i >= waterBrusts) {\n        node.send([null, null, { payload: \"done\" }, null]);\n        node.status({});\n        return;\n    }\n    \n    node.send([{ payload: true }, null, null, null]);\n    node.status({ fill: \"green\", shape: \"dot\", text: \"on - brust: \" + i + (co2Exceeded ? \" [CO2!]\" : \"\") });\n    \n    setTimeout(() => {\n        node.send([null, { payload: true }, null, null]);\n        node.status({ fill: \"red\", shape: \"dot\", text: \"off\" });\n        setTimeout(() => {\n            i++;\n            iterate();\n        }, offTime);\n    }, onTime);\n}\niterate();\nreturn;",
-        "outputs": 4,
+        "func": "// --- Existing Variables ---\nlet waterBrusts = global.get(\"autoParams\")[\"1-Desorption-waterSprayBrusts\"] || 0;\nlet onTime = (1000 * global.get(\"autoParams\")[\"1-Desorption-WSBrustsLength\"]) || 1000;\nlet offTime = (1000 * global.get(\"autoParams\")[\"1-Desorption-WSIntervals\"]) || 1000;\nlet i = 0;\nlet co2Exceeded = false;\n\n// --- New Watchdog Logic ---\n// Calculate theoretical total time (ms) and add 30% margin\nlet theoreticalTotalTime = (waterBrusts * onTime) + (waterBrusts * offTime);\nlet maxAllowedTime = theoreticalTotalTime * 1.3;\nlet startTime = Date.now();\n\nnode.status({ fill: \"blue\", shape: \"ring\", text: \"Starting bursts...\" });\n\nlet stop = global.get(\"AutoMode\") || false;\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null;\n}\n\nfunction iterate() {\n    let stop = global.get(\"AutoMode\") || false;\n    let currentTime = Date.now();\n    let elapsedSeconds = Math.floor((currentTime - startTime) / 1000);\n\n    // 1. Check if the pump has been running too long (Overwork Alert)\n    if ((currentTime - startTime) > maxAllowedTime) {\n        node.warn(\"Alert: water pump is over working! Elapsed: \" + elapsedSeconds + \"s\");\n        // Output 5: Overwork Alert Signal\n        node.send([null, null, null, null, { payload: \"OVERWORK_ALERT\", time: elapsedSeconds }]);\n\n        // Optional: Kill the process for safety\n        node.status({ fill: \"red\", shape: \"dot\", text: \"EMERGENCY STOP\" });\n        return; \n    }\n\n    if (!stop) {\n        node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n        return null;\n    }\n\n    // CO2 threshold check\n    if (!co2Exceeded) {\n        let co2Avg = global.get(\"1A02-Co2Avg\") || 0;\n        let threshold = global.get(\"autoParams\")[\"1-Desorption-Co2StopThreshold\"] || 9999;\n        if (co2Avg > threshold) {\n            co2Exceeded = true;\n            node.send([null, null, null, { payload: true }, null]);\n        }\n    }\n\n    if (i >= waterBrusts) {\n        node.send([null, null, { payload: \"done\" }, null, null]);\n        node.status({});\n        return;\n    }\n\n    // Spray ON\n    node.send([{ payload: true }, null, null, null, null]);\n    node.status({ fill: \"green\", shape: \"dot\", text: \"Burst: \" + i + \" (\" + elapsedSeconds + \"s)\" });\n\n    setTimeout(() => {\n        // Spray OFF\n        node.send([null, { payload: true }, null, null, null]);\n        node.status({ fill: \"yellow\", shape: \"dot\", text: \"Interval (\" + elapsedSeconds + \"s)\" });\n\n        setTimeout(() => {\n            i++;\n            iterate();\n        }, offTime);\n    }, onTime);\n}\n\niterate();\nreturn;",
+        "outputs": 5,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 840,
+        "x": 660,
         "y": 980,
         "wires": [
             [
@@ -11043,10 +11056,13 @@
                 "3cd802cee8dd1f24"
             ],
             [
-                "e93caa96a05963e5"
+                "c747162b30845f15"
             ],
             [
                 "48b713c2c9bd400d"
+            ],
+            [
+                "b5a8d6128b65a886"
             ]
         ]
     },
@@ -11067,7 +11083,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1200,
+        "x": 1360,
         "y": 1000,
         "wires": [
             [
@@ -11132,7 +11148,7 @@
         "links": [
             "ac7f07b9949a6114"
         ],
-        "x": 3525,
+        "x": 4065,
         "y": 240,
         "wires": []
     },
@@ -11140,7 +11156,7 @@
         "id": "a9d007d4a9c48541",
         "type": "switch",
         "z": "95d7a662357d5be5",
-        "name": "check",
+        "name": "met?",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -11158,7 +11174,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 3250,
+        "x": 3790,
         "y": 200,
         "wires": [
             [
@@ -11245,8 +11261,8 @@
         "links": [
             "6f0fb2eba03b5286"
         ],
-        "x": 2435,
-        "y": 1000,
+        "x": 2625.4921875,
+        "y": 1000.4921875,
         "wires": []
     },
     {
@@ -11258,7 +11274,7 @@
         "links": [
             "e58e678170ee2984"
         ],
-        "x": 1005,
+        "x": 825,
         "y": 920,
         "wires": []
     },
@@ -11271,8 +11287,8 @@
         "links": [
             "c05f7cce29a93a77"
         ],
-        "x": 1015,
-        "y": 980,
+        "x": 835,
+        "y": 960,
         "wires": []
     },
     {
@@ -11284,8 +11300,8 @@
         "links": [
             "2d20461dc714f005"
         ],
-        "x": 1865,
-        "y": 920,
+        "x": 2055.4921875,
+        "y": 920.4921875,
         "wires": []
     },
     {
@@ -11307,8 +11323,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2230,
-        "y": 1000,
+        "x": 2420.4921875,
+        "y": 1000.4921875,
         "wires": [
             [
                 "35afed580c2f9cb8"
@@ -11340,8 +11356,8 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 2285,
-        "y": 160,
+        "x": 2675,
+        "y": 200,
         "wires": []
     },
     {
@@ -11370,8 +11386,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2170,
-        "y": 160,
+        "x": 2530,
+        "y": 200,
         "wires": [
             [
                 "795d310aca7b7fc8"
@@ -11387,7 +11403,7 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 3475,
+        "x": 4015,
         "y": 320,
         "wires": []
     },
@@ -11417,7 +11433,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3390,
+        "x": 3930,
         "y": 320,
         "wires": [
             [
@@ -11570,7 +11586,7 @@
         "id": "52b3b6e0a1de2a57",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "AHumidity(A01) is >% criteria AHumidity (A02)",
+        "name": "Regen humidity&CO2 check",
         "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n/*let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a02ABSHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a01AbsHum>ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}*/\n\n\nlet a02RHum = global.get(\"1A02-inRH\")\nlet a02Co2Avg = global.get(\"1A02-Co2Avg\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\nlet ceriteria2 = global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria && a02Co2Avg<(ceriteria2-30) ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
@@ -11578,7 +11594,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3000,
+        "x": 3540,
         "y": 200,
         "wires": [
             [
@@ -11590,16 +11606,16 @@
         "id": "fc6435998cefc6bb",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "AHumidity(A01) is >%criteria AHumidity (A02)",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nlet columnTurn = global.get(\"currentColumnTurn\")\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\nmsg.columnOrder = columnOrder;\nmsg.columnTurn = columnTurn;\n\n\n\n\nlet a02RHum = global.get(\"1A02-inRH\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
+        "name": "Regen humidity&CO2 check",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nlet columnTurn = global.get(\"currentColumnTurn\")\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\nmsg.columnOrder = columnOrder;\nmsg.columnTurn = columnTurn;\n\n\n\n\nlet a02RHum = global.get(\"1A02-inRH\")\nlet a02Co2Avg = global.get(\"1A02-Co2Avg\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\nlet ceriteria2 = global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria && a02Co2Avg<(ceriteria2-30)){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1780,
-        "y": 220,
+        "x": 2100,
+        "y": 240,
         "wires": [
             [
                 "5f2289263fde3989"
@@ -11628,8 +11644,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2070,
-        "y": 220,
+        "x": 2310,
+        "y": 240,
         "wires": [
             [
                 "15b6499cee45d76e",
@@ -11708,7 +11724,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1400,
+        "x": 1560,
         "y": 1000,
         "wires": [
             [
@@ -11738,7 +11754,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1630,
+        "x": 1790,
         "y": 1000,
         "wires": [
             [
@@ -11770,7 +11786,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2990,
+        "x": 3530,
         "y": 100,
         "wires": [
             [
@@ -11797,7 +11813,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 570,
+        "x": 730,
         "y": 520,
         "wires": [
             [
@@ -11824,7 +11840,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1190,
+        "x": 1230,
         "y": 640,
         "wires": [
             [
@@ -11851,7 +11867,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1370,
+        "x": 1530,
         "y": 920,
         "wires": [
             [
@@ -11868,8 +11884,8 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 2165,
-        "y": 320,
+        "x": 2605,
+        "y": 300,
         "wires": []
     },
     {
@@ -11898,8 +11914,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2070,
-        "y": 320,
+        "x": 2510,
+        "y": 300,
         "wires": [
             [
                 "632ac8dc5fed7c48"
@@ -11915,8 +11931,8 @@
         "links": [
             "6f0fb2eba03b5286"
         ],
-        "x": 1155,
-        "y": 300,
+        "x": 1205,
+        "y": 280,
         "wires": []
     },
     {
@@ -11975,7 +11991,7 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 3475,
+        "x": 4015,
         "y": 140,
         "wires": []
     },
@@ -12005,7 +12021,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3380,
+        "x": 3920,
         "y": 140,
         "wires": [
             [
@@ -12076,8 +12092,8 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 1805,
-        "y": 1100,
+        "x": 1845,
+        "y": 1080,
         "wires": []
     },
     {
@@ -12113,8 +12129,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1710,
-        "y": 1100,
+        "x": 1750,
+        "y": 1080,
         "wires": [
             [
                 "9c831d5630432e66"
@@ -12138,8 +12154,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1809.5078125,
-        "y": 999.5078125,
+        "x": 2000,
+        "y": 1000,
         "wires": [
             [
                 "ab602ecabc0d25f7",
@@ -12164,8 +12180,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1960,
-        "y": 1000,
+        "x": 2150.4921875,
+        "y": 1000.4921875,
         "wires": [
             [
                 "a20fd9bc1296289b",
@@ -12182,8 +12198,8 @@
         "links": [
             "7ddae7dbd89f18a8"
         ],
-        "x": 1995,
-        "y": 940,
+        "x": 2185.4921875,
+        "y": 940.4921875,
         "wires": []
     },
     {
@@ -12203,7 +12219,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1460,
+        "x": 1880,
         "y": 240,
         "wires": [
             [
@@ -12231,58 +12247,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1470,
+        "x": 1890,
         "y": 180,
         "wires": [
             [
                 "171d1a0621a73a89"
-            ]
-        ]
-    },
-    {
-        "id": "f1dd27c32696cbd9",
-        "type": "link out",
-        "z": "95d7a662357d5be5",
-        "name": "CLM1_AUTO_Status in",
-        "mode": "link",
-        "links": [
-            "9d13758f880dfba3"
-        ],
-        "x": 1125,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "e437df1fc03b7d99",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "status regen",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "Regeneration",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "CLMN_1_AutomationStatus",
-                "pt": "global",
-                "to": "Regeneration",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 990,
-        "y": 60,
-        "wires": [
-            [
-                "f1dd27c32696cbd9"
             ]
         ]
     },
@@ -12295,8 +12264,8 @@
         "links": [
             "c6d3cd56f3a8d311"
         ],
-        "x": 1045,
-        "y": 160,
+        "x": 1085,
+        "y": 120,
         "wires": []
     },
     {
@@ -12307,8 +12276,8 @@
         "links": [
             "bebd69e244d3a07b"
         ],
-        "x": 1315,
-        "y": 240,
+        "x": 1455,
+        "y": 260,
         "wires": [
             [
                 "f170d5c203c1f297"
@@ -12324,8 +12293,8 @@
         "links": [
             "0b1ad9e67604268e"
         ],
-        "x": 2215,
-        "y": 200,
+        "x": 2525,
+        "y": 260,
         "wires": []
     },
     {
@@ -12336,7 +12305,7 @@
         "links": [
             "2685bc412dc5113c"
         ],
-        "x": 2385,
+        "x": 2925,
         "y": 200,
         "wires": [
             [
@@ -12394,7 +12363,7 @@
         "links": [
             "9da6ea4b072cd356"
         ],
-        "x": 645,
+        "x": 465,
         "y": 980,
         "wires": [
             [
@@ -12437,8 +12406,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 400,
-        "y": 1640,
+        "x": 480,
+        "y": 1540,
         "wires": [
             [
                 "a3c02d6fa45ded38"
@@ -12469,8 +12438,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 220,
-        "y": 1640,
+        "x": 300,
+        "y": 1540,
         "wires": [
             [
                 "7cc572ecfe2d569c"
@@ -12489,8 +12458,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 680,
-        "y": 1660,
+        "x": 760,
+        "y": 1560,
         "wires": [
             [
                 "07493791f48f5299"
@@ -12514,7 +12483,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2770,
+        "x": 3390,
         "y": 1620,
         "wires": [
             [
@@ -12593,8 +12562,8 @@
         "type": "function",
         "z": "95d7a662357d5be5",
         "name": "water spraying",
-        "func": "let waterBrusts = global.get(\"autoParams\")[\"2-Desorption-waterSprayBrusts\"] || 0;\nlet onTime = (1000 * global.get(\"autoParams\")[\"2-Desorption-WSBrustsLength\"]) || 1000;\nlet offTime = (1000 * global.get(\"autoParams\")[\"2-Desorption-WSIntervals\"]) || 1000;\nlet i = 0;\nlet co2Exceeded = false;\nnode.status({ fill: \"blue\", shape: \"ring\", text: \"current brust: \" + i });\nlet stop = global.get(\"AutoMode\") || false;\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null;\n}\nlet columnTurn = global.get(\"currentColumnTurn\");\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"];\nmsg.columnOrder = columnOrder;\nmsg.columnTurn = columnTurn;\nfunction iterate() {\n    let stop = global.get(\"AutoMode\") || false;\n    if (!stop) {\n        node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n        return null;\n    }\n\n    // Check CO2 threshold - send signal only once\n    if (!co2Exceeded) {\n        let co2Avg = global.get(\"2A12-Co2Avg\") || 0;\n        let threshold = global.get(\"autoParams\")[\"2-Desorption-Co2StopThreshold\"] || 9999;\n        if (co2Avg > threshold) {\n            co2Exceeded = true;\n            // Output 4: CO2 exceeded signal\n            node.send([null, null, null, { payload: true }]);\n        }\n    }\n\n    if (i >= waterBrusts) {\n        node.send([null, null, { payload: \"done\" }, null]);\n        node.status({});\n        return;\n    }\n\n    node.send([{ payload: true }, null, null, null]);\n    node.status({ fill: \"green\", shape: \"dot\", text: \"on - brust: \" + i + (co2Exceeded ? \" [CO2!]\" : \"\") });\n\n    setTimeout(() => {\n        node.send([null, { payload: true }, null, null]);\n        node.status({ fill: \"red\", shape: \"dot\", text: \"off\" });\n        setTimeout(() => {\n            i++;\n            iterate();\n        }, offTime);\n    }, onTime);\n}\niterate();\nreturn;",
-        "outputs": 4,
+        "func": "// --- Configuration & Initialization ---\nlet waterBrusts = global.get(\"autoParams\")[\"2-Desorption-waterSprayBrusts\"] || 0;\nlet onTime = (1000 * global.get(\"autoParams\")[\"2-Desorption-WSBrustsLength\"]) || 1000;\nlet offTime = (1000 * global.get(\"autoParams\")[\"2-Desorption-WSIntervals\"]) || 1000;\nlet i = 0;\nlet co2Exceeded = false;\n\n// --- Watchdog Logic Setup ---\nlet startTime = Date.now();\n// Calculate theoretical time (ms) + 30% safety margin\nlet theoreticalTime = (waterBrusts * onTime) + (waterBrusts * offTime);\nlet maxAllowedTime = theoreticalTime * 1.3;\n\nnode.status({ fill: \"blue\", shape: \"ring\", text: \"Starting bursts (Col 2)...\" });\n\nlet stop = global.get(\"AutoMode\") || false;\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null;\n}\n\n// Column context (preserved from your original)\nlet columnTurn = global.get(\"currentColumnTurn\");\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"];\nmsg.columnOrder = columnOrder;\nmsg.columnTurn = columnTurn;\n\nfunction iterate() {\n    let stop = global.get(\"AutoMode\") || false;\n    let currentTime = Date.now();\n    let elapsedMs = currentTime - startTime;\n    let elapsedSec = Math.floor(elapsedMs / 1000);\n\n    // 1. Overwork Check\n    if (elapsedMs > maxAllowedTime) {\n        let alertMsg = \"Alert: Water pump Column 2 over working! Time: \" + elapsedSec + \"s\";\n        node.warn(alertMsg);\n        // Output 5: Alert Signal\n        node.send([null, null, null, null, { payload: \"OVERWORK_ALERT\", elapsed: elapsedSec }]);\n        node.status({ fill: \"red\", shape: \"dot\", text: \"EMERGENCY STOP\" });\n        return; \n    }\n\n    if (!stop) {\n        node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n        return null;\n    }\n\n    // 2. CO2 Threshold Check\n    if (!co2Exceeded) {\n        let co2Avg = global.get(\"2A12-Co2Avg\") || 0;\n        let threshold = global.get(\"autoParams\")[\"2-Desorption-Co2StopThreshold\"] || 9999;\n        if (co2Avg > threshold) {\n            co2Exceeded = true;\n            // Output 4: CO2 signal\n            node.send([null, null, null, { payload: true }, null]);\n        }\n    }\n\n    // 3. Completion Check\n    if (i >= waterBrusts) {\n        node.send([null, null, { payload: \"done\" }, null, null]);\n        node.status({ fill: \"grey\", shape: \"ring\", text: \"Finished: \" + i + \" bursts\" });\n        return;\n    }\n\n    // 4. Execute Spray Logic\n    // Spray ON (Output 1)\n    node.send([{ payload: true }, null, null, null, null]);\n    node.status({ fill: \"green\", shape: \"dot\", text: \"Burst \" + i + \" (\" + elapsedSec + \"s)\" });\n\n    setTimeout(() => {\n        // Spray OFF (Output 2)\n        node.send([null, { payload: true }, null, null, null]);\n        node.status({ fill: \"yellow\", shape: \"dot\", text: \"Off/Interval (\" + elapsedSec + \"s)\" });\n        \n        setTimeout(() => {\n            i++;\n            iterate();\n        }, offTime);\n    }, onTime);\n}\n\niterate();\nreturn;",
+        "outputs": 5,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -12610,10 +12579,13 @@
                 "56125b61d42406bc"
             ],
             [
-                "3e411b6dc798fe2e"
+                "a1b59aef54531f25"
             ],
             [
                 "211cb4ecc51c1926"
+            ],
+            [
+                "c15407889a7c10e9"
             ]
         ]
     },
@@ -12634,7 +12606,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1180,
+        "x": 1560,
         "y": 2420,
         "wires": [
             [
@@ -12672,8 +12644,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 4,
-        "x": 970,
-        "y": 1660,
+        "x": 1050,
+        "y": 1560,
         "wires": [
             [
                 "12c37212e4c6c33a",
@@ -12699,7 +12671,7 @@
         "links": [
             "d45dc857ec91a832"
         ],
-        "x": 3575,
+        "x": 4195,
         "y": 1660,
         "wires": []
     },
@@ -12707,7 +12679,7 @@
         "id": "1836a25bca3ee805",
         "type": "switch",
         "z": "95d7a662357d5be5",
-        "name": "check",
+        "name": "met?",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -12725,7 +12697,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 3310,
+        "x": 3930,
         "y": 1620,
         "wires": [
             [
@@ -12793,10 +12765,11 @@
         "links": [
             "eccc45278712b2fc",
             "2e31654178ddbf8d",
-            "fac03af2e825f129"
+            "fac03af2e825f129",
+            "cdbb90a3fa2dc4c8"
         ],
-        "x": 395,
-        "y": 1720,
+        "x": 475,
+        "y": 1620,
         "wires": [
             [
                 "0c6ddbeca2d6dbdd"
@@ -12812,7 +12785,7 @@
         "links": [
             "d540342637ed07e7"
         ],
-        "x": 2415,
+        "x": 2715,
         "y": 2420,
         "wires": []
     },
@@ -12838,8 +12811,8 @@
         "links": [
             "ab6e740910978d95"
         ],
-        "x": 995,
-        "y": 2400,
+        "x": 985,
+        "y": 2380,
         "wires": []
     },
     {
@@ -12851,7 +12824,7 @@
         "links": [
             "e989b4793a13d2bb"
         ],
-        "x": 1845,
+        "x": 2145,
         "y": 2340,
         "wires": []
     },
@@ -12874,7 +12847,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2210,
+        "x": 2510,
         "y": 2420,
         "wires": [
             [
@@ -12890,8 +12863,8 @@
         "links": [
             "8812faf88912d9f5"
         ],
-        "x": 215,
-        "y": 1740,
+        "x": 295,
+        "y": 1640,
         "wires": [
             [
                 "7cc572ecfe2d569c"
@@ -12907,8 +12880,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 2265,
-        "y": 1580,
+        "x": 2645,
+        "y": 1520,
         "wires": []
     },
     {
@@ -12937,8 +12910,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2150,
-        "y": 1580,
+        "x": 2530,
+        "y": 1520,
         "wires": [
             [
                 "f2b7a38b5b32d866"
@@ -12954,7 +12927,7 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 3535,
+        "x": 4155,
         "y": 1740,
         "wires": []
     },
@@ -12984,7 +12957,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3450,
+        "x": 4070,
         "y": 1740,
         "wires": [
             [
@@ -13001,8 +12974,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 1995,
-        "y": 2080,
+        "x": 2025,
+        "y": 2040,
         "wires": []
     },
     {
@@ -13031,8 +13004,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1900,
-        "y": 2080,
+        "x": 1930,
+        "y": 2040,
         "wires": [
             [
                 "77a15581ebb3f24a"
@@ -13095,8 +13068,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 745,
-        "y": 1580,
+        "x": 825,
+        "y": 1480,
         "wires": []
     },
     {
@@ -13125,8 +13098,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1580,
+        "x": 690,
+        "y": 1480,
         "wires": [
             [
                 "ea02a7f9d70602ae"
@@ -13137,15 +13110,15 @@
         "id": "feb9b10fd93c4268",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "AHumidity(A01) is >% criteria AHumidity (A02)",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n/*let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a02ABSHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a01AbsHum>ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}*/\n\n\nlet a02RHum = global.get(\"2A12-inRH\")\nlet a02Co2Avg = global.get(\"2A12-Co2Avg\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\nlet ceriteria2 = global.get(\"autoParams\")[\"2-Adsorption-CO2Threshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria && a02Co2Avg<(ceriteria2-30) ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
+        "name": "Regen humidity&CO2 check",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n\n\nlet a02RHum = global.get(\"2A12-inRH\")\nlet a02Co2Avg = global.get(\"2A12-Co2Avg\")\nlet ceriteria = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\nlet ceriteria2 = global.get(\"autoParams\")[\"2-Adsorption-CO2Threshold\"]\n\nmsg.a02AbsHum = a02RHum\nmsg.rHumCriteria = ceriteria\nif (a02RHum < ceriteria && a02Co2Avg < (ceriteria2 - 30)) {\n    //go adsorption\n    msg.payload = true\n    return msg;\n\n} else {\n    //go regen\n    msg.payload = false\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3060,
+        "x": 3620,
         "y": 1620,
         "wires": [
             [
@@ -13158,16 +13131,16 @@
         "id": "83ae93f92893f8e5",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "AHumidity(A01) is >%criteria AHumidity (A02)",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n\n\n\nlet a02RHum = global.get(\"2A12-inRH\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
+        "name": "Regen humidity&CO2 check",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n\n\nlet a02RHum = global.get(\"2A12-inRH\")\nlet a02Co2Avg = global.get(\"2A12-Co2Avg\")\nlet ceriteria = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\nlet ceriteria2 = global.get(\"autoParams\")[\"2-Adsorption-CO2Threshold\"]\n\nmsg.a02AbsHum = a02RHum\nmsg.rHumCriteria = ceriteria\nif (a02RHum < ceriteria && a02Co2Avg < (ceriteria2 - 30)) {\n    //go adsorption\n    msg.payload = true\n    return msg;\n\n} else {\n    //go regen\n    msg.payload = false\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1760,
-        "y": 1640,
+        "x": 2200,
+        "y": 1580,
         "wires": [
             [
                 "3c3ee1f162e1db82"
@@ -13196,8 +13169,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2050,
-        "y": 1640,
+        "x": 2430,
+        "y": 1580,
         "wires": [
             [
                 "6c816b9664ca7abc",
@@ -13277,7 +13250,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1380,
+        "x": 1740,
         "y": 2420,
         "wires": [
             [
@@ -13307,7 +13280,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1610,
+        "x": 1910,
         "y": 2420,
         "wires": [
             [
@@ -13339,7 +13312,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3050,
+        "x": 3670,
         "y": 1520,
         "wires": [
             [
@@ -13420,8 +13393,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1350,
-        "y": 2340,
+        "x": 1730,
+        "y": 2360,
         "wires": [
             [
                 "3e411b6dc798fe2e"
@@ -13437,8 +13410,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 2145,
-        "y": 1740,
+        "x": 2655,
+        "y": 1680,
         "wires": []
     },
     {
@@ -13467,8 +13440,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2050,
-        "y": 1740,
+        "x": 2570,
+        "y": 1680,
         "wires": [
             [
                 "92f99becce6b5679"
@@ -13493,7 +13466,7 @@
         "name": "Automation_data_out",
         "mode": "link",
         "links": [],
-        "x": 3235,
+        "x": 3855,
         "y": 1580,
         "wires": []
     },
@@ -13506,8 +13479,8 @@
         "links": [
             "d540342637ed07e7"
         ],
-        "x": 1225,
-        "y": 1700,
+        "x": 1375,
+        "y": 1580,
         "wires": []
     },
     {
@@ -13519,8 +13492,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 1235,
-        "y": 1760,
+        "x": 1355,
+        "y": 1640,
         "wires": []
     },
     {
@@ -13549,8 +13522,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1150,
-        "y": 1760,
+        "x": 1270,
+        "y": 1640,
         "wires": [
             [
                 "775624d16728c5bc"
@@ -13566,7 +13539,7 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 3535,
+        "x": 4155,
         "y": 1560,
         "wires": []
     },
@@ -13596,7 +13569,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3440,
+        "x": 4060,
         "y": 1560,
         "wires": [
             [
@@ -13667,8 +13640,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 1825,
-        "y": 2540,
+        "x": 2145,
+        "y": 2480,
         "wires": []
     },
     {
@@ -13704,8 +13677,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1730,
-        "y": 2540,
+        "x": 2050,
+        "y": 2480,
         "wires": [
             [
                 "ebe6c6c91b3c7eb9"
@@ -13729,7 +13702,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1789.5078125,
+        "x": 2089.5078125,
         "y": 2419.5078125,
         "wires": [
             [
@@ -13755,7 +13728,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1940,
+        "x": 2240,
         "y": 2420,
         "wires": [
             [
@@ -13773,7 +13746,7 @@
         "links": [
             "aa016c455a12fb99"
         ],
-        "x": 1975,
+        "x": 2275,
         "y": 2360,
         "wires": []
     },
@@ -13794,8 +13767,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1440,
-        "y": 1660,
+        "x": 1960,
+        "y": 1580,
         "wires": [
             [
                 "83ae93f92893f8e5",
@@ -13822,8 +13795,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1450,
-        "y": 1600,
+        "x": 1970,
+        "y": 1520,
         "wires": [
             [
                 "32fcf3e9500cffc7"
@@ -13839,8 +13812,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 1185,
-        "y": 1480,
+        "x": 1365,
+        "y": 1440,
         "wires": []
     },
     {
@@ -13869,8 +13842,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1050,
-        "y": 1480,
+        "x": 1230,
+        "y": 1440,
         "wires": [
             [
                 "8f1cf00fc54460cc"
@@ -13886,8 +13859,8 @@
         "links": [
             "d097ec325dfa3dfe"
         ],
-        "x": 1125,
-        "y": 1640,
+        "x": 1215,
+        "y": 1500,
         "wires": []
     },
     {
@@ -13898,8 +13871,8 @@
         "links": [
             "fb211c1909c3cb2b"
         ],
-        "x": 1295,
-        "y": 1660,
+        "x": 1585,
+        "y": 1600,
         "wires": [
             [
                 "a616cd2ed4b42afd"
@@ -13915,7 +13888,7 @@
         "links": [
             "7056e07b07286f10"
         ],
-        "x": 2195,
+        "x": 2815,
         "y": 1620,
         "wires": []
     },
@@ -13927,7 +13900,7 @@
         "links": [
             "afc02b88914e387a"
         ],
-        "x": 2375,
+        "x": 2995,
         "y": 1620,
         "wires": [
             [
@@ -14075,7 +14048,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2510,
+        "x": 3050,
         "y": 200,
         "wires": [
             [
@@ -14088,35 +14061,10 @@
         ]
     },
     {
-        "id": "8557d4920a2c3cbd",
-        "type": "delay",
-        "z": "95d7a662357d5be5",
-        "name": "wait",
-        "pauseType": "delayv",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 2870,
-        "y": 380,
-        "wires": [
-            [
-                "57627517d4da63d1"
-            ]
-        ]
-    },
-    {
         "id": "099cef74096dea5d",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "final regen wait",
+        "name": "final regen",
         "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nlet columnTurn = global.get(\"currentColumnTurn\")\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\nmsg.columnOrder = columnOrder;\nmsg.columnTurn = columnTurn;\nlet finalRegenTime = global.get(\"autoParams\")[\"shutdownRegenInterval\"]\n\nmsg.delay = finalRegenTime*60000\nreturn msg",
         "outputs": 1,
         "timeout": 0,
@@ -14124,12 +14072,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2640,
-        "y": 380,
+        "x": 3050,
+        "y": 420,
         "wires": [
             [
-                "8557d4920a2c3cbd",
-                "07c5e2f682bf5f5c"
+                "9bbbcd68a20e850c"
             ]
         ]
     },
@@ -14159,8 +14106,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2770,
-        "y": 320,
+        "x": 3230,
+        "y": 260,
         "wires": [
             [
                 "0faff3f788c78ab8"
@@ -14176,8 +14123,8 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 2896.333251953125,
-        "y": 321.33331298828125,
+        "x": 3356.333251953125,
+        "y": 261.33331298828125,
         "wires": []
     },
     {
@@ -14206,8 +14153,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3060,
-        "y": 380,
+        "x": 3820,
+        "y": 420,
         "wires": [
             [
                 "5399cb07726365a2",
@@ -14225,8 +14172,8 @@
         "links": [
             "ac7f07b9949a6114"
         ],
-        "x": 3165,
-        "y": 340,
+        "x": 4045,
+        "y": 400,
         "wires": []
     },
     {
@@ -14238,8 +14185,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 1245,
-        "y": 1560,
+        "x": 1425,
+        "y": 1540,
         "wires": []
     },
     {
@@ -14268,8 +14215,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1110,
-        "y": 1560,
+        "x": 1310,
+        "y": 1540,
         "wires": [
             [
                 "e3e5d94990c940b7"
@@ -14298,8 +14245,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1450,
-        "y": 300,
+        "x": 1590,
+        "y": 260,
         "wires": [
             [
                 "171d1a0621a73a89",
@@ -14332,8 +14279,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1390,
-        "y": 1720,
+        "x": 1730,
+        "y": 1600,
         "wires": [
             [
                 "32fcf3e9500cffc7",
@@ -14366,7 +14313,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2530,
+        "x": 3150,
         "y": 1620,
         "wires": [
             [
@@ -14379,35 +14326,10 @@
         ]
     },
     {
-        "id": "f9fec525e24bf303",
-        "type": "delay",
-        "z": "95d7a662357d5be5",
-        "name": "wait",
-        "pauseType": "delayv",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 2950,
-        "y": 1800,
-        "wires": [
-            [
-                "086ce0bc8b30c7df"
-            ]
-        ]
-    },
-    {
         "id": "8a588111faa18c5f",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "final regen wait",
+        "name": "final regen",
         "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nlet columnTurn = global.get(\"currentColumnTurn\")\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\nmsg.columnOrder = columnOrder;\nmsg.columnTurn = columnTurn;\nlet finalRegenTime = global.get(\"autoParams\")[\"shutdownRegenInterval\"]\n\nmsg.delay = finalRegenTime*60000\nreturn msg",
         "outputs": 1,
         "timeout": 0,
@@ -14415,12 +14337,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2700,
-        "y": 1800,
+        "x": 3310,
+        "y": 1840,
         "wires": [
             [
-                "f9fec525e24bf303",
-                "cb2e6c61deba485e"
+                "60d2af60e56abcb3"
             ]
         ]
     },
@@ -14450,7 +14371,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2830,
+        "x": 3450,
         "y": 1740,
         "wires": [
             [
@@ -14467,7 +14388,7 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 2956.333251953125,
+        "x": 3576.333251953125,
         "y": 1741.3333129882812,
         "wires": []
     },
@@ -14497,8 +14418,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3120,
-        "y": 1800,
+        "x": 4120,
+        "y": 1840,
         "wires": [
             [
                 "6cbebc0d2a99cdfe",
@@ -14516,15 +14437,15 @@
         "links": [
             "d45dc857ec91a832"
         ],
-        "x": 3255,
-        "y": 1740,
+        "x": 4235,
+        "y": 1800,
         "wires": []
     },
     {
         "id": "b7d3d7177f23fc50",
         "type": "inject",
         "z": "95d7a662357d5be5",
-        "name": "",
+        "name": "testing",
         "props": [
             {
                 "p": "payload"
@@ -14541,7 +14462,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 560,
+        "x": 550,
         "y": 340,
         "wires": [
             [
@@ -14553,7 +14474,7 @@
         "id": "709bcede5fdcd83d",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "function 1",
+        "name": "testing",
         "func": "msg.payload = \"Final Regeneration\"\nflow.set(\"CLMN_1_finalRegenDone\", false)\nflow.set(\"CLMN_1_finalRegenActive\", true);\nglobal.set(\"AutoMode\",\"1\")\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
@@ -14561,7 +14482,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
+        "x": 710,
         "y": 340,
         "wires": [
             [
@@ -14579,7 +14500,7 @@
             "6f0fb2eba03b5286",
             "a509d5e9291f4e93"
         ],
-        "x": 4235,
+        "x": 4775,
         "y": 420,
         "wires": []
     },
@@ -14593,7 +14514,7 @@
             "d540342637ed07e7",
             "f8f4ea4c48b94722"
         ],
-        "x": 4325,
+        "x": 5165,
         "y": 1840,
         "wires": []
     },
@@ -14614,8 +14535,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1060,
-        "y": 280,
+        "x": 1100,
+        "y": 240,
         "wires": [
             [
                 "54b2f37bdf946d8d"
@@ -14639,8 +14560,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1120,
-        "y": 1680,
+        "x": 1260,
+        "y": 1580,
         "wires": [
             [
                 "2e31654178ddbf8d"
@@ -14725,7 +14646,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 3480,
+        "x": 4100,
         "y": 1660,
         "wires": [
             [
@@ -14750,8 +14671,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 3420,
-        "y": 240,
+        "x": 3960,
+        "y": 220,
         "wires": [
             [
                 "db2e4248d2f81c5b"
@@ -14762,7 +14683,7 @@
         "id": "d64582c41aaa0e88",
         "type": "switch",
         "z": "95d7a662357d5be5",
-        "name": "check",
+        "name": "met?",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -14780,8 +14701,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 3110,
-        "y": 560,
+        "x": 3630,
+        "y": 420,
         "wires": [
             [
                 "9bbbcd68a20e850c"
@@ -14796,16 +14717,16 @@
         "id": "07c5e2f682bf5f5c",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "AHumidity(A01) is >% criteria AHumidity (A02)",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n/*let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a02ABSHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a01AbsHum>ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}*/\n\n\nlet a02RHum = global.get(\"1A02-inRH\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
+        "name": "Final Regen humidity",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nlet a02RHum = global.get(\"1A02-inRH\")\nlet ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2860,
-        "y": 560,
+        "x": 3440,
+        "y": 420,
         "wires": [
             [
                 "d64582c41aaa0e88"
@@ -14831,11 +14752,10 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2850,
-        "y": 460,
+        "x": 3430,
+        "y": 360,
         "wires": [
             [
-                "8557d4920a2c3cbd",
                 "9bbbcd68a20e850c"
             ]
         ]
@@ -14857,8 +14777,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2590,
-        "y": 560,
+        "x": 3250,
+        "y": 420,
         "wires": [
             [
                 "07c5e2f682bf5f5c"
@@ -14882,8 +14802,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2750,
-        "y": 2040,
+        "x": 3530,
+        "y": 1840,
         "wires": [
             [
                 "cb2e6c61deba485e"
@@ -14912,8 +14832,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 3290,
-        "y": 2040,
+        "x": 3870,
+        "y": 1840,
         "wires": [
             [
                 "60d2af60e56abcb3"
@@ -14928,16 +14848,16 @@
         "id": "cb2e6c61deba485e",
         "type": "function",
         "z": "95d7a662357d5be5",
-        "name": "AHumidity(A01) is >% criteria AHumidity (A02)",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n/*let a02ABSHum = global.get(\"1A02-AbsHum\")\nlet a01AbsHum = global.get(\"1A01-AbsHum\")\nlet percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = a02ABSHum*percentageThreshold\n\nmsg.a02AbsHum=a02ABSHum\nmsg.a01AbsHum=a01AbsHum\nmsg.percentage = percentageThreshold\nmsg.absHumCriteria=ceriteria\nif (a01AbsHum>ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}*/\n\n\nlet a02RHum = global.get(\"2A12-inRH\")\n//let a01RHum = global.get(\"1A01-inRH\")\n//let percentageThreshold = (global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"])/100\nlet ceriteria = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\n//msg.a01AbsHum = a01RHum\n//msg.percentage = percentageThreshold\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
+        "name": "regen humidity check",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n\n\nlet a02RHum = global.get(\"2A12-inRH\")\nlet ceriteria = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\n\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3040,
-        "y": 2040,
+        "x": 3700,
+        "y": 1840,
         "wires": [
             [
                 "fad8ee6efee95ec0"
@@ -14963,12 +14883,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3030,
-        "y": 1940,
+        "x": 3670,
+        "y": 1780,
         "wires": [
             [
-                "60d2af60e56abcb3",
-                "f9fec525e24bf303"
+                "60d2af60e56abcb3"
             ]
         ]
     },
@@ -14998,8 +14917,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3270,
-        "y": 460,
+        "x": 3930,
+        "y": 480,
         "wires": [
             [
                 "b51adb18de9913f9"
@@ -15015,8 +14934,8 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 3396.333251953125,
-        "y": 461.33331298828125,
+        "x": 4056.333251953125,
+        "y": 481.33331298828125,
         "wires": []
     },
     {
@@ -15045,8 +14964,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3330,
-        "y": 1900,
+        "x": 4290,
+        "y": 1920,
         "wires": [
             [
                 "92574d1f70639482"
@@ -15062,8 +14981,8 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 3456.333251953125,
-        "y": 1901.3333129882812,
+        "x": 4416.333251953125,
+        "y": 1921.3333129882812,
         "wires": []
     },
     {
@@ -15083,7 +15002,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 3570,
+        "x": 4410,
         "y": 1840,
         "wires": [
             [
@@ -15113,7 +15032,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 4110,
+        "x": 4950,
         "y": 1840,
         "wires": [
             [
@@ -15137,7 +15056,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3780,
+        "x": 4620,
         "y": 1840,
         "wires": [
             [
@@ -15164,7 +15083,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3850,
+        "x": 4690,
         "y": 1740,
         "wires": [
             [
@@ -15189,7 +15108,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 3550,
+        "x": 4170,
         "y": 420,
         "wires": [
             [
@@ -15219,7 +15138,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 4090,
+        "x": 4550,
         "y": 420,
         "wires": [
             [
@@ -15243,7 +15162,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3760,
+        "x": 4360,
         "y": 420,
         "wires": [
             [
@@ -15270,8 +15189,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3830,
-        "y": 320,
+        "x": 4350,
+        "y": 340,
         "wires": [
             [
                 "7b45b109267864a0"
@@ -15287,15 +15206,15 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 1555,
-        "y": 120,
+        "x": 1815,
+        "y": 140,
         "wires": []
     },
     {
         "id": "9b4d5f8d69c3ae52",
         "type": "change",
         "z": "95d7a662357d5be5",
-        "name": "status regen",
+        "name": "status",
         "rules": [
             {
                 "t": "set",
@@ -15317,8 +15236,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1420,
-        "y": 120,
+        "x": 1730,
+        "y": 140,
         "wires": [
             [
                 "9ad00351d77f567a"
@@ -15334,8 +15253,8 @@
         "links": [
             "53b8cc425155d0d7"
         ],
-        "x": 1675,
-        "y": 1460,
+        "x": 2055,
+        "y": 1400,
         "wires": []
     },
     {
@@ -15364,8 +15283,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1540,
-        "y": 1460,
+        "x": 1920,
+        "y": 1400,
         "wires": [
             [
                 "2a200f249959c411"
@@ -15381,8 +15300,8 @@
         "links": [
             "a91115b20e76d8e1"
         ],
-        "x": 1355,
-        "y": 2600,
+        "x": 1265,
+        "y": 2520,
         "wires": []
     },
     {
@@ -15402,8 +15321,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1260,
-        "y": 2520,
+        "x": 1200,
+        "y": 2480,
         "wires": [
             [
                 "4f454c5f23f00735"
@@ -15427,8 +15346,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1063.666748046875,
-        "y": 2511.3333129882812,
+        "x": 1040,
+        "y": 2480,
         "wires": [
             [
                 "ecd319ddeca2cb48",
@@ -15445,8 +15364,8 @@
         "links": [
             "f761d7939247ce4f"
         ],
-        "x": 1073.666748046875,
-        "y": 2591.3333129882812,
+        "x": 1115,
+        "y": 2520,
         "wires": []
     },
     {
@@ -15466,8 +15385,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1200,
-        "y": 1100,
+        "x": 1080,
+        "y": 1060,
         "wires": [
             [
                 "8c38c169120ca6c7"
@@ -15491,8 +15410,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1003.666748046875,
-        "y": 1091.3333129882812,
+        "x": 920,
+        "y": 1060,
         "wires": [
             [
                 "f743a5a91418bb97",
@@ -15509,8 +15428,8 @@
         "links": [
             "80ef6666de84cde2"
         ],
-        "x": 1013.666748046875,
-        "y": 1171.3333129882812,
+        "x": 975,
+        "y": 1100,
         "wires": []
     },
     {
@@ -15522,9 +15441,670 @@
         "links": [
             "4dad63c5a98beada"
         ],
-        "x": 1295,
-        "y": 1180,
+        "x": 1225,
+        "y": 1060,
         "wires": []
+    },
+    {
+        "id": "e437df1fc03b7d99",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "status regen",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Regeneration",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "CLMN_1_AutomationStatus",
+                "pt": "global",
+                "to": "Regeneration",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 60,
+        "wires": [
+            [
+                "f1dd27c32696cbd9"
+            ]
+        ]
+    },
+    {
+        "id": "f1dd27c32696cbd9",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLM1_AUTO_Status in",
+        "mode": "link",
+        "links": [
+            "9d13758f880dfba3"
+        ],
+        "x": 1125,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "5b7b31290b055974",
+        "type": "switch",
+        "z": "95d7a662357d5be5",
+        "name": "check",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1130,
+        "y": 1000,
+        "wires": [
+            [
+                "038b43cb9db867a3"
+            ],
+            [
+                "e93caa96a05963e5"
+            ]
+        ]
+    },
+    {
+        "id": "c747162b30845f15",
+        "type": "function",
+        "z": "95d7a662357d5be5",
+        "name": "CO2>threshold",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nlet a02Co2Avg = global.get(\"1A02-Co2Avg\")\nlet desorptionCriteria = global.get(\"autoParams\")[\"1-Desorption-Co2StopThreshold\"]\n\n\nmsg.a02_des_Co2 = a02Co2Avg\nmsg.desorptionCriteria = desorptionCriteria\nif (a02Co2Avg > desorptionCriteria){\n    //successful desportion\n    msg.payload=true\n    return msg;\n}else{\n    //failed desportion\n    msg.payload=false\n    return msg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 1000,
+        "wires": [
+            [
+                "5b7b31290b055974"
+            ]
+        ]
+    },
+    {
+        "id": "038b43cb9db867a3",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "95d7a662357d5be5",
+        "name": "Alert",
+        "credtype": "account",
+        "account": "dc0d6ceeae9ac6e0",
+        "text": "Failed Desorption in column 1",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "str",
+        "rejectssl": false,
+        "x": 1330,
+        "y": 840,
+        "wires": [
+            [
+                "75f806368c64a043"
+            ]
+        ]
+    },
+    {
+        "id": "446e3ee2dd708c56",
+        "type": "comment",
+        "z": "95d7a662357d5be5",
+        "name": "alert user and go to standby",
+        "info": "",
+        "x": 1120,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "580ce926addc6e64",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLM1_AUTO_Status in",
+        "mode": "link",
+        "links": [
+            "9d13758f880dfba3"
+        ],
+        "x": 2325,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "706ea7da4f232e57",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "status standby",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Standby",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "CLMN_1_AutomationStatus",
+                "pt": "global",
+                "to": "Standby - Failed Desorption",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2200,
+        "y": 840,
+        "wires": [
+            [
+                "580ce926addc6e64"
+            ]
+        ]
+    },
+    {
+        "id": "ce682326478b4081",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLMN1 apply standby",
+        "mode": "link",
+        "links": [
+            "a509d5e9291f4e93"
+        ],
+        "x": 2035,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "2d1db02e2f67cdb4",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "Open V02",
+        "mode": "link",
+        "links": [
+            "2d20461dc714f005"
+        ],
+        "x": 1585,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "75f806368c64a043",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "V02 open",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1539.5078125,
+        "y": 839.5078125,
+        "wires": [
+            [
+                "2d1db02e2f67cdb4",
+                "8b8dbcf8b5d6d80c"
+            ]
+        ]
+    },
+    {
+        "id": "8b8dbcf8b5d6d80c",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "V03 close",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1690,
+        "y": 840,
+        "wires": [
+            [
+                "e0a649172f3d0ac5",
+                "7c0e7dfd9a98a3a7"
+            ]
+        ]
+    },
+    {
+        "id": "e0a649172f3d0ac5",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLose V03",
+        "mode": "link",
+        "links": [
+            "7ddae7dbd89f18a8"
+        ],
+        "x": 1725,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "7c0e7dfd9a98a3a7",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "currentColumnTurn",
+                "pt": "global",
+                "to": "2",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1930,
+        "y": 840,
+        "wires": [
+            [
+                "706ea7da4f232e57",
+                "ce682326478b4081"
+            ]
+        ]
+    },
+    {
+        "id": "a1b59aef54531f25",
+        "type": "function",
+        "z": "95d7a662357d5be5",
+        "name": "CO2>threshold",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nlet a02Co2Avg = global.get(\"2A12-Co2Avg\")\nlet desorptionCriteria = global.get(\"autoParams\")[\"2-Desorption-Co2StopThreshold\"]\n\n\nmsg.a02_des_Co2 = a02Co2Avg\nmsg.desorptionCriteria = desorptionCriteria\nif (a02Co2Avg > desorptionCriteria){\n    //successfull desorption\n    msg.payload=true\n    return msg;\n}else{\n    //Failed desorption\n    msg.payload=false\n    return msg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 2420,
+        "wires": [
+            [
+                "f295a7d5c64fb8da"
+            ]
+        ]
+    },
+    {
+        "id": "f295a7d5c64fb8da",
+        "type": "switch",
+        "z": "95d7a662357d5be5",
+        "name": "check",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1310,
+        "y": 2420,
+        "wires": [
+            [
+                "057efc2aa9cdc813"
+            ],
+            [
+                "3e411b6dc798fe2e"
+            ]
+        ]
+    },
+    {
+        "id": "b681395a6f987879",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLMN2 Open V02",
+        "mode": "link",
+        "links": [
+            "e989b4793a13d2bb"
+        ],
+        "x": 1705,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "6893030b889c6c7f",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "currentColumnTurn",
+                "pt": "global",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2070,
+        "y": 2260,
+        "wires": [
+            [
+                "fa524b5cf00a1908",
+                "1bc1e60050a93063"
+            ]
+        ]
+    },
+    {
+        "id": "6aca75a1235cbeb2",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "V12 open",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1660,
+        "y": 2260,
+        "wires": [
+            [
+                "b681395a6f987879",
+                "0fbc0246a1e10741"
+            ]
+        ]
+    },
+    {
+        "id": "0fbc0246a1e10741",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "V13 close",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1840,
+        "y": 2260,
+        "wires": [
+            [
+                "6893030b889c6c7f",
+                "3afab4e5c4c49a2a"
+            ]
+        ]
+    },
+    {
+        "id": "3afab4e5c4c49a2a",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLose V03",
+        "mode": "link",
+        "links": [
+            "aa016c455a12fb99"
+        ],
+        "x": 1875,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "057efc2aa9cdc813",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "95d7a662357d5be5",
+        "name": "Alert",
+        "credtype": "account",
+        "account": "dc0d6ceeae9ac6e0",
+        "text": "Failed Desorption in column 2",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "str",
+        "rejectssl": false,
+        "x": 1450,
+        "y": 2260,
+        "wires": [
+            [
+                "6aca75a1235cbeb2"
+            ]
+        ]
+    },
+    {
+        "id": "48287f8fc6c06cfe",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLM2_AUTO_Status out",
+        "mode": "link",
+        "links": [
+            "53b8cc425155d0d7"
+        ],
+        "x": 2435,
+        "y": 2260,
+        "wires": []
+    },
+    {
+        "id": "fa524b5cf00a1908",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "status standby",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Standby",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "CLMN_2_AutomationStatus",
+                "pt": "global",
+                "to": "Standby - Failed Desorption",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2310,
+        "y": 2260,
+        "wires": [
+            [
+                "48287f8fc6c06cfe"
+            ]
+        ]
+    },
+    {
+        "id": "1bc1e60050a93063",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLMN2 apply standby",
+        "mode": "link",
+        "links": [
+            "f8f4ea4c48b94722"
+        ],
+        "x": 2225,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "491c9cc006ab37d8",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "95d7a662357d5be5",
+        "name": "Alert",
+        "credtype": "account",
+        "account": "dc0d6ceeae9ac6e0",
+        "text": "Pump over worked",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "str",
+        "rejectssl": false,
+        "x": 1090,
+        "y": 1160,
+        "wires": [
+            [
+                "c747162b30845f15"
+            ]
+        ]
+    },
+    {
+        "id": "b5a8d6128b65a886",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "W01 close",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 930,
+        "y": 1160,
+        "wires": [
+            [
+                "4fcecbb93b74f241",
+                "491c9cc006ab37d8"
+            ]
+        ]
+    },
+    {
+        "id": "4fcecbb93b74f241",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "close W01",
+        "mode": "link",
+        "links": [
+            "c05f7cce29a93a77"
+        ],
+        "x": 975,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "ecb458510c9af2ef",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "Close 2W11",
+        "mode": "link",
+        "links": [
+            "ab6e740910978d95"
+        ],
+        "x": 1085,
+        "y": 2600,
+        "wires": []
+    },
+    {
+        "id": "c15407889a7c10e9",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "W12 close",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1010,
+        "y": 2560,
+        "wires": [
+            [
+                "ecb458510c9af2ef",
+                "b54e525745bad71f"
+            ]
+        ]
+    },
+    {
+        "id": "b54e525745bad71f",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "95d7a662357d5be5",
+        "name": "Alert",
+        "credtype": "account",
+        "account": "dc0d6ceeae9ac6e0",
+        "text": "Pump over worked",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "str",
+        "rejectssl": false,
+        "x": 1230,
+        "y": 2560,
+        "wires": [
+            [
+                "a1b59aef54531f25"
+            ]
+        ]
     },
     {
         "id": "e6106d0bc3891841",
@@ -15574,7 +16154,8 @@
             "92574d1f70639482",
             "9ad00351d77f567a",
             "a57a79c023cbb9b8",
-            "8346906d59d8d6a4"
+            "8346906d59d8d6a4",
+            "580ce926addc6e64"
         ],
         "x": 235,
         "y": 240,
@@ -15668,7 +16249,8 @@
             "e3e5d94990c940b7",
             "2a200f249959c411",
             "a57a79c023cbb9b8",
-            "e01ed069b2df018a"
+            "e01ed069b2df018a",
+            "48287f8fc6c06cfe"
         ],
         "x": 235,
         "y": 180,
@@ -15683,7 +16265,7 @@
         "type": "function",
         "z": "5e998f46e7500f44",
         "name": "parsing for coulmn 2",
-        "func": "const status = global.get(\"CLMN_2_AutomationStatus\") || \"Automation disabled\";\nlet columnTurn = global.get(\"currentColumnTurn\")\n// 3. Logic to pick ONLY 4 relevant values\nlet displayMsgs = [{ topic: \"statusLabel\", payload: `Current Status: ${status}` }];\n\nif (status.includes(\"Adsorption\")) {\n    let a02Co2Avg = global.get(\"2A12-Co2Avg\")\n    let ceriteria = (global.get(\"autoParams\")[\"2-Adsorption-CO2Threshold\"])\n    displayMsgs.push({ topic: \"val1\", payload: \"A12 CO2 Avg \" + a02Co2Avg + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria \" + ceriteria + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn\" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}\nelse if (status.includes(\"Regeneration\")) {\n    let a02RHum = global.get(\"2A12-inRH\")\n    let ceriteria = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\n    displayMsgs.push({ topic: \"val1\", label: \"A12 absolute Humidity\", payload: a02RHum });\n    displayMsgs.push({ topic: \"val2\", label: \"Humidity Criteria\", payload: ceriteria });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n} else if (status.includes(\"Desorption\")) {\n    let a02Co2Avg = global.get(\"2A12-Co2Avg\")\n    let desorptionCriteria = global.get(\"autoParams\")[\"2-Desorption-Co2StopThreshold\"]\n    displayMsgs.push({ topic: \"val1\", payload: \"A12 CO2 Avg: \" + a02Co2Avg + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + desorptionCriteria + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n} else if (status.includes(\"Standby\")) {\n    let greenHouseA10Value = global.get(\"3A10GHCo2\") || 60\n    let greenHouseThresholdValue = global.get(\"autoParams\")[\"2-permission-GHCo2Threshold\"]\n    displayMsgs.push({ topic: \"val1\", payload: \"GH CO2 Value : \" + greenHouseA10Value + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + greenHouseThresholdValue + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}\nelse {\n    displayMsgs.push({ topic: \"val1\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val2\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val3\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val4\", label: \"--\", payload: \"--\" });\n}\n\nreturn [displayMsgs];\n\n",
+        "func": "const status = global.get(\"CLMN_2_AutomationStatus\") || \"Automation disabled\";\nlet columnTurn = global.get(\"currentColumnTurn\")\n// 3. Logic to pick ONLY 4 relevant values\nlet displayMsgs = [{ topic: \"statusLabel\", payload: `Current Status: ${status}` }];\n\nif (status.includes(\"Adsorption\")) {\n    let a02Co2Avg = global.get(\"2A12-Co2Avg\")\n    let ceriteria = (global.get(\"autoParams\")[\"2-Adsorption-CO2Threshold\"])\n    displayMsgs.push({ topic: \"val1\", payload: \"A12 CO2 Avg \" + a02Co2Avg + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria \" + ceriteria + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn\" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}\nelse if (status.includes(\"Regeneration\")) {\n    let a02RHum = global.get(\"2A12-inRH\")\n    let ceriteria1 = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\n    let ceriteria2 = (global.get(\"autoParams\")[\"2-Adsorption-CO2Threshold\"])\n    displayMsgs.push({ topic: \"val1\", label: \"A12 absolute Humidity\", payload: a02RHum });\n    displayMsgs.push({ topic: \"val2\", label: \"Humidity Criteria\", payload: ceriteria1 });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"CO2 criteria <\"+(ceriteria2-30) });\n} else if (status.includes(\"Desorption\")) {\n    let a02Co2Avg = global.get(\"2A12-Co2Avg\")\n    let desorptionCriteria = global.get(\"autoParams\")[\"2-Desorption-Co2StopThreshold\"]\n    displayMsgs.push({ topic: \"val1\", payload: \"A12 CO2 Avg: \" + a02Co2Avg + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + desorptionCriteria + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n} else if (status.includes(\"Standby\")) {\n    let greenHouseA10Value = global.get(\"3A10GHCo2\") || 60\n    let greenHouseThresholdValue = global.get(\"autoParams\")[\"2-permission-GHCo2Threshold\"]\n    displayMsgs.push({ topic: \"val1\", payload: \"GH CO2 Value : \" + greenHouseA10Value + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + greenHouseThresholdValue + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}\nelse {\n    displayMsgs.push({ topic: \"val1\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val2\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val3\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val4\", label: \"--\", payload: \"--\" });\n}\n\nreturn [displayMsgs];\n\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15743,7 +16325,7 @@
         "type": "function",
         "z": "5e998f46e7500f44",
         "name": "parsing for coulmn 1",
-        "func": "const status = global.get(\"CLMN_1_AutomationStatus\") || \"Automation disabled\";\nlet columnTurn = global.get(\"currentColumnTurn\")\n// 3. Logic to pick ONLY 4 relevant values\nlet displayMsgs = [{ topic: \"statusLabel\", payload: `Current Status: ${status}` }];\n\nif (status.includes(\"Adsorption\")) {\n    let a02Co2Avg = global.get(\"1A02-Co2Avg\")\n    let ceriteria = (global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"])\n    displayMsgs.push({ topic: \"val1\", payload: \"A02 CO2 Avg: \" + a02Co2Avg + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + ceriteria + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Tur: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n} \nelse if (status.includes(\"Regeneration\")) {\n    let a02RHum = global.get(\"1A02-inRH\")\n    let ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\n    displayMsgs.push({ topic: \"val1\", label: \"a02 absolute Humidity: \", payload: a02RHum });\n    displayMsgs.push({ topic: \"val2\", label: \"Humidity Criteria: \", payload: ceriteria });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}else if (status.includes(\"Desorption\")) {\n    let a02Co2Avg = global.get(\"1A02-Co2Avg\")\n    let desorptionCriteria = global.get(\"autoParams\")[\"1-Desorption-Co2StopThreshold\"]\n    displayMsgs.push({ topic: \"val1\", payload: \"A02 CO2 Avg: \" + a02Co2Avg +\" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + desorptionCriteria + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}else if (status.includes(\"Standby\")) {\n    let greenHouseA10Value = global.get(\"3A10GHCo2\") || 60\n    let greenHouseThresholdValue = global.get(\"autoParams\")[\"1-permission-GHCo2Threshold\"]\n    displayMsgs.push({ topic: \"val1\", payload: \"GH CO2 Value : \" + greenHouseA10Value + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + greenHouseThresholdValue + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \"+ columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}\nelse {\n    displayMsgs.push({ topic: \"val1\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val2\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val3\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val4\", label: \"--\", payload: \"--\" });\n}\n\nreturn [displayMsgs];\n\n\n",
+        "func": "const status = global.get(\"CLMN_1_AutomationStatus\") || \"Automation disabled\";\nlet columnTurn = global.get(\"currentColumnTurn\")\n// 3. Logic to pick ONLY 4 relevant values\nlet displayMsgs = [{ topic: \"statusLabel\", payload: `Current Status: ${status}` }];\n\nif (status.includes(\"Adsorption\")) {\n    let a02Co2Avg = global.get(\"1A02-Co2Avg\")\n    let ceriteria = (global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"])\n    displayMsgs.push({ topic: \"val1\", payload: \"A02 CO2 Avg: \" + a02Co2Avg + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + ceriteria + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Tur: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n} \nelse if (status.includes(\"Regeneration\")) {\n    let a02RHum = global.get(\"1A02-inRH\")\n    let ceriteria1 = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\n    let ceriteria2 = (global.get(\"autoParams\")[\"1-Adsorption-CO2Threshold\"])\n    displayMsgs.push({ topic: \"val1\", label: \"a02 absolute Humidity: \", payload: a02RHum });\n    displayMsgs.push({ topic: \"val2\", label: \"Humidity Criteria: \", payload: ceriteria1 });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"CO2 criteria <\"+(ceriteria2-30) });\n}else if (status.includes(\"Desorption\")) {\n    let a02Co2Avg = global.get(\"1A02-Co2Avg\")\n    let desorptionCriteria = global.get(\"autoParams\")[\"1-Desorption-Co2StopThreshold\"]\n    displayMsgs.push({ topic: \"val1\", payload: \"A02 CO2 Avg: \" + a02Co2Avg +\" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + desorptionCriteria + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \" + columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}else if (status.includes(\"Standby\")) {\n    let greenHouseA10Value = global.get(\"3A10GHCo2\") || 60\n    let greenHouseThresholdValue = global.get(\"autoParams\")[\"1-permission-GHCo2Threshold\"]\n    displayMsgs.push({ topic: \"val1\", payload: \"GH CO2 Value : \" + greenHouseA10Value + \" ppm\" });\n    displayMsgs.push({ topic: \"val2\", payload: \"Criteria: \" + greenHouseThresholdValue + \" ppm\" });\n    displayMsgs.push({ topic: \"val3\", payload: \"column Turn: \"+ columnTurn });\n    displayMsgs.push({ topic: \"val4\", payload: \"--\" });\n}\nelse {\n    displayMsgs.push({ topic: \"val1\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val2\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val3\", label: \"--\", payload: \"--\" });\n    displayMsgs.push({ topic: \"val4\", label: \"--\", payload: \"--\" });\n}\n\nreturn [displayMsgs];\n\n\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -16250,7 +16832,7 @@
         "links": [
             "61e175367b1c8129"
         ],
-        "x": 2415,
+        "x": 2365,
         "y": 260,
         "wires": []
     },
@@ -17666,7 +18248,8 @@
         "links": [
             "068a69d98f6dc417",
             "8ff04f5c6d5105e7",
-            "e3d14a9d1e60a082"
+            "e3d14a9d1e60a082",
+            "ce682326478b4081"
         ],
         "x": 1305,
         "y": 900,
@@ -19792,7 +20375,8 @@
         "links": [
             "84b2ab53c359e399",
             "fac03af2e825f129",
-            "d86189ca875a33b9"
+            "d86189ca875a33b9",
+            "1bc1e60050a93063"
         ],
         "x": 1335,
         "y": 3120,
@@ -20981,7 +21565,7 @@
         "z": "7321c2c219fd05d6",
         "name": "",
         "credtype": "account",
-        "account": "7b923af885d440a6",
+        "account": "dc0d6ceeae9ac6e0",
         "text": "WAMsg",
         "phonenumbervalue": "",
         "apikeyvalue": "",
@@ -20992,7 +21576,9 @@
         "x": 1360,
         "y": 120,
         "wires": [
-            []
+            [
+                "163c0e6c90a989d2"
+            ]
         ]
     },
     {
@@ -21066,7 +21652,7 @@
         "z": "7321c2c219fd05d6",
         "name": "",
         "credtype": "account",
-        "account": "15fa2dfd1a943e0c",
+        "account": "dc0d6ceeae9ac6e0",
         "text": "WAMsg",
         "phonenumbervalue": "",
         "apikeyvalue": "",
@@ -21088,7 +21674,7 @@
         "z": "7321c2c219fd05d6",
         "name": "",
         "credtype": "account",
-        "account": "15fa2dfd1a943e0c",
+        "account": "dc0d6ceeae9ac6e0",
         "text": "WAMsg",
         "phonenumbervalue": "",
         "apikeyvalue": "",
@@ -21234,5 +21820,22 @@
                 "4da6cee8128e7783"
             ]
         ]
+    },
+    {
+        "id": "163c0e6c90a989d2",
+        "type": "debug",
+        "z": "7321c2c219fd05d6",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1560,
+        "y": 120,
+        "wires": []
     }
 ]
