@@ -9524,7 +9524,7 @@
         "z": "897898ed0b432706",
         "group": "16c2d68fad5258bc",
         "name": "shutdownRegenInterval",
-        "label": "Shutdown Regen interval in minutes [DISABLED, HUMIDITY BASED ONLY]",
+        "label": "Shutdown Regen interval in minutes [DISABLED, NO FINAL REGEN]",
         "order": 2,
         "width": 0,
         "height": 0,
@@ -10928,7 +10928,7 @@
         "type": "function",
         "z": "95d7a662357d5be5",
         "name": "Check start and shutdown time ",
-        "func": "// Expected: msg.start = \"HH:MM\", msg.end = \"HH:MM\"\nlet stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nfunction toMinutes(t) {\n    let parts = t.split(\":\");\n    return parseInt(parts[0]) * 60 + parseInt(parts[1]);\n}\n// Convert current time to Riyadh timezone (Asia/Riyadh)\nlet now = new Date();\nlet riyadhTimeString = now.toLocaleString(\"en-US\", { timeZone: \"Asia/Riyadh\" });\nlet riyadhDate = new Date(riyadhTimeString);\n\nlet currentMinutes = riyadhDate.getHours() * 60 + riyadhDate.getMinutes();\n\nlet start = toMinutes(global.get(\"autoParams\")[\"1-StartTime\"]);\nlet end = toMinutes(global.get(\"autoParams\")[\"ShutdownTime\"]);\n\nlet inRange = false;\n\n// Handle ranges that wrap past midnight (e.g. 22:00–03:00)\nif (start <= end) {\n    // Normal range\n    inRange = currentMinutes >= start && currentMinutes <= end;\n} else {\n    // Midnight wrap range\n    inRange = (currentMinutes >= start) || (currentMinutes <= end);\n}\n\nif(inRange){\n    flow.set(\"CLMN_1_finalRegenDone\", false); // Reset for next cycle\n    flow.set(\"CLMN_1_finalRegenActive\", false);\n    msg.payload=\"Start\"\n}\nelse if (!flow.get(\"CLMN_1_finalRegenDone\")){\n        msg.payload = \"Final Regeneration\"\n    flow.set(\"CLMN_1_finalRegenDone\", true)\n    flow.set(\"CLMN_1_finalRegenActive\", true);\n}else{\n    msg.payload = \"Shutdown\"\n}\nmsg.startTime=start\nmsg.endTime=end\nmsg.currentTime=currentMinutes\n\n\n\nreturn msg;\n",
+        "func": "// Expected: msg.start = \"HH:MM\", msg.end = \"HH:MM\"\nlet stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nfunction toMinutes(t) {\n    let parts = t.split(\":\");\n    return parseInt(parts[0]) * 60 + parseInt(parts[1]);\n}\n// Convert current time to Riyadh timezone (Asia/Riyadh)\nlet now = new Date();\nlet riyadhTimeString = now.toLocaleString(\"en-US\", { timeZone: \"Asia/Riyadh\" });\nlet riyadhDate = new Date(riyadhTimeString);\n\nlet currentMinutes = riyadhDate.getHours() * 60 + riyadhDate.getMinutes();\n\nlet start = toMinutes(global.get(\"autoParams\")[\"1-StartTime\"]);\nlet end = toMinutes(global.get(\"autoParams\")[\"ShutdownTime\"]);\n\nlet inRange = false;\n\n// Handle ranges that wrap past midnight (e.g. 22:00–03:00)\nif (start <= end) {\n    // Normal range\n    inRange = currentMinutes >= start && currentMinutes <= end;\n} else {\n    // Midnight wrap range\n    inRange = (currentMinutes >= start) || (currentMinutes <= end);\n}\n\nif(inRange){\n    flow.set(\"CLMN_1_finalRegenDone\", false); // Reset for next cycle\n    flow.set(\"CLMN_1_finalRegenActive\", false);\n    msg.payload=\"Start\"\n}\nelse{\n    msg.payload = \"Shutdown\"\n}\nmsg.startTime=start\nmsg.endTime=end\nmsg.currentTime=currentMinutes\n\n\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -10982,7 +10982,9 @@
                 "vt": "str"
             },
             {
-                "t": "else"
+                "t": "eq",
+                "v": "Shutdown",
+                "vt": "str"
             },
             {
                 "t": "eq",
@@ -11001,7 +11003,10 @@
                 "417df9a511532c1c",
                 "068a69d98f6dc417"
             ],
-            [],
+            [
+                "9421e127b5b8a103",
+                "606ad89572cb1847"
+            ],
             [
                 "6ae929ce7f4e7fc5",
                 "58c8ea55558d135f",
@@ -11129,8 +11134,8 @@
                 "a9caf57e5def89d5"
             ],
             [
-                "20f7678e8db16217",
-                "a9caf57e5def89d5"
+                "0222901eeef482cc",
+                "67b3ac9be8779234"
             ],
             [
                 "67b3ac9be8779234",
@@ -11219,7 +11224,7 @@
         "type": "function",
         "z": "95d7a662357d5be5",
         "name": "get permission status",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nnode.status({ fill: \"green\", shape: \"ring\", text: \"running\" });\nlet columnTurn=global.get(\"currentColumnTurn\")\nlet greenHouseA10Value = global.get(\"3A10GHCo2\")||60\nlet greenHouseThresholdValue=global.get(\"autoParams\")[\"1-permission-GHCo2Threshold\"]\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\n\nmsg.columnTurn=columnTurn\nmsg.GHCo2Value=greenHouseA10Value\nmsg.GHThershold=greenHouseThresholdValue\nif (columnOrder==\"Alternating\"){\n    if (columnTurn == 1 && greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}else if(columnOrder==\"Simultaneously\"){\n    if (greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}else{\n    if (columnTurn == 1 && greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}\n\nnode.status({});\nreturn msg;",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nnode.status({ fill: \"green\", shape: \"ring\", text: \"running\" });\nlet columnTurn=global.get(\"currentColumnTurn\")\nlet greenHouseA10Value = global.get(\"3A10GHCo2\")||60\nlet greenHouseThresholdValue=global.get(\"autoParams\")[\"1-permission-GHCo2Threshold\"]\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\n\nmsg.columnTurn=columnTurn\nmsg.GHCo2Value=greenHouseA10Value\nmsg.GHThershold=greenHouseThresholdValue\nif (columnOrder==\"Alternating\"){\n    if (columnTurn == 1 && greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}else if(columnOrder==\"Simultaneously\"){\n    if (greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}else{\n    if (columnTurn == 1 && greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}\n\n/////////////// now we check if it passed shutdown time////////\nfunction toMinutes(t) {\n    let parts = t.split(\":\");\n    return parseInt(parts[0]) * 60 + parseInt(parts[1]);\n}\n// Convert current time to Riyadh timezone (Asia/Riyadh)\nlet now = new Date();\nlet riyadhTimeString = now.toLocaleString(\"en-US\", { timeZone: \"Asia/Riyadh\" });\nlet riyadhDate = new Date(riyadhTimeString);\n\nlet currentMinutes = riyadhDate.getHours() * 60 + riyadhDate.getMinutes();\n\nlet start = toMinutes(global.get(\"autoParams\")[\"1-StartTime\"]);\nlet end = toMinutes(global.get(\"autoParams\")[\"ShutdownTime\"]);\n\nlet inRange = false;\n\n// Handle ranges that wrap past midnight (e.g. 22:00–03:00)\nif (start <= end) {\n    // Normal range\n    inRange = currentMinutes >= start && currentMinutes <= end;\n} else {\n    // Midnight wrap range\n    inRange = (currentMinutes >= start) || (currentMinutes <= end);\n}\n\nif (inRange) {\n   // do nothing\n} else {\n    // overwrite payload to shutdown instead of desorption or\n    // standby \n    msg.payload = \"Shutdown\"\n}\nmsg.startTime = start\nmsg.endTime = end\nmsg.currentTime = currentMinutes\n\nmsg.columnOrder=columnOrder;\nmsg.columnTurn = columnTurn;\n\nnode.status({});\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -11242,7 +11247,9 @@
         "links": [
             "35afed580c2f9cb8",
             "54b2f37bdf946d8d",
-            "8ff04f5c6d5105e7"
+            "8ff04f5c6d5105e7",
+            "c67b01ec6b586e95",
+            "fe0db473be59fbbf"
         ],
         "x": 415,
         "y": 300,
@@ -11498,7 +11505,7 @@
             "9d13758f880dfba3"
         ],
         "x": 2145,
-        "y": 560,
+        "y": 540,
         "wires": []
     },
     {
@@ -11528,7 +11535,7 @@
         "to": "",
         "reg": false,
         "x": 2020,
-        "y": 560,
+        "y": 540,
         "wires": [
             [
                 "06a6ab31812f1fe2"
@@ -12276,7 +12283,7 @@
         "links": [
             "bebd69e244d3a07b"
         ],
-        "x": 1455,
+        "x": 1395,
         "y": 260,
         "wires": [
             [
@@ -12451,7 +12458,7 @@
         "type": "function",
         "z": "95d7a662357d5be5",
         "name": "Check start and shutdown time CLMN2",
-        "func": "// Expected: msg.start = \"HH:MM\", msg.end = \"HH:MM\"\nlet stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nfunction toMinutes(t) {\n    let parts = t.split(\":\");\n    return parseInt(parts[0]) * 60 + parseInt(parts[1]);\n}\n// Convert current time to Riyadh timezone (Asia/Riyadh)\nlet now = new Date();\nlet riyadhTimeString = now.toLocaleString(\"en-US\", { timeZone: \"Asia/Riyadh\" });\nlet riyadhDate = new Date(riyadhTimeString);\n\nlet currentMinutes = riyadhDate.getHours() * 60 + riyadhDate.getMinutes();\n\nlet start = toMinutes(global.get(\"autoParams\")[\"2-StartTime\"]);\nlet end = toMinutes(global.get(\"autoParams\")[\"ShutdownTime\"]);\n\nlet inRange = false;\n\n// Handle ranges that wrap past midnight (e.g. 22:00–03:00)\nif (start <= end) {\n    // Normal range\n    inRange = currentMinutes >= start && currentMinutes <= end;\n} else {\n    // Midnight wrap range\n    inRange = (currentMinutes >= start) || (currentMinutes <= end);\n}\n\nif(inRange){\n    flow.set(\"CLMN_2_finalRegenDone\", false); // Reset for next cycle\n    flow.set(\"CLMN_2_finalRegenActive\", false);\n    msg.payload=\"Start\"\n}\nelse if (!flow.get(\"CLMN_2_finalRegenDone\")){\n        msg.payload = \"Final Regeneration\"\n    flow.set(\"CLMN_2_finalRegenDone\", true)\n    flow.set(\"CLMN_2_finalRegenActive\", true);\n}else{\n    msg.payload = \"Shutdown\"\n}\nmsg.startTime=start\nmsg.endTime=end\nmsg.currentTime=currentMinutes\n\nreturn msg;\n",
+        "func": "// Expected: msg.start = \"HH:MM\", msg.end = \"HH:MM\"\nlet stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nfunction toMinutes(t) {\n    let parts = t.split(\":\");\n    return parseInt(parts[0]) * 60 + parseInt(parts[1]);\n}\n// Convert current time to Riyadh timezone (Asia/Riyadh)\nlet now = new Date();\nlet riyadhTimeString = now.toLocaleString(\"en-US\", { timeZone: \"Asia/Riyadh\" });\nlet riyadhDate = new Date(riyadhTimeString);\n\nlet currentMinutes = riyadhDate.getHours() * 60 + riyadhDate.getMinutes();\n\nlet start = toMinutes(global.get(\"autoParams\")[\"2-StartTime\"]);\nlet end = toMinutes(global.get(\"autoParams\")[\"ShutdownTime\"]);\n\nlet inRange = false;\n\n// Handle ranges that wrap past midnight (e.g. 22:00–03:00)\nif (start <= end) {\n    // Normal range\n    inRange = currentMinutes >= start && currentMinutes <= end;\n} else {\n    // Midnight wrap range\n    inRange = (currentMinutes >= start) || (currentMinutes <= end);\n}\n\nif(inRange){\n    flow.set(\"CLMN_2_finalRegenDone\", false); // Reset for next cycle\n    flow.set(\"CLMN_2_finalRegenActive\", false);\n    msg.payload=\"Start\"\n}\nelse{\n    msg.payload = \"Shutdown\"\n}\nmsg.startTime=start\nmsg.endTime=end\nmsg.currentTime=currentMinutes\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -12505,7 +12512,9 @@
                 "vt": "str"
             },
             {
-                "t": "else"
+                "t": "eq",
+                "v": "Shutdown",
+                "vt": "str"
             },
             {
                 "t": "eq",
@@ -12524,7 +12533,9 @@
                 "cb2ecae7272d42de",
                 "84b2ab53c359e399"
             ],
-            [],
+            [
+                "25fd18a40c9adedb"
+            ],
             [
                 "3c152e8135442fd6",
                 "4d01314548f729a3",
@@ -12652,8 +12663,8 @@
                 "1a032ee582914cb8"
             ],
             [
-                "1a032ee582914cb8",
-                "64fef1dd06bdbee2"
+                "72ac31e9b6ee4b88",
+                "4bef7eb673b1a7d5"
             ],
             [
                 "72ac31e9b6ee4b88",
@@ -12742,7 +12753,7 @@
         "type": "function",
         "z": "95d7a662357d5be5",
         "name": "get permission status",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nnode.status({ fill: \"green\", shape: \"ring\", text: \"running\" });\nlet columnTurn=global.get(\"currentColumnTurn\")\nlet greenHouseA10Value = global.get(\"3A10GHCo2\")||60\nlet greenHouseThresholdValue=global.get(\"autoParams\")[\"2-permission-GHCo2Threshold\"]\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\nmsg.colOrder=columnOrder\nmsg.columnTurn=columnTurn\nmsg.GHCo2Value=greenHouseA10Value\nmsg.GHThershold=greenHouseThresholdValue\n\nif (columnOrder==\"Alternating\"){\n    if (columnTurn == 2 && greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}else if(columnOrder==\"Simultaneously\"){\n    if (greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}else{\n    if (columnTurn == 2 && greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}\nnode.status({});\n\nmsg.columnOrder=columnOrder;\nmsg.columnTurn = columnTurn;\nreturn msg;",
+        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nnode.status({ fill: \"green\", shape: \"ring\", text: \"running\" });\nlet columnTurn=global.get(\"currentColumnTurn\")\nlet greenHouseA10Value = global.get(\"3A10GHCo2\")||60\nlet greenHouseThresholdValue=global.get(\"autoParams\")[\"2-permission-GHCo2Threshold\"]\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\nmsg.colOrder=columnOrder\nmsg.columnTurn=columnTurn\nmsg.GHCo2Value=greenHouseA10Value\nmsg.GHThershold=greenHouseThresholdValue\n\nif (columnOrder==\"Alternating\"){\n    if (columnTurn == 2 && greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}else if(columnOrder==\"Simultaneously\"){\n    if (greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}else{\n    if (columnTurn == 2 && greenHouseA10Value < greenHouseThresholdValue) {\n        msg.payload = \"Start Desorption\"\n    } else {\n        msg.payload = \"Standby\"\n    }\n\n}\nnode.status({});\n\nmsg.columnOrder=columnOrder;\nmsg.columnTurn = columnTurn;\n//// check for shutdown\nfunction toMinutes(t) {\n    let parts = t.split(\":\");\n    return parseInt(parts[0]) * 60 + parseInt(parts[1]);\n}\n// Convert current time to Riyadh timezone (Asia/Riyadh)\nlet now = new Date();\nlet riyadhTimeString = now.toLocaleString(\"en-US\", { timeZone: \"Asia/Riyadh\" });\nlet riyadhDate = new Date(riyadhTimeString);\n\nlet currentMinutes = riyadhDate.getHours() * 60 + riyadhDate.getMinutes();\n\nlet start = toMinutes(global.get(\"autoParams\")[\"2-StartTime\"]);\nlet end = toMinutes(global.get(\"autoParams\")[\"ShutdownTime\"]);\n\nlet inRange = false;\n\n// Handle ranges that wrap past midnight (e.g. 22:00–03:00)\nif (start <= end) {\n    // Normal range\n    inRange = currentMinutes >= start && currentMinutes <= end;\n} else {\n    // Midnight wrap range\n    inRange = (currentMinutes >= start) || (currentMinutes <= end);\n}\n\nif(inRange){\n   //do nothing\n}\nelse{\n    msg.payload = \"Shutdown\"\n}\nmsg.startTime=start\nmsg.endTime=end\nmsg.currentTime=currentMinutes\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -12766,7 +12777,7 @@
             "eccc45278712b2fc",
             "2e31654178ddbf8d",
             "fac03af2e825f129",
-            "cdbb90a3fa2dc4c8"
+            "730a362f89f7ac15"
         ],
         "x": 475,
         "y": 1620,
@@ -13988,8 +13999,8 @@
         "links": [
             "9d13758f880dfba3"
         ],
-        "x": 1285,
-        "y": 160,
+        "x": 1315,
+        "y": 180,
         "wires": []
     },
     {
@@ -14018,8 +14029,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1150,
-        "y": 160,
+        "x": 1210,
+        "y": 180,
         "wires": [
             [
                 "1b6d9b49b041feee"
@@ -14064,6 +14075,7 @@
         "id": "099cef74096dea5d",
         "type": "function",
         "z": "95d7a662357d5be5",
+        "d": true,
         "name": "final regen",
         "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nlet columnTurn = global.get(\"currentColumnTurn\")\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\nmsg.columnOrder = columnOrder;\nmsg.columnTurn = columnTurn;\nlet finalRegenTime = global.get(\"autoParams\")[\"shutdownRegenInterval\"]\n\nmsg.delay = finalRegenTime*60000\nreturn msg",
         "outputs": 1,
@@ -14075,15 +14087,14 @@
         "x": 3050,
         "y": 420,
         "wires": [
-            [
-                "9bbbcd68a20e850c"
-            ]
+            []
         ]
     },
     {
         "id": "4d7a979aa1460453",
         "type": "change",
         "z": "95d7a662357d5be5",
+        "d": true,
         "name": "status",
         "rules": [
             {
@@ -14125,55 +14136,6 @@
         ],
         "x": 3356.333251953125,
         "y": 261.33331298828125,
-        "wires": []
-    },
-    {
-        "id": "57627517d4da63d1",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "final regen done",
-        "rules": [
-            {
-                "t": "set",
-                "p": "CLMN_1_finalRegenActive",
-                "pt": "flow",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "CLMN_1_finalRegenDone",
-                "pt": "flow",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 3820,
-        "y": 420,
-        "wires": [
-            [
-                "5399cb07726365a2",
-                "c2696e68a97aeef6",
-                "7b45b109267864a0"
-            ]
-        ]
-    },
-    {
-        "id": "5399cb07726365a2",
-        "type": "link out",
-        "z": "95d7a662357d5be5",
-        "name": "turn off heater",
-        "mode": "link",
-        "links": [
-            "ac7f07b9949a6114"
-        ],
-        "x": 4045,
-        "y": 400,
         "wires": []
     },
     {
@@ -14227,7 +14189,7 @@
         "id": "f170d5c203c1f297",
         "type": "switch",
         "z": "95d7a662357d5be5",
-        "name": "final regen Active?",
+        "name": "final regen Active? [always false]",
         "property": "CLMN_1_finalRegenActive",
         "propertyType": "flow",
         "rules": [
@@ -14245,7 +14207,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1590,
+        "x": 1570,
         "y": 260,
         "wires": [
             [
@@ -14319,127 +14281,8 @@
             [
                 "405327a2e2ba9f94"
             ],
-            [
-                "2792f00858e301a0",
-                "8a588111faa18c5f"
-            ]
+            []
         ]
-    },
-    {
-        "id": "8a588111faa18c5f",
-        "type": "function",
-        "z": "95d7a662357d5be5",
-        "name": "final regen",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\nlet columnTurn = global.get(\"currentColumnTurn\")\nlet columnOrder = global.get(\"autoParams\")[\"columnsOrder\"]\nmsg.columnOrder = columnOrder;\nmsg.columnTurn = columnTurn;\nlet finalRegenTime = global.get(\"autoParams\")[\"shutdownRegenInterval\"]\n\nmsg.delay = finalRegenTime*60000\nreturn msg",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 3310,
-        "y": 1840,
-        "wires": [
-            [
-                "60d2af60e56abcb3"
-            ]
-        ]
-    },
-    {
-        "id": "2792f00858e301a0",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "status",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "Final Regeneration",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "CLMN_2_AutomationStatus",
-                "pt": "global",
-                "to": "Final Regeneration",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 3450,
-        "y": 1740,
-        "wires": [
-            [
-                "a6058ce37831b531"
-            ]
-        ]
-    },
-    {
-        "id": "a6058ce37831b531",
-        "type": "link out",
-        "z": "95d7a662357d5be5",
-        "name": "CLM1_AUTO_Status in",
-        "mode": "link",
-        "links": [
-            "9d13758f880dfba3"
-        ],
-        "x": 3576.333251953125,
-        "y": 1741.3333129882812,
-        "wires": []
-    },
-    {
-        "id": "086ce0bc8b30c7df",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "final regen done",
-        "rules": [
-            {
-                "t": "set",
-                "p": "CLMN_2_finalRegenActive",
-                "pt": "flow",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "CLMN_2_finalRegenDone",
-                "pt": "flow",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 4120,
-        "y": 1840,
-        "wires": [
-            [
-                "6cbebc0d2a99cdfe",
-                "e95f7814cff3bdee",
-                "803c2912f5185349"
-            ]
-        ]
-    },
-    {
-        "id": "6cbebc0d2a99cdfe",
-        "type": "link out",
-        "z": "95d7a662357d5be5",
-        "name": "Trun off heater clmn 2",
-        "mode": "link",
-        "links": [
-            "d45dc857ec91a832"
-        ],
-        "x": 4235,
-        "y": 1800,
-        "wires": []
     },
     {
         "id": "b7d3d7177f23fc50",
@@ -14489,34 +14332,6 @@
                 "60a495957bddaa29"
             ]
         ]
-    },
-    {
-        "id": "8ff04f5c6d5105e7",
-        "type": "link out",
-        "z": "95d7a662357d5be5",
-        "name": "repeat cycle column1 out & standby",
-        "mode": "link",
-        "links": [
-            "6f0fb2eba03b5286",
-            "a509d5e9291f4e93"
-        ],
-        "x": 4775,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "fac03af2e825f129",
-        "type": "link out",
-        "z": "95d7a662357d5be5",
-        "name": "repeat cycle column2 out & standby",
-        "mode": "link",
-        "links": [
-            "d540342637ed07e7",
-            "f8f4ea4c48b94722"
-        ],
-        "x": 5165,
-        "y": 1840,
-        "wires": []
     },
     {
         "id": "67b3ac9be8779234",
@@ -14676,524 +14491,6 @@
         "wires": [
             [
                 "db2e4248d2f81c5b"
-            ]
-        ]
-    },
-    {
-        "id": "d64582c41aaa0e88",
-        "type": "switch",
-        "z": "95d7a662357d5be5",
-        "name": "met?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 3630,
-        "y": 420,
-        "wires": [
-            [
-                "9bbbcd68a20e850c"
-            ],
-            [
-                "452b92b6d464b77b",
-                "57627517d4da63d1"
-            ]
-        ]
-    },
-    {
-        "id": "07c5e2f682bf5f5c",
-        "type": "function",
-        "z": "95d7a662357d5be5",
-        "name": "Final Regen humidity",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\nlet a02RHum = global.get(\"1A02-inRH\")\nlet ceriteria = global.get(\"autoParams\")[\"1-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 3440,
-        "y": 420,
-        "wires": [
-            [
-                "d64582c41aaa0e88"
-            ]
-        ]
-    },
-    {
-        "id": "452b92b6d464b77b",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "reset delay",
-        "rules": [
-            {
-                "t": "set",
-                "p": "reset",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 3430,
-        "y": 360,
-        "wires": [
-            [
-                "9bbbcd68a20e850c"
-            ]
-        ]
-    },
-    {
-        "id": "9bbbcd68a20e850c",
-        "type": "delay",
-        "z": "95d7a662357d5be5",
-        "name": "wait",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 3250,
-        "y": 420,
-        "wires": [
-            [
-                "07c5e2f682bf5f5c"
-            ]
-        ]
-    },
-    {
-        "id": "60d2af60e56abcb3",
-        "type": "delay",
-        "z": "95d7a662357d5be5",
-        "name": "wait",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 3530,
-        "y": 1840,
-        "wires": [
-            [
-                "cb2e6c61deba485e"
-            ]
-        ]
-    },
-    {
-        "id": "fad8ee6efee95ec0",
-        "type": "switch",
-        "z": "95d7a662357d5be5",
-        "name": "check",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 3870,
-        "y": 1840,
-        "wires": [
-            [
-                "60d2af60e56abcb3"
-            ],
-            [
-                "fa0ba5d0d045f483",
-                "086ce0bc8b30c7df"
-            ]
-        ]
-    },
-    {
-        "id": "cb2e6c61deba485e",
-        "type": "function",
-        "z": "95d7a662357d5be5",
-        "name": "regen humidity check",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n\n\nlet a02RHum = global.get(\"2A12-inRH\")\nlet ceriteria = global.get(\"autoParams\")[\"2-regen-HumidtyDiffThreshold\"]\n\nmsg.a02AbsHum = a02RHum\n\nmsg.rHumCriteria=ceriteria\nif (a02RHum <ceriteria ){\n    //go adsorption\n    msg.payload = true\n    return msg;\n    \n}else{\n    //go regen\n    msg.payload = false\n    return msg;\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 3700,
-        "y": 1840,
-        "wires": [
-            [
-                "fad8ee6efee95ec0"
-            ]
-        ]
-    },
-    {
-        "id": "fa0ba5d0d045f483",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "reset delay",
-        "rules": [
-            {
-                "t": "set",
-                "p": "reset",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 3670,
-        "y": 1780,
-        "wires": [
-            [
-                "60d2af60e56abcb3"
-            ]
-        ]
-    },
-    {
-        "id": "c2696e68a97aeef6",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "status",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "Final Regeneration",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "CLMN_1_AutomationStatus",
-                "pt": "global",
-                "to": "Final Regeneration - cooldown",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 3930,
-        "y": 480,
-        "wires": [
-            [
-                "b51adb18de9913f9"
-            ]
-        ]
-    },
-    {
-        "id": "b51adb18de9913f9",
-        "type": "link out",
-        "z": "95d7a662357d5be5",
-        "name": "CLM1_AUTO_Status in",
-        "mode": "link",
-        "links": [
-            "9d13758f880dfba3"
-        ],
-        "x": 4056.333251953125,
-        "y": 481.33331298828125,
-        "wires": []
-    },
-    {
-        "id": "e95f7814cff3bdee",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "status",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "Final Regeneration",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "CLMN_2_AutomationStatus",
-                "pt": "global",
-                "to": "Final Regeneration - cooldown",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 4290,
-        "y": 1920,
-        "wires": [
-            [
-                "92574d1f70639482"
-            ]
-        ]
-    },
-    {
-        "id": "92574d1f70639482",
-        "type": "link out",
-        "z": "95d7a662357d5be5",
-        "name": "CLM1_AUTO_Status in",
-        "mode": "link",
-        "links": [
-            "9d13758f880dfba3"
-        ],
-        "x": 4416.333251953125,
-        "y": 1921.3333129882812,
-        "wires": []
-    },
-    {
-        "id": "803c2912f5185349",
-        "type": "delay",
-        "z": "95d7a662357d5be5",
-        "name": "wait",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 4410,
-        "y": 1840,
-        "wires": [
-            [
-                "872aaa7bf7419fec"
-            ]
-        ]
-    },
-    {
-        "id": "bfb7c0971a80fe35",
-        "type": "switch",
-        "z": "95d7a662357d5be5",
-        "name": "check",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 4950,
-        "y": 1840,
-        "wires": [
-            [
-                "803c2912f5185349"
-            ],
-            [
-                "31fdf4f14cf6cb3b",
-                "fac03af2e825f129"
-            ]
-        ]
-    },
-    {
-        "id": "872aaa7bf7419fec",
-        "type": "function",
-        "z": "95d7a662357d5be5",
-        "name": "heater cooled down?",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n\nlet heaterTemp = global.get(\"2PIDPV\")\n\nif (heaterTemp <40 ){\n    //cooldown is done\n    msg.payload = true\n    return msg;\n    \n}else{\n    //wait cooldown\n    msg.payload = false\n    return msg;\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 4620,
-        "y": 1840,
-        "wires": [
-            [
-                "bfb7c0971a80fe35"
-            ]
-        ]
-    },
-    {
-        "id": "31fdf4f14cf6cb3b",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "reset delay",
-        "rules": [
-            {
-                "t": "set",
-                "p": "reset",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 4690,
-        "y": 1740,
-        "wires": [
-            [
-                "803c2912f5185349"
-            ]
-        ]
-    },
-    {
-        "id": "7b45b109267864a0",
-        "type": "delay",
-        "z": "95d7a662357d5be5",
-        "name": "wait",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 4170,
-        "y": 420,
-        "wires": [
-            [
-                "c491871f4330ede1"
-            ]
-        ]
-    },
-    {
-        "id": "f6b71a28a415c502",
-        "type": "switch",
-        "z": "95d7a662357d5be5",
-        "name": "check",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 4550,
-        "y": 420,
-        "wires": [
-            [
-                "7b45b109267864a0"
-            ],
-            [
-                "94b1602534539d1f",
-                "8ff04f5c6d5105e7"
-            ]
-        ]
-    },
-    {
-        "id": "c491871f4330ede1",
-        "type": "function",
-        "z": "95d7a662357d5be5",
-        "name": "heater cooled down?",
-        "func": "let stop = global.get(\"AutoMode\") || false;\n\nif (!stop) {\n    node.status({ fill: \"red\", shape: \"ring\", text: \"Stopped\" });\n    return null; // stop this branch\n}\n\n\nlet heaterTemp = global.get(\"1PIDPV\")\n\nif (heaterTemp <40 ){\n    //cooldown is done\n    msg.payload = true\n    return msg;\n    \n}else{\n    //wait cooldown\n    msg.payload = false\n    return msg;\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 4360,
-        "y": 420,
-        "wires": [
-            [
-                "f6b71a28a415c502"
-            ]
-        ]
-    },
-    {
-        "id": "94b1602534539d1f",
-        "type": "change",
-        "z": "95d7a662357d5be5",
-        "name": "reset delay",
-        "rules": [
-            {
-                "t": "set",
-                "p": "reset",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 4350,
-        "y": 340,
-        "wires": [
-            [
-                "7b45b109267864a0"
             ]
         ]
     },
@@ -16107,6 +15404,482 @@
         ]
     },
     {
+        "id": "9421e127b5b8a103",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "turn off heater",
+        "mode": "link",
+        "links": [
+            "ac7f07b9949a6114"
+        ],
+        "x": 2195,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "606ad89572cb1847",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2240,
+        "y": 640,
+        "wires": [
+            [
+                "2c3efb4e3a8c04a7",
+                "53ed9414881b71ac"
+            ]
+        ]
+    },
+    {
+        "id": "53ed9414881b71ac",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "CLMN_1_AutomationStatus",
+                "pt": "global",
+                "to": "Shutting down - cooldown",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2490,
+        "y": 660,
+        "wires": [
+            [
+                "47126a5ff022e16c"
+            ]
+        ]
+    },
+    {
+        "id": "47126a5ff022e16c",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLM1_AUTO_Status in",
+        "mode": "link",
+        "links": [
+            "53b8cc425155d0d7",
+            "9d13758f880dfba3"
+        ],
+        "x": 2585,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "2c3efb4e3a8c04a7",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "wait",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2510,
+        "y": 740,
+        "wires": [
+            [
+                "80ab660ef966265a"
+            ]
+        ]
+    },
+    {
+        "id": "80ab660ef966265a",
+        "type": "function",
+        "z": "95d7a662357d5be5",
+        "name": "heater cooled down?",
+        "func": "\nlet heaterTemp = global.get(\"1PIDPV\")\n\nif (heaterTemp <40 ){\n    //cooldown is done\n    msg.payload = true\n    return msg;\n    \n}else{\n    //wait cooldown\n    msg.payload = false\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2720,
+        "y": 740,
+        "wires": [
+            [
+                "2132fc74db167a51"
+            ]
+        ]
+    },
+    {
+        "id": "2132fc74db167a51",
+        "type": "switch",
+        "z": "95d7a662357d5be5",
+        "name": "check",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2950,
+        "y": 740,
+        "wires": [
+            [
+                "2c3efb4e3a8c04a7"
+            ],
+            [
+                "68ea69cedc3b1d62",
+                "411af85fe2a1fe35",
+                "fe0db473be59fbbf",
+                "37886070f5598ad8"
+            ]
+        ]
+    },
+    {
+        "id": "68ea69cedc3b1d62",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2790,
+        "y": 640,
+        "wires": [
+            [
+                "2c3efb4e3a8c04a7"
+            ]
+        ]
+    },
+    {
+        "id": "411af85fe2a1fe35",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "standby",
+        "mode": "link",
+        "links": [
+            "a509d5e9291f4e93"
+        ],
+        "x": 3125,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "fe0db473be59fbbf",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "repeat cycle column1 out",
+        "mode": "link",
+        "links": [
+            "6f0fb2eba03b5286"
+        ],
+        "x": 3125,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "8f8f75cdb78c526f",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "turn off",
+        "mode": "link",
+        "links": [
+            "d45dc857ec91a832"
+        ],
+        "x": 2665,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "25fd18a40c9adedb",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2260,
+        "y": 2020,
+        "wires": [
+            [
+                "71b1d19b2afb6c9e",
+                "7da205c68493b6cc"
+            ]
+        ]
+    },
+    {
+        "id": "7da205c68493b6cc",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Final Regeneration",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "CLMN_2_AutomationStatus",
+                "pt": "global",
+                "to": "Shutting down - cooldown",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2650,
+        "y": 2000,
+        "wires": [
+            [
+                "4c5e52bc1d0a0f57"
+            ]
+        ]
+    },
+    {
+        "id": "4c5e52bc1d0a0f57",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "CLM1_AUTO_Status in",
+        "mode": "link",
+        "links": [
+            "53b8cc425155d0d7",
+            "9d13758f880dfba3"
+        ],
+        "x": 2745,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "71b1d19b2afb6c9e",
+        "type": "delay",
+        "z": "95d7a662357d5be5",
+        "name": "wait",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2490,
+        "y": 2120,
+        "wires": [
+            [
+                "66479dc2d8939617"
+            ]
+        ]
+    },
+    {
+        "id": "740144255141c01a",
+        "type": "change",
+        "z": "95d7a662357d5be5",
+        "name": "reset delay",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2730,
+        "y": 2060,
+        "wires": [
+            [
+                "71b1d19b2afb6c9e"
+            ]
+        ]
+    },
+    {
+        "id": "66479dc2d8939617",
+        "type": "function",
+        "z": "95d7a662357d5be5",
+        "name": "heater cooled down?",
+        "func": "\nlet heaterTemp = global.get(\"2PIDPV\")\n\nif (heaterTemp <40 ){\n    //cooldown is done\n    msg.payload = true\n    return msg;\n    \n}else{\n    //wait cooldown\n    msg.payload = false\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2740,
+        "y": 2120,
+        "wires": [
+            [
+                "eed0b6cfb4ff0f57"
+            ]
+        ]
+    },
+    {
+        "id": "eed0b6cfb4ff0f57",
+        "type": "switch",
+        "z": "95d7a662357d5be5",
+        "name": "check",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2990,
+        "y": 2120,
+        "wires": [
+            [
+                "71b1d19b2afb6c9e"
+            ],
+            [
+                "740144255141c01a",
+                "36b604a705085a90",
+                "730a362f89f7ac15",
+                "120b77f6ac97ef79"
+            ]
+        ]
+    },
+    {
+        "id": "36b604a705085a90",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": " standby",
+        "mode": "link",
+        "links": [
+            "f8f4ea4c48b94722"
+        ],
+        "x": 3155,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "730a362f89f7ac15",
+        "type": "link out",
+        "z": "95d7a662357d5be5",
+        "name": "repeat cycle column2 out &",
+        "mode": "link",
+        "links": [
+            "d540342637ed07e7",
+            "f8f4ea4c48b94722"
+        ],
+        "x": 3145,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "120b77f6ac97ef79",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "95d7a662357d5be5",
+        "name": "Alert",
+        "credtype": "account",
+        "account": "dc0d6ceeae9ac6e0",
+        "text": "Column 2 shutdown successfully",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "str",
+        "rejectssl": false,
+        "x": 3210,
+        "y": 1980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "37886070f5598ad8",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "95d7a662357d5be5",
+        "name": "Alert",
+        "credtype": "account",
+        "account": "dc0d6ceeae9ac6e0",
+        "text": "Column 1 shutdown successfully",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "str",
+        "rejectssl": false,
+        "x": 3130,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "e6106d0bc3891841",
         "type": "ui-text",
         "z": "5e998f46e7500f44",
@@ -16155,7 +15928,9 @@
             "9ad00351d77f567a",
             "a57a79c023cbb9b8",
             "8346906d59d8d6a4",
-            "580ce926addc6e64"
+            "580ce926addc6e64",
+            "47126a5ff022e16c",
+            "4c5e52bc1d0a0f57"
         ],
         "x": 235,
         "y": 240,
@@ -16250,7 +16025,10 @@
             "2a200f249959c411",
             "a57a79c023cbb9b8",
             "e01ed069b2df018a",
-            "48287f8fc6c06cfe"
+            "48287f8fc6c06cfe",
+            "47126a5ff022e16c",
+            "4c5e52bc1d0a0f57",
+            "ac1eba6bd879c9f8"
         ],
         "x": 235,
         "y": 180,
@@ -17865,7 +17643,8 @@
         "name": "Turn OFF heater 1",
         "links": [
             "db2e4248d2f81c5b",
-            "5399cb07726365a2"
+            "5399cb07726365a2",
+            "9421e127b5b8a103"
         ],
         "x": 354.666748046875,
         "y": 889.6666717529297,
@@ -18249,7 +18028,9 @@
             "068a69d98f6dc417",
             "8ff04f5c6d5105e7",
             "e3d14a9d1e60a082",
-            "ce682326478b4081"
+            "ce682326478b4081",
+            "c67b01ec6b586e95",
+            "411af85fe2a1fe35"
         ],
         "x": 1305,
         "y": 900,
@@ -19992,7 +19773,8 @@
         "links": [
             "1f67d8bf0e0a040b",
             "6cbebc0d2a99cdfe",
-            "64fca6cfbd027cf4"
+            "64fca6cfbd027cf4",
+            "8f8f75cdb78c526f"
         ],
         "x": 384.666748046875,
         "y": 3109.6666717529297,
@@ -20376,7 +20158,9 @@
             "84b2ab53c359e399",
             "fac03af2e825f129",
             "d86189ca875a33b9",
-            "1bc1e60050a93063"
+            "1bc1e60050a93063",
+            "730a362f89f7ac15",
+            "36b604a705085a90"
         ],
         "x": 1335,
         "y": 3120,
